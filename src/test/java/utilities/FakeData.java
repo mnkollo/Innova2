@@ -3,12 +3,17 @@ package utilities;
 import com.github.javafaker.Faker;
 
 public class FakeData {
+
     public static String zipCode() {
         Faker fakerPostalCode = new Faker();
         String fakerzipCode = fakerPostalCode.address().zipCode();
         return fakerzipCode;
     }
-
+    public static String profession() {
+        Faker fP = new Faker();
+        String fakerPro = fP.company().profession();
+        return fakerPro;
+    }
     public static String address() {
         Faker fakerAddressOne = new Faker();
         String fakerAddress = fakerAddressOne.address().streetAddress();
@@ -81,6 +86,11 @@ public class FakeData {
         Faker wb = new Faker();
         String websiteName = wb.internet().domainName();
         return websiteName;
+    }
+    public static String randomText() {
+        Faker rt = new Faker();
+        String randomText = rt.howIMetYourMother().catchPhrase();
+        return randomText;
     }
 
 }

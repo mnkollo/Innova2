@@ -1,24 +1,40 @@
 package pages;
 
-import org.apache.poi.xwpf.usermodel.BreakType;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import utilities.*;
 
 import java.util.Locale;
 
 public class AccountsPage extends BasePage {
 
-    AllPages allPages = new AllPages();
+    SoftAssert assertion = new SoftAssert();
     String companyName = FakeData.CompanyName();
+    String testingCompanyName = "TIMOTHY LEONORE KEELING";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
+    String createContactEmail = FakeData.email();
     String accountPhone = "(472) 505-1768";
     String personalFirstName = FakeData.fakerFirstName();
     String personalLastName = FakeData.fakerLastName();
+    String bName = "Chase";
+    String bAddress = FakeData.address();
+    String bCity = "Fort Worth";
+    String bZipcode = "76123";
+    String bAccountHolderName = FakeData.randomName();
+    String bBeneficiaryName = FakeData.randomName();
+    CharSequence rNumber = FakeData.random9DigitAccountNumber();
+    CharSequence aNumber = FakeData.random9DigitAccountNumber();
+    String sInstructions = "This is just some random text im going to use to verify this field is working";
+    String firstNameContact = FakeData.fakerFirstName();
+    String lastNameContact = FakeData.fakerLastName();
+    String titleContact = FakeData.profession();
+    String departmentContact = FakeData.profession();
+    String phoneContact = "(144) 305-6272";
+    CharSequence licenceNumberContact = FakeData.random9DigitAccountNumber();
 
     public AccountsPage() {
         PageFactory.initElements(Driver.getDriver(), this);
@@ -37,12 +53,19 @@ public class AccountsPage extends BasePage {
     public WebElement getWebsiteOnAccount;
     @FindBy(css = ".d-inline")
     public WebElement getAccountName;
+    @FindBy(xpath = "(//div[@*='col-padding  col-12 col-sm-6 col-md-6 col-xl-4'])[2]")
+    public WebElement contactCard;
+
 
     //ActionMenu
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
     public WebElement toggleAccountView;
     @FindBy(xpath = "//a[contains(text(),' Add Bank Account')]")
     public WebElement addBankAccount;
+    @FindBy(xpath = "//a[contains(text(),' Create Contact')]")
+    public WebElement createContact;
+    @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav  .nav-link")
+    public WebElement salesAgreement;
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -95,6 +118,31 @@ public class AccountsPage extends BasePage {
     public WebElement websiteField;
 
     //CreateContact - Modal
+    @FindBy(id = "email")
+    public WebElement emailOnAccount;
+    @FindBy(xpath = "//button[contains(text(),'Verify')]")
+    public WebElement verifyButton;
+    @FindBy(id = "firstName")
+    public WebElement firstName;
+    @FindBy(id = "lastName")
+    public WebElement lastName;
+    @FindBy(id = "title")
+    public WebElement title;
+    @FindBy(id = "department")
+    public WebElement department;
+    @FindBy(id = "phone1")
+    public WebElement phone1;
+    @FindBy(id = "driverLicenseNumber")
+    public WebElement driverLicenseNumber;
+    @FindBy(name = "driverLicenseState")
+    public WebElement driverLicenseStateDropdown;
+    @FindBy(name = "driverLicenseCountry_ID")
+    public WebElement driverLicenseCountryDropdown;
+    @FindBy(css = ".form-control.react-datepicker-ignore-onclickoutside.undefined")
+    public WebElement datePicker;
+
+    //Create SA from gear icon on account page
+
 
     //AddBankAccount - Modal
     @FindBy(id="bankName")
@@ -117,6 +165,27 @@ public class AccountsPage extends BasePage {
     public WebElement accountType;
     @FindBy(xpath="//div[contains(text(),'Checking')]")
     public WebElement checkingAccount;
+    @FindBy(id="routingNumber")
+    public WebElement routingNumber;
+    @FindBy(id="accountNumber")
+    public WebElement accountNumber;
+    @FindBy(id="specialInstructions")
+    public WebElement specialInstructions;
+    @FindBy(id="reference")
+    public WebElement reference;
+    @FindBy(xpath="//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[10]/div[2]/div[2]/div/div/table")
+    public WebElement bankInformationValidation;
+
+    //Contact Accordion
+    @FindBy(css="h5#bankInformation > .fa.fa-lg.fa-plus")
+    public WebElement bankAccordion;
+    @FindBy(css="h5#contact > .fa.fa-lg.fa-plus")
+    public WebElement contactsAccordion;
+
+
+
+
+
 
     //******************************************************
 
@@ -145,6 +214,12 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(2);
         Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
 
+    }
+    public String bankInfoValidation(){
+        return bankInformationValidation.getText();
+    }
+    public String additionalContactValidation(){
+        return contactCard.getText();
     }
     public void toggleToAccountView(){
         gearIcon.click();
@@ -181,8 +256,13 @@ public class AccountsPage extends BasePage {
     public void searchAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName2);
+        searchField.sendKeys(companyName);
         searchButton.click();
+
+        if (!createdAccount.isEnabled()) {
+            searchField.clear();
+            searchField.sendKeys(companyName2);
+        }
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
@@ -256,14 +336,32 @@ public class AccountsPage extends BasePage {
     }
     public void createContact(){
         searchAccount();
+        toggleToAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        createContact.click();
+        emailOnAccount.sendKeys(createContactEmail);
+        verifyButton.click();
+        firstName.sendKeys(firstNameContact);
+        lastName.sendKeys(lastNameContact);
+        title.sendKeys(titleContact);
+        department.sendKeys(departmentContact);
+        phone1.sendKeys(phoneContact);
+        driverLicenseNumber.sendKeys(licenceNumberContact);
+        BrowserUtils.dropdownIndex(driverLicenseStateDropdown,45);
+        BrowserUtils.dropdownIndex(driverLicenseCountryDropdown,0);
+        saveButton.click();
+        BrowserUtils.waitFor(2);
+        contactsAccordion.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertTrue(additionalContactValidation().contains(firstNameContact));
+        Assert.assertTrue(additionalContactValidation().contains(lastNameContact));
+        Assert.assertTrue(additionalContactValidation().contains(titleContact));
+        Assert.assertTrue(additionalContactValidation().contains(phoneContact));
+        Assert.assertTrue(additionalContactValidation().contains("Yes"));
+
     }
     public void addBankAccount() {
-        String bName = "Chase";
-        String bAddress = FakeData.address();
-        String bCity = "Fort Worth";
-        String bZipcode = "76123";
-        String bAccountHolderName = FakeData.randomName();
-        String bBeneficiaryName = FakeData.randomName();
         searchAccount();
         toggleToAccountView();
         BrowserUtils.waitFor(1);
@@ -281,7 +379,30 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(1);
         accountType.click();
         checkingAccount.click();
-
+        routingNumber.sendKeys(rNumber);
+        accountNumber.sendKeys(aNumber);
+        specialInstructions.sendKeys(sInstructions);
+        reference.sendKeys(rNumber);
+        saveButton.click();
+        BrowserUtils.waitFor(2);
+        bankAccordion.click();
+        BrowserUtils.waitFor(2);
+        assertion.assertTrue(bankInfoValidation().contains(bName));
+        assertion.assertTrue(bankInfoValidation().contains(bAddress));
+        assertion.assertTrue(bankInfoValidation().contains(bCity));
+        assertion.assertTrue(bankInfoValidation().contains(bZipcode));
+        assertion.assertTrue(bankInfoValidation().contains(bAccountHolderName));
+        assertion.assertTrue(bankInfoValidation().contains(rNumber));
+        assertion.assertTrue(bankInfoValidation().contains(aNumber));
+        assertion.assertTrue(bankInfoValidation().contains(sInstructions));
+        assertion.assertAll();
     }
-
+    public void createSalesAgreement() {
+        searchAccount();
+        toggleToAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        salesAgreement.click();
+        BrowserUtils.waitFor(5);
+    }
 }

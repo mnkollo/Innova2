@@ -12,29 +12,6 @@ import java.util.Locale;
 public class AccountsPage extends BasePage {
 
     SoftAssert assertion = new SoftAssert();
-    String companyName = FakeData.CompanyName();
-    String testingCompanyName = "TIMOTHY LEONORE KEELING";
-    String companyName2 = FakeData.CompanyName();
-    String accountEmail = FakeData.email();
-    String createContactEmail = FakeData.email();
-    String accountPhone = "(472) 505-1768";
-    String personalFirstName = FakeData.fakerFirstName();
-    String personalLastName = FakeData.fakerLastName();
-    String bName = "Chase";
-    String bAddress = FakeData.address();
-    String bCity = "Fort Worth";
-    String bZipcode = "76123";
-    String bAccountHolderName = FakeData.randomName();
-    String bBeneficiaryName = FakeData.randomName();
-    CharSequence rNumber = FakeData.random9DigitAccountNumber();
-    CharSequence aNumber = FakeData.random9DigitAccountNumber();
-    String sInstructions = "This is just some random text im going to use to verify this field is working";
-    String firstNameContact = FakeData.fakerFirstName();
-    String lastNameContact = FakeData.fakerLastName();
-    String titleContact = FakeData.profession();
-    String departmentContact = FakeData.profession();
-    String phoneContact = "(144) 305-6272";
-    CharSequence licenceNumberContact = FakeData.random9DigitAccountNumber();
 
     public AccountsPage() {
         PageFactory.initElements(Driver.getDriver(), this);
@@ -55,7 +32,11 @@ public class AccountsPage extends BasePage {
     public WebElement getAccountName;
     @FindBy(xpath = "(//div[@*='col-padding  col-12 col-sm-6 col-md-6 col-xl-4'])[2]")
     public WebElement contactCard;
+    @FindBy(css = ".border-gray.card.false.p-top-5.pb-1 .fa.fa-pencil.font-xl")
+    public WebElement salesAgreementPencilIcon;
 
+    @FindBy(css = ".border-gray.card.false.p-top-5.pb-1")
+    public WebElement salesAgreementCard;
 
     //ActionMenu
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
@@ -66,6 +47,8 @@ public class AccountsPage extends BasePage {
     public WebElement createContact;
     @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav  .nav-link")
     public WebElement salesAgreement;
+    @FindBy(xpath = "//a[contains(text(),' Location')]")
+    public WebElement addLocation;
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -141,8 +124,48 @@ public class AccountsPage extends BasePage {
     @FindBy(css = ".form-control.react-datepicker-ignore-onclickoutside.undefined")
     public WebElement datePicker;
 
-    //Create SA from gear icon on account page
+    //Add Location - Modal
+    @FindBy(id = "locationName")
+    public WebElement locationName;
+    @FindBy(id = "postalCode")
+    public WebElement postalCode;
+    @FindBy(id = "phone")
+    public WebElement locationPhone;
+    @FindBy(id = "addressLine1")
+    public WebElement locationAddress;
+    @FindBy(css = "div[class^=\"react-select__value\"]")
+    public WebElement locationContact;
+    @FindBy(name = "notes")
+    public WebElement internalLocationNotes;
+    @FindBy(xpath = "//div[contains(text(),'Arnoldo West')]")
+    public WebElement firstContactName;
 
+    @FindBy(xpath = "(//div[@class='no-padding contact-card account-item card'])[3]")
+    public WebElement location2Card;
+
+    //Create Sales Agreement from gear icon on account page
+    @FindBy(id = "sellerLegalName")
+    public WebElement sellerLegalName;
+    @FindBy(name = "sellerContactID")
+    public WebElement sellerAuthorizedRepDropdown;
+    @FindBy(name = "paymentAddressID")
+    public WebElement paymentAddress;
+    @FindBy(name = "taxIDTypeID")
+    public WebElement taxIDType;
+    @FindBy(id = "payableToName")
+    public WebElement payableToName;
+    @FindBy(id = "taxIDNumber")
+    public WebElement taxIDNumber;
+    @FindBy(name="bankAccount_ID")
+    public WebElement bankAccountDropdown;
+    @FindBy(id="comission2500OrLess")
+    public WebElement commission2500orless;
+    @FindBy(id="comissionOver2500")
+    public WebElement commissionOver2500;
+    @FindBy(id="comissionPreAuction")
+    public WebElement comissionPreAuction;
+    @FindBy(css = ".collapse.show  .table-responsive")
+    public WebElement salesAgreementTable;
 
     //AddBankAccount - Modal
     @FindBy(id="bankName")
@@ -181,6 +204,10 @@ public class AccountsPage extends BasePage {
     public WebElement bankAccordion;
     @FindBy(css="h5#contact > .fa.fa-lg.fa-plus")
     public WebElement contactsAccordion;
+    @FindBy(css="h5#salesAgreement > .fa.fa-lg.fa-plus")
+    public WebElement salesAgreementAccordion;
+    @FindBy(css="h5#locations > .fa.fa-lg.fa-plus")
+    public WebElement locationsAccordion;
 
 
 
@@ -197,8 +224,8 @@ public class AccountsPage extends BasePage {
         accountName.sendKeys(companyName);
         searchButton.click();
         createNewAccount.click();
-        contactFirstName.sendKeys(FakeData.fakerFirstName());
-        contactLastName.sendKeys(FakeData.fakerLastName());
+        contactFirstName.sendKeys(contactFN);
+        contactLastName.sendKeys(contactLN);
         contactTitle.sendKeys(FakeData.randomName());
         contactDepartment.sendKeys(FakeData.randomName());
         contactEmail.sendKeys(FakeData.email());
@@ -206,7 +233,7 @@ public class AccountsPage extends BasePage {
         physicalPostalCode.sendKeys("76123");
         //physicalCity.sendKeys(FakeData.city());             //After entering the zipcode smarty streets automatically enters the city and state
         //physicalState.sendKeys(FakeData.fakerState());
-        physicalLine1.sendKeys(FakeData.address());
+        physicalLine1.sendKeys(contactAddress);
         saveButton.click();
         BrowserUtils.waitFor(2);
         gearIcon.click();
@@ -221,7 +248,18 @@ public class AccountsPage extends BasePage {
     public String additionalContactValidation(){
         return contactCard.getText();
     }
-    public void toggleToAccountView(){
+
+    public String salesAgreementCardValidation(){
+        return salesAgreementCard.getText();
+    }
+    public String salesAgreementTableValidation(){
+        return salesAgreementTable.getText();
+    }
+    public String location2CardValidation(){
+        return location2Card.getText();
+    }
+    public void toggleToNormalAccountView(){
+        BrowserUtils.waitFor(1);
         gearIcon.click();
         BrowserUtils.waitFor(1);
         toggleAccountView.click();
@@ -243,6 +281,25 @@ public class AccountsPage extends BasePage {
         return getWebsiteOnAccount.getText();
     }
 
+    public void searchAccount() {
+        accountsTab.click();
+        BrowserUtils.waitFor(1);
+        searchField.sendKeys(companyName);
+        searchButton.click();
+
+        if (!createdAccount.isEnabled()) {
+            searchField.clear();
+            searchField.clear();
+            searchField.sendKeys(companyName2);
+            searchButton.click();
+        }
+        createdAccount.click();
+        BrowserUtils.waitFor(2);
+    }
+
+    public String accountNameOnCollectionsView() {
+        return accountNameOnCollectionsView.getText();
+    }
     public void accountCreatedDashboard() {
         accountsTab.click();
         BrowserUtils.waitFor(1);
@@ -252,25 +309,6 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(2);
         Assert.assertTrue(accountNameOnCollectionsView().contains(companyName.toUpperCase(Locale.ROOT) + " "));
     }
-
-    public void searchAccount() {
-        accountsTab.click();
-        BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName);
-        searchButton.click();
-
-        if (!createdAccount.isEnabled()) {
-            searchField.clear();
-            searchField.sendKeys(companyName2);
-        }
-        createdAccount.click();
-        BrowserUtils.waitFor(2);
-    }
-
-    public String accountNameOnCollectionsView() {
-        return accountNameOnCollectionsView.getText();
-    }
-
     public void createPersonalAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(2);
@@ -336,7 +374,7 @@ public class AccountsPage extends BasePage {
     }
     public void createContact(){
         searchAccount();
-        toggleToAccountView();
+        toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
         createContact.click();
@@ -363,7 +401,7 @@ public class AccountsPage extends BasePage {
     }
     public void addBankAccount() {
         searchAccount();
-        toggleToAccountView();
+        toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
         addBankAccount.click();
@@ -399,10 +437,104 @@ public class AccountsPage extends BasePage {
     }
     public void createSalesAgreement() {
         searchAccount();
-        toggleToAccountView();
+        toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
         salesAgreement.click();
-        BrowserUtils.waitFor(5);
+        BrowserUtils.waitFor(2);
+        sellerLegalName.sendKeys(companyName2);
+        BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
+        BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
+        BrowserUtils.dropdownVisible(taxIDType, "Dealer");
+        payableToName.sendKeys(payableName);
+        taxIDNumber.sendKeys(taxID);
+        BrowserUtils.dropdownVisible(bankAccountDropdown, "Pay by check");
+        commission2500orless.sendKeys(randomNumber1);
+        commissionOver2500.sendKeys(randomNumber2);
+        comissionPreAuction.sendKeys(randomNumber3);
+        saveIcon.click();
+        accountHeader.click();
+        toggleToNormalAccountView();
+        assertion.assertTrue(salesAgreementCardValidation().contains(payableName));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber1 + ".00%"));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber2 + ".00%"));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber3 + ".00%"));
+        salesAgreementAccordion.click();
+        salesAgreementTableValidationForFirstSA();
+        BrowserUtils.waitFor(1);
+        assertion.assertAll();
+        BrowserUtils.waitFor(1);
+    }
+    public void salesAgreementTableValidationForFirstSA(){
+        assertion.assertTrue(salesAgreementTableValidation().contains(payableName));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber1 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber2 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber3 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains("v1"));
+        assertion.assertTrue(salesAgreementTableValidation().contains("Executed"));
+
+    }
+    public void createSalesAgreementOnExistingSalesAgreement() {
+        searchAccount();
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        salesAgreementPencilIcon.click();
+        createNewIcon.click();
+        createNewIcon.click();
+        BrowserUtils.waitFor(1);
+        sellerLegalName.sendKeys(companyName2);
+        BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown,firstNameContact + " " + lastNameContact);
+        BrowserUtils.dropdownVisible(paymentAddress,"Primary " +contactAddress );
+        BrowserUtils.dropdownVisible(taxIDType,"Dealer" );
+        payableToName.sendKeys(payableName1);
+        taxIDNumber.sendKeys(taxID1);
+        BrowserUtils.dropdownVisible(bankAccountDropdown,"Pay by check");
+        commission2500orless.sendKeys(randomNumber4);
+        commissionOver2500.sendKeys(randomNumber5);
+        comissionPreAuction.sendKeys(randomNumber6);
+        saveIcon.click();
+        accountHeader.click();
+        toggleToNormalAccountView();
+        assertion.assertTrue(salesAgreementCardValidation().contains(payableName1));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber4 + ".00%"));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber5 + ".00%"));
+        assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber6 + ".00%"));
+        salesAgreementAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(salesAgreementTableValidation().contains(payableName1));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber4 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber5 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber6 + ".00%"));
+        assertion.assertTrue(salesAgreementTableValidation().contains("v2"));
+        assertion.assertTrue(salesAgreementTableValidation().contains("Executed"));
+        salesAgreementTableValidationForFirstSA();
+        BrowserUtils.waitFor(1);
+        assertion.assertAll();
+        BrowserUtils.waitFor(1);
+    }
+    public void addLocationToAnAccount(){
+        searchAccount();
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        addLocation.click();
+        BrowserUtils.waitFor(2);
+        locationName.sendKeys(nameOfLocation);
+        locationAddress.sendKeys(addressOfLocation);
+        postalCode.sendKeys(postalCodeLocation);
+        locationPhone.sendKeys(locationPhoneNumber);
+        locationContact.click();
+        BrowserUtils.waitFor(1);
+        firstContactName.click();
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        locationsAccordion.click();
+        BrowserUtils.waitFor(2);
+        assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
+        assertion.assertTrue(location2CardValidation().contains(addressOfLocation));
+        assertion.assertTrue(location2CardValidation().contains(postalCodeLocation));
+        assertion.assertTrue(location2CardValidation().contains(locationPhoneNumber));
+        assertion.assertAll();
+
     }
 }

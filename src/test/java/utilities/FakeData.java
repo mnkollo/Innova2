@@ -59,7 +59,7 @@ public class FakeData {
     }
     public static String fakerLastName(){
         Faker ln = new Faker();
-        String fakerLn = ln.name().fullName();
+        String fakerLn = ln.name().lastName();
         return fakerLn;
     }
     public static String fakerUserName(){
@@ -91,6 +91,11 @@ public class FakeData {
         Faker rt = new Faker();
         String randomText = rt.howIMetYourMother().catchPhrase();
         return randomText;
+    }
+    public static String randomNumber() {
+        Faker rn = new Faker();
+        String randomNumber = String.valueOf(rn.number().randomDigitNotZero());
+        return randomNumber;
     }
 
 }

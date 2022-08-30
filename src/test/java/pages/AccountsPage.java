@@ -37,6 +37,8 @@ public class AccountsPage extends BasePage {
 
     @FindBy(css = ".border-gray.card.false.p-top-5.pb-1")
     public WebElement salesAgreementCard;
+    @FindBy(css = "[class='internal-notes']")
+    public WebElement internalNotesSection;
 
     //ActionMenu
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
@@ -49,6 +51,8 @@ public class AccountsPage extends BasePage {
     public WebElement salesAgreement;
     @FindBy(xpath = "//a[contains(text(),' Location')]")
     public WebElement addLocation;
+    @FindBy(xpath = "//a[contains(text(),' Add Note')]")
+    public WebElement addNote;
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -140,7 +144,7 @@ public class AccountsPage extends BasePage {
     @FindBy(xpath = "//div[contains(text(),'Arnoldo West')]")
     public WebElement firstContactName;
 
-    @FindBy(xpath = "(//div[@class='no-padding contact-card account-item card'])[3]")
+    @FindBy(xpath = "(//div[@class='col-padding col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3'])[2]")
     public WebElement location2Card;
 
     //Create Sales Agreement from gear icon on account page
@@ -166,6 +170,10 @@ public class AccountsPage extends BasePage {
     public WebElement comissionPreAuction;
     @FindBy(css = ".collapse.show  .table-responsive")
     public WebElement salesAgreementTable;
+
+    //Add Account Note
+    @FindBy(name = "text")
+    public WebElement addNoteTextBox;
 
     //AddBankAccount - Modal
     @FindBy(id="bankName")
@@ -268,6 +276,9 @@ public class AccountsPage extends BasePage {
     public String accountCreated() {
         return getAccountName.getText();
     }
+    public String internalNotesSectionValidation(){
+        return internalNotesSection.getText();
+    }
 
     public String emailVerificationOnAccountPage() {
         return getEmailOnAccount.getText();
@@ -281,16 +292,16 @@ public class AccountsPage extends BasePage {
         return getWebsiteOnAccount.getText();
     }
 
-    public void searchAccount() {
+    public void searchForAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName);
+        searchField.sendKeys(companyName2);
         searchButton.click();
 
         if (!createdAccount.isEnabled()) {
             searchField.clear();
             searchField.clear();
-            searchField.sendKeys(companyName2);
+            searchField.sendKeys(companyName);
             searchButton.click();
         }
         createdAccount.click();
@@ -373,7 +384,7 @@ public class AccountsPage extends BasePage {
         Assert.assertEquals(websiteVerificationOnAccountPage(), websiteName);
     }
     public void createContact(){
-        searchAccount();
+        searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
@@ -400,7 +411,7 @@ public class AccountsPage extends BasePage {
 
     }
     public void addBankAccount() {
-        searchAccount();
+        searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
@@ -436,7 +447,7 @@ public class AccountsPage extends BasePage {
         assertion.assertAll();
     }
     public void createSalesAgreement() {
-        searchAccount();
+        searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
@@ -475,13 +486,13 @@ public class AccountsPage extends BasePage {
 
     }
     public void createSalesAgreementOnExistingSalesAgreement() {
-        searchAccount();
+        searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         salesAgreementPencilIcon.click();
         createNewIcon.click();
         createNewIcon.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         sellerLegalName.sendKeys(companyName2);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown,firstNameContact + " " + lastNameContact);
         BrowserUtils.dropdownVisible(paymentAddress,"Primary " +contactAddress );
@@ -513,7 +524,7 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(1);
     }
     public void addLocationToAnAccount(){
-        searchAccount();
+        searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         gearIcon.click();
@@ -530,11 +541,26 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(1);
         locationsAccordion.click();
         BrowserUtils.waitFor(2);
-        assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
+        //assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
         assertion.assertTrue(location2CardValidation().contains(addressOfLocation));
         assertion.assertTrue(location2CardValidation().contains(postalCodeLocation));
         assertion.assertTrue(location2CardValidation().contains(locationPhoneNumber));
         assertion.assertAll();
 
     }
+    public void addNoteToAnAccount() {
+        searchForAccount();
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        addNote.click();
+        addNoteTextBox.sendKeys(sInstructions);
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+
+    }
+    public void VerifyNoteIsAdded(){
+        assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
+    }
+
 }

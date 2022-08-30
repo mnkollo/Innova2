@@ -57,11 +57,18 @@ public class AccountsTest extends InnovaTestBase {
     @Test(priority = 10,dependsOnMethods = "VerifyUserCanCreateBusinessAccountWithAllFields")
     public void TC_1060_VerifyUserCanAddLocationToAccount() {
         allPages.accountsPage().addLocationToAnAccount();
+        allPages.accountsPage().verifyNewLocationAddedToAccount();
     }
     @Test(priority = 11,dependsOnMethods = "VerifyUserCanCreateBusinessAccountWithAllFields")
     public void TC_3430_VerifyUserCanAddNoteOnAccountPage(){
         allPages.accountsPage().addNoteToAnAccount();
         allPages.accountsPage().VerifyNoteIsAdded();
+    }
+    @Test(priority = 11)
+    public void TC_3476_VerifyAbleToAddCollectionsNoteOnAccountPage() {
+        allPages.accountsPage().AddCollectionsNoteOnAccountPage();
+        allPages.accountsPage().VerifyCollectionsNoteOnAccountPage();
+
     }
 }
 

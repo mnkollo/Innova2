@@ -53,6 +53,8 @@ public class AccountsPage extends BasePage {
     public WebElement addLocation;
     @FindBy(xpath = "//a[contains(text(),' Add Note')]")
     public WebElement addNote;
+    @FindBy(xpath = "//a[contains(text(),' Collections Note')]")
+    public WebElement addCollectionsNote;
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -171,7 +173,14 @@ public class AccountsPage extends BasePage {
     @FindBy(css = ".collapse.show  .table-responsive")
     public WebElement salesAgreementTable;
 
-    //Add Account Note
+    //Add Collections Note - Modal
+    @FindBy(name = "generalNote")
+    public WebElement addCollectionsNoteTextBox;
+    @FindBy(css = ".container-fluid .row:nth-of-type(2) > [class] > .card:nth-of-type(3)")
+    public WebElement collectionsLogSection;
+
+
+    //Add Account Note - Modal
     @FindBy(name = "text")
     public WebElement addNoteTextBox;
 
@@ -216,6 +225,8 @@ public class AccountsPage extends BasePage {
     public WebElement salesAgreementAccordion;
     @FindBy(css="h5#locations > .fa.fa-lg.fa-plus")
     public WebElement locationsAccordion;
+    @FindBy(css="h5#collectionsLog > .fa.fa-lg.fa-plus")
+    public WebElement collectionsLogAccordion;
 
 
 
@@ -252,6 +263,9 @@ public class AccountsPage extends BasePage {
     }
     public String bankInfoValidation(){
         return bankInformationValidation.getText();
+    }
+    public String collectionsLogValidation(){
+        return collectionsLogSection.getText();
     }
     public String additionalContactValidation(){
         return contactCard.getText();
@@ -449,10 +463,10 @@ public class AccountsPage extends BasePage {
     public void createSalesAgreement() {
         searchForAccount();
         toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         gearIcon.click();
         salesAgreement.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
@@ -490,9 +504,10 @@ public class AccountsPage extends BasePage {
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         salesAgreementPencilIcon.click();
-        createNewIcon.click();
-        createNewIcon.click();
         BrowserUtils.waitFor(2);
+        createNewIcon.click();
+        createNewIcon.click();
+        BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown,firstNameContact + " " + lastNameContact);
         BrowserUtils.dropdownVisible(paymentAddress,"Primary " +contactAddress );
@@ -523,7 +538,7 @@ public class AccountsPage extends BasePage {
         assertion.assertAll();
         BrowserUtils.waitFor(1);
     }
-    public void addLocationToAnAccount(){
+    public void addLocationToAnAccount() {
         searchForAccount();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
@@ -541,12 +556,13 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(1);
         locationsAccordion.click();
         BrowserUtils.waitFor(2);
-        //assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
+    }
+    public void verifyNewLocationAddedToAccount(){
+        assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
         assertion.assertTrue(location2CardValidation().contains(addressOfLocation));
         assertion.assertTrue(location2CardValidation().contains(postalCodeLocation));
         assertion.assertTrue(location2CardValidation().contains(locationPhoneNumber));
         assertion.assertAll();
-
     }
     public void addNoteToAnAccount() {
         searchForAccount();
@@ -562,5 +578,19 @@ public class AccountsPage extends BasePage {
     public void VerifyNoteIsAdded(){
         assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
     }
-
+    public void AddCollectionsNoteOnAccountPage() {
+        searchForAccount();
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        addCollectionsNote.click();
+        addCollectionsNoteTextBox.sendKeys(fakeText);
+        saveButton.click();
+        BrowserUtils.waitFor(2);
+        collectionsLogAccordion.click();
+    }
+    public void VerifyCollectionsNoteOnAccountPage(){
+        assertion.assertTrue(collectionsLogValidation().contains(fakeText));
+        assertion.assertTrue(collectionsLogValidation().contains("Michael Nkollo (SU)"));
+    }
 }

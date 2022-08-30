@@ -34,6 +34,7 @@ public class BasePage {
     CharSequence rNumber = FakeData.random9DigitAccountNumber();
     CharSequence aNumber = FakeData.random9DigitAccountNumber();
     String sInstructions = "This is just some random text im going to use to verify this field is working";
+    String fakeText = "This is just some random text dont pay attention to what im putting in this section. Im just testing something";
     String firstNameContact = FakeData.fakerFirstName();
     String lastNameContact = FakeData.fakerLastName();
     String titleContact = FakeData.profession();

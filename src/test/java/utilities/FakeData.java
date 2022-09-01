@@ -42,6 +42,7 @@ public class FakeData {
         String fakerNum = fakerNumTwo.number().digits(2);
         return fakerNum;
     }
+
     public static CharSequence random9DigitAccountNumber() {
         Faker fakeNum = new Faker();
         String fakerNumTwo = fakeNum.number().digits(9);

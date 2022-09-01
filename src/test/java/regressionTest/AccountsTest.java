@@ -1,4 +1,4 @@
-package test;
+package regressionTest;
 
 import org.testng.annotations.Test;
 import utilities.AllPages;
@@ -64,11 +64,42 @@ public class AccountsTest extends InnovaTestBase {
         allPages.accountsPage().addNoteToAnAccount();
         allPages.accountsPage().VerifyNoteIsAdded();
     }
-    @Test(priority = 11)
+    @Test(priority = 12)
     public void TC_3476_VerifyAbleToAddCollectionsNoteOnAccountPage() {
         allPages.accountsPage().AddCollectionsNoteOnAccountPage();
         allPages.accountsPage().VerifyCollectionsNoteOnAccountPage();
-
+    }
+//    @Test(priority = 13)
+//    public void TC_3486_VerifyUserCanUploadDocumentOnAccountPage() throws IOException {      //TODO I need to work on this TC
+//        allPages.accountsPage().uploadDocumentOnAccountPage();
+//    }
+    @Test(priority = 14)
+    public void TC_2764_VerifyUserCanApplyDepositByWireTransferToAccountPage(){
+        allPages.accountsPage().applyDepositByWireTransferToAccountPage();
+    }
+    @Test(priority = 15)
+    public void TC_2764_VerifyUserCanApplyDepositByMoneyOrderToAccountPage(){
+        allPages.accountsPage().applyDepositByMoneyOrderToAccountPage();
+    }
+    @Test(priority = 16)
+    public void TC_3482_VerifyUserCanApplyDepositByMoneyOrderToAccountPage(){
+        allPages.accountsPage().applyDepositByACHToAccountPage();
+    }
+    @Test(priority = 17)
+    public void TC_3483_VerifyUserCanApplyDepositByCheckToAccountPage(){
+        allPages.accountsPage().applyDepositByCheckToAccountPage();
+    }
+    @Test(priority = 18)
+    public void TC_3484_VerifyUserCanApplyDepositByCashToAccountPage(){
+        allPages.accountsPage().applyDepositByCashToAccountPage();
+    }
+    @Test(priority = 19)
+    public void TC_2760_VerifyUserCanApplyDepositByCreditCardToAccountPage(){
+        allPages.accountsPage().applyDepositByCreditCardToAccountPage();
+    }
+    @Test(priority = 19)
+    public void TC_3119_VerifyUserCanRefundDepositFromAccountPage(){
+        allPages.accountsPage().verifyUserCanRefundDepositFromAccountPage();
     }
 }
 

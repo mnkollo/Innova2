@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import utilities.*;
 
+import java.io.IOException;
 import java.util.Locale;
 
 public class AccountsPage extends BasePage {
@@ -17,11 +18,13 @@ public class AccountsPage extends BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+    // Account Page - Collections View
+    @FindBy(xpath = "(//h4[contains(text(),'TRANSACTIONS')])[1]")
+    public WebElement transactionsTab;
+    @FindBy(xpath = "(//table[@class='w-100'])[1]")
+    public WebElement newestTransaction;
+
     //account page - toggled view
-    @FindBy(id = "simple-search-field")
-    public WebElement searchField;
-    @FindBy(css = ".a-table > td:nth-of-type(1)")
-    public WebElement createdAccount;
     @FindBy(css = "[class$='card card'] div:nth-of-type(1) .link-color")
     public WebElement getEmailOnAccount;
     @FindBy(css = "[class$='card card'] div:nth-of-type(2) .link-color")
@@ -44,17 +47,25 @@ public class AccountsPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
     public WebElement toggleAccountView;
     @FindBy(xpath = "//a[contains(text(),' Add Bank Account')]")
-    public WebElement addBankAccount;
+    public WebElement addBankAccountTab;
     @FindBy(xpath = "//a[contains(text(),' Create Contact')]")
-    public WebElement createContact;
+    public WebElement createContactTab;
     @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav  .nav-link")
-    public WebElement salesAgreement;
+    public WebElement salesAgreementTab;
     @FindBy(xpath = "//a[contains(text(),' Location')]")
-    public WebElement addLocation;
+    public WebElement addLocationTab;
     @FindBy(xpath = "//a[contains(text(),' Add Note')]")
-    public WebElement addNote;
+    public WebElement addNoteTab;
     @FindBy(xpath = "//a[contains(text(),' Collections Note')]")
-    public WebElement addCollectionsNote;
+    public WebElement addCollectionsNoteTab;
+    @FindBy(xpath = "//a[contains(text(),' Upload Document')]")
+    public WebElement uploadDocumentTab;
+    @FindBy(xpath = "//a[contains(text(),'Apply Deposit')]")
+    public WebElement applyDepositTab;
+    @FindBy(xpath = "//a[contains(text(),'Refund Deposit')]")
+    public WebElement refundDepositTab;
+    @FindBy(xpath = "//a[contains(text(),'Create Package')]")
+    public WebElement createPackageTab;
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -105,6 +116,14 @@ public class AccountsPage extends BasePage {
     public WebElement phoneField;
     @FindBy(id = "webSite")
     public WebElement websiteField;
+
+    //Apply Deposit - Modal
+    @FindBy(id = "surcharge")
+    public WebElement surchargeTextBox;
+    @FindBy(name = "comment")
+    public WebElement commentsTextBox;
+    @FindBy(name = "method_ID")
+    public WebElement paymentMethodDropdown;
 
     //CreateContact - Modal
     @FindBy(id = "email")
@@ -162,13 +181,13 @@ public class AccountsPage extends BasePage {
     public WebElement payableToName;
     @FindBy(id = "taxIDNumber")
     public WebElement taxIDNumber;
-    @FindBy(name="bankAccount_ID")
+    @FindBy(name = "bankAccount_ID")
     public WebElement bankAccountDropdown;
-    @FindBy(id="comission2500OrLess")
+    @FindBy(id = "comission2500OrLess")
     public WebElement commission2500orless;
-    @FindBy(id="comissionOver2500")
+    @FindBy(id = "comissionOver2500")
     public WebElement commissionOver2500;
-    @FindBy(id="comissionPreAuction")
+    @FindBy(id = "comissionPreAuction")
     public WebElement comissionPreAuction;
     @FindBy(css = ".collapse.show  .table-responsive")
     public WebElement salesAgreementTable;
@@ -179,61 +198,134 @@ public class AccountsPage extends BasePage {
     @FindBy(css = ".container-fluid .row:nth-of-type(2) > [class] > .card:nth-of-type(3)")
     public WebElement collectionsLogSection;
 
+    //Upload Document - Modal
+    @FindBy(id = "description")
+    public WebElement descriptionTextBox;
+    @FindBy(name = "documentType_ID")
+    public WebElement documentTypeDropdown;
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[3]/button[2]")
+    public WebElement saveButtonOnUploadDoc;
 
-    //Add Account Note - Modal
-    @FindBy(name = "text")
-    public WebElement addNoteTextBox;
 
     //AddBankAccount - Modal
-    @FindBy(id="bankName")
+    @FindBy(id = "bankName")
     public WebElement bankName;
-    @FindBy(id="bankAddress")
+    @FindBy(id = "bankAddress")
     public WebElement bankAddress;
-    @FindBy(id="bankCity")
+    @FindBy(id = "bankCity")
     public WebElement bankCity;
-    @FindBy(id="bankZipCode")
+    @FindBy(id = "bankZipCode")
     public WebElement bankZipcode;
-    @FindBy(xpath="(//div[contains(text(),'Select...')])[1]")
+    @FindBy(xpath = "(//div[contains(text(),'Select...')])[1]")
     public WebElement bankState;
-    @FindBy(xpath="//div[contains(text(),'Texas')]")
+    @FindBy(xpath = "//div[contains(text(),'Texas')]")
     public WebElement stateTexas;
-    @FindBy(id="bankAccountHolderName")
+    @FindBy(id = "bankAccountHolderName")
     public WebElement accountHolderName;
-    @FindBy(id="beneficiaryName")
+    @FindBy(id = "beneficiaryName")
     public WebElement beneficiaryName;
-    @FindBy(xpath="/html/body/div/div/div[@role='dialog']/div[@role='document']/div[@class='modal-content']//form//div[@class='mx-1 row']/div/div/div/div/div/div[.='Select...']")
+    @FindBy(xpath = "/html/body/div/div/div[@role='dialog']/div[@role='document']/div[@class='modal-content']//form//div[@class='mx-1 row']/div/div/div/div/div/div[.='Select...']")
     public WebElement accountType;
-    @FindBy(xpath="//div[contains(text(),'Checking')]")
+    @FindBy(xpath = "//div[contains(text(),'Checking')]")
     public WebElement checkingAccount;
-    @FindBy(id="routingNumber")
+    @FindBy(id = "routingNumber")
     public WebElement routingNumber;
-    @FindBy(id="accountNumber")
+    @FindBy(id = "accountNumber")
     public WebElement accountNumber;
-    @FindBy(id="specialInstructions")
+    @FindBy(id = "specialInstructions")
     public WebElement specialInstructions;
-    @FindBy(id="reference")
+    @FindBy(id = "reference")
     public WebElement reference;
-    @FindBy(xpath="//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[10]/div[2]/div[2]/div/div/table")
+    @FindBy(xpath = "//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[10]/div[2]/div[2]/div/div/table")
     public WebElement bankInformationValidation;
 
     //Contact Accordion
-    @FindBy(css="h5#bankInformation > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#bankInformation > .fa.fa-lg.fa-plus")
     public WebElement bankAccordion;
-    @FindBy(css="h5#contact > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#contact > .fa.fa-lg.fa-plus")
     public WebElement contactsAccordion;
-    @FindBy(css="h5#salesAgreement > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#salesAgreement > .fa.fa-lg.fa-plus")
     public WebElement salesAgreementAccordion;
-    @FindBy(css="h5#locations > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#locations > .fa.fa-lg.fa-plus")
     public WebElement locationsAccordion;
-    @FindBy(css="h5#collectionsLog > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#collectionsLog > .fa.fa-lg.fa-plus")
     public WebElement collectionsLogAccordion;
 
 
-
-
-
-
     //******************************************************
+
+
+    public void clickCreatePackage() {
+        createPackageTab.click();
+    }
+
+    public String bankInfoValidation() {
+        return bankInformationValidation.getText();
+    }
+
+    public String collectionsLogValidation() {
+        return collectionsLogSection.getText();
+    }
+
+    public String additionalContactValidation() {
+        return contactCard.getText();
+    }
+
+    public String salesAgreementCardValidation() {
+        return salesAgreementCard.getText();
+    }
+
+    public String salesAgreementTableValidation() {
+        return salesAgreementTable.getText();
+    }
+
+    public String location2CardValidation() {
+        return location2Card.getText();
+    }
+
+    public void toggleToNormalAccountView() {
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        BrowserUtils.waitFor(1);
+        toggleAccountView.click();
+    }
+
+    public String accountCreated() {
+        return getAccountName.getText();
+    }
+
+    public String internalNotesSectionValidation() {
+        return internalNotesSection.getText();
+    }
+
+    public String emailVerificationOnAccountPage() {
+        return getEmailOnAccount.getText();
+    }
+
+    public String phoneVerificationOnAccountPage() {
+        return getPhoneNumberOnAccount.getText();
+    }
+
+    public String websiteVerificationOnAccountPage() {
+        return getWebsiteOnAccount.getText();
+    }
+
+    public void searchForAccount() {
+        accountsTab.click();
+        BrowserUtils.waitFor(1);
+        searchField.sendKeys(companyName);
+        searchButton.click();
+        createdAccount.click();
+        BrowserUtils.waitFor(2);
+    }
+    public String accountNameOnCollectionsView() {
+        return accountNameOnCollectionsView.getText();
+    }
+
+    public void accountCreatedDashboard() {
+        searchForAccount();
+        Assert.assertTrue(accountNameOnCollectionsView().contains(companyName.toUpperCase(Locale.ROOT) + " "));
+    }
 
     public void createBusinessAccountAllData() {
         accountsTab.click();
@@ -261,79 +353,7 @@ public class AccountsPage extends BasePage {
         Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
 
     }
-    public String bankInfoValidation(){
-        return bankInformationValidation.getText();
-    }
-    public String collectionsLogValidation(){
-        return collectionsLogSection.getText();
-    }
-    public String additionalContactValidation(){
-        return contactCard.getText();
-    }
 
-    public String salesAgreementCardValidation(){
-        return salesAgreementCard.getText();
-    }
-    public String salesAgreementTableValidation(){
-        return salesAgreementTable.getText();
-    }
-    public String location2CardValidation(){
-        return location2Card.getText();
-    }
-    public void toggleToNormalAccountView(){
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        BrowserUtils.waitFor(1);
-        toggleAccountView.click();
-    }
-
-    public String accountCreated() {
-        return getAccountName.getText();
-    }
-    public String internalNotesSectionValidation(){
-        return internalNotesSection.getText();
-    }
-
-    public String emailVerificationOnAccountPage() {
-        return getEmailOnAccount.getText();
-    }
-
-    public String phoneVerificationOnAccountPage() {
-        return getPhoneNumberOnAccount.getText();
-    }
-
-    public String websiteVerificationOnAccountPage() {
-        return getWebsiteOnAccount.getText();
-    }
-
-    public void searchForAccount() {
-        accountsTab.click();
-        BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName2);
-        searchButton.click();
-
-        if (!createdAccount.isEnabled()) {
-            searchField.clear();
-            searchField.clear();
-            searchField.sendKeys(companyName);
-            searchButton.click();
-        }
-        createdAccount.click();
-        BrowserUtils.waitFor(2);
-    }
-
-    public String accountNameOnCollectionsView() {
-        return accountNameOnCollectionsView.getText();
-    }
-    public void accountCreatedDashboard() {
-        accountsTab.click();
-        BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName);
-        searchButton.click();
-        createdAccount.click();
-        BrowserUtils.waitFor(2);
-        Assert.assertTrue(accountNameOnCollectionsView().contains(companyName.toUpperCase(Locale.ROOT) + " "));
-    }
     public void createPersonalAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(2);
@@ -396,13 +416,19 @@ public class AccountsPage extends BasePage {
         saveButton.click();
         BrowserUtils.waitFor(2);
         Assert.assertEquals(websiteVerificationOnAccountPage(), websiteName);
+        editAccountIcon.click();
+        accountNameField.clear();
+        accountNameField.sendKeys(companyName);
+        saveButton.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
     }
-    public void createContact(){
+
+    public void createContact() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        createContact.click();
+        BrowserUtils.waitFor(2);
+        navigateToActionMenuFromNormalView();
+        createContactTab.click();
         emailOnAccount.sendKeys(createContactEmail);
         verifyButton.click();
         firstName.sendKeys(firstNameContact);
@@ -411,12 +437,12 @@ public class AccountsPage extends BasePage {
         department.sendKeys(departmentContact);
         phone1.sendKeys(phoneContact);
         driverLicenseNumber.sendKeys(licenceNumberContact);
-        BrowserUtils.dropdownIndex(driverLicenseStateDropdown,45);
-        BrowserUtils.dropdownIndex(driverLicenseCountryDropdown,0);
+        BrowserUtils.dropdownIndex(driverLicenseStateDropdown, 45);
+        BrowserUtils.dropdownIndex(driverLicenseCountryDropdown, 0);
         saveButton.click();
         BrowserUtils.waitFor(2);
         contactsAccordion.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         Assert.assertTrue(additionalContactValidation().contains(firstNameContact));
         Assert.assertTrue(additionalContactValidation().contains(lastNameContact));
         Assert.assertTrue(additionalContactValidation().contains(titleContact));
@@ -424,12 +450,11 @@ public class AccountsPage extends BasePage {
         Assert.assertTrue(additionalContactValidation().contains("Yes"));
 
     }
+
     public void addBankAccount() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        addBankAccount.click();
+        navigateToActionMenuFromNormalView();
+        addBankAccountTab.click();
         BrowserUtils.waitFor(1);
         bankName.sendKeys(bName);
         bankAddress.sendKeys(bAddress);
@@ -460,14 +485,14 @@ public class AccountsPage extends BasePage {
         assertion.assertTrue(bankInfoValidation().contains(sInstructions));
         assertion.assertAll();
     }
+
     public void createSalesAgreement() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(2);
-        gearIcon.click();
-        salesAgreement.click();
+        navigateToActionMenuFromNormalView();
+        salesAgreementTab.click();
         BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
+        BrowserUtils.waitFor(1);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(taxIDType, "Dealer");
@@ -490,7 +515,8 @@ public class AccountsPage extends BasePage {
         assertion.assertAll();
         BrowserUtils.waitFor(1);
     }
-    public void salesAgreementTableValidationForFirstSA(){
+
+    public void salesAgreementTableValidationForFirstSA() {
         assertion.assertTrue(salesAgreementTableValidation().contains(payableName));
         assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber1 + ".00%"));
         assertion.assertTrue(salesAgreementTableValidation().contains(randomNumber2 + ".00%"));
@@ -499,6 +525,7 @@ public class AccountsPage extends BasePage {
         assertion.assertTrue(salesAgreementTableValidation().contains("Executed"));
 
     }
+
     public void createSalesAgreementOnExistingSalesAgreement() {
         searchForAccount();
         toggleToNormalAccountView();
@@ -509,12 +536,12 @@ public class AccountsPage extends BasePage {
         createNewIcon.click();
         BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
-        BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown,firstNameContact + " " + lastNameContact);
-        BrowserUtils.dropdownVisible(paymentAddress,"Primary " +contactAddress );
-        BrowserUtils.dropdownVisible(taxIDType,"Dealer" );
+        BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, firstNameContact + " " + lastNameContact);
+        BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
+        BrowserUtils.dropdownVisible(taxIDType, "Dealer");
         payableToName.sendKeys(payableName1);
         taxIDNumber.sendKeys(taxID1);
-        BrowserUtils.dropdownVisible(bankAccountDropdown,"Pay by check");
+        BrowserUtils.dropdownVisible(bankAccountDropdown, "Pay by check");
         commission2500orless.sendKeys(randomNumber4);
         commissionOver2500.sendKeys(randomNumber5);
         comissionPreAuction.sendKeys(randomNumber6);
@@ -538,12 +565,11 @@ public class AccountsPage extends BasePage {
         assertion.assertAll();
         BrowserUtils.waitFor(1);
     }
+
     public void addLocationToAnAccount() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        addLocation.click();
+        navigateToActionMenuFromNormalView();
+        addLocationTab.click();
         BrowserUtils.waitFor(2);
         locationName.sendKeys(nameOfLocation);
         locationAddress.sendKeys(addressOfLocation);
@@ -557,40 +583,185 @@ public class AccountsPage extends BasePage {
         locationsAccordion.click();
         BrowserUtils.waitFor(2);
     }
-    public void verifyNewLocationAddedToAccount(){
+
+    public void verifyNewLocationAddedToAccount() {
         assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
         assertion.assertTrue(location2CardValidation().contains(addressOfLocation));
         assertion.assertTrue(location2CardValidation().contains(postalCodeLocation));
         assertion.assertTrue(location2CardValidation().contains(locationPhoneNumber));
         assertion.assertAll();
     }
+
     public void addNoteToAnAccount() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        addNote.click();
+        navigateToActionMenuFromNormalView();
+        addNoteTab.click();
         addNoteTextBox.sendKeys(sInstructions);
         saveButton.click();
         BrowserUtils.waitFor(1);
 
     }
-    public void VerifyNoteIsAdded(){
+
+    public void VerifyNoteIsAdded() {
         assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
     }
+
     public void AddCollectionsNoteOnAccountPage() {
         searchForAccount();
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        addCollectionsNote.click();
+        navigateToActionMenuFromNormalView();
+        addCollectionsNoteTab.click();
         addCollectionsNoteTextBox.sendKeys(fakeText);
         saveButton.click();
         BrowserUtils.waitFor(2);
         collectionsLogAccordion.click();
     }
-    public void VerifyCollectionsNoteOnAccountPage(){
+
+    public void VerifyCollectionsNoteOnAccountPage() {
         assertion.assertTrue(collectionsLogValidation().contains(fakeText));
         assertion.assertTrue(collectionsLogValidation().contains("Michael Nkollo (SU)"));
+    }
+
+    public void uploadDocumentOnAccountPage() throws IOException {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        uploadDocumentTab.click();
+        BrowserUtils.waitFor(2);
+        browseButton.click();
+        BrowserUtils.waitFor(4);
+        Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx1.scpt ");
+        BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
+        descriptionTextBox.sendKeys("Test");
+        BrowserUtils.waitFor(2);
+        saveButtonOnUploadDoc.click();
+        BrowserUtils.waitFor(2);
+    }
+
+    public void applyDepositByWireTransferToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(wireframeDeposit);
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(wireframeDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("Wire Transfer"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        BrowserUtils.waitFor(2);
+    }
+
+    public String getNewestTransaction() {
+        return newestTransaction.getText();
+    }
+
+    public void applyDepositByMoneyOrderToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(moneyOrderDeposit);
+        BrowserUtils.dropdownVisible(paymentMethodDropdown, "Money Order");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(moneyOrderDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("Money Order"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains(moneyOrderDeposit + " DEPOSIT APPLIED"));
+    }
+
+    public void applyDepositByACHToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(achDeposit);
+        BrowserUtils.dropdownVisible(paymentMethodDropdown, "ACH");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(achDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("ACH"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains(achDeposit + " DEPOSIT APPLIED"));
+    }
+
+    public void applyDepositByCheckToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(checkDeposit);
+        BrowserUtils.dropdownVisible(paymentMethodDropdown, "Check");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(checkDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("Check"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains(checkDeposit + " DEPOSIT APPLIED"));
+    }
+
+    public void applyDepositByCashToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(cashDeposit);
+        BrowserUtils.dropdownVisible(paymentMethodDropdown, "Cash");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(cashDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("Cash"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains(cashDeposit + " DEPOSIT APPLIED"));
+    }
+
+    public void applyDepositByCreditCardToAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        applyDepositTab.click();
+        amountTextBox.sendKeys(creditCardDeposit);
+        BrowserUtils.dropdownVisible(paymentMethodDropdown, "Credit Card");
+        surchargeTextBox.sendKeys(surcharge);
+        commentsTextBox.sendKeys(sInstructions);
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains(creditCardDeposit));
+        assertion.assertTrue(getNewestTransaction().contains("Credit Card"));
+        assertion.assertTrue(getNewestTransaction().contains("Deposit"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
+        assertion.assertTrue(internalNotesSectionValidation().contains(creditCardDeposit + " DEPOSIT APPLIED"));
+    }
+
+    public void verifyUserCanRefundDepositFromAccountPage() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        refundDepositTab.click();
+        amountTextBox.sendKeys(refundAmount);
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        transactionsTab.click();
+        assertion.assertTrue(getNewestTransaction().contains("-" + refundAmount));
+        assertion.assertTrue(getNewestTransaction().contains("Check"));
+        assertion.assertTrue(getNewestTransaction().contains("Refund"));
+        assertion.assertTrue(getNewestTransaction().contains("Unposted"));
+        toggleToNormalAccountView();
+        assertion.assertTrue(internalNotesSectionValidation().contains("Deposit Refund Requested"));
+    }
+
+    public void navigateToActionMenuFromNormalView() {
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
     }
 }

@@ -69,11 +69,16 @@ public class BasePage {
     CharSequence surcharge = "20";
     CharSequence refundAmount = "95";
 
-    String textInDetails = "2015 BMW 328i Runs and looks like new, Camera, Parking Sensors, etc. Comes with a free one month or 1000 miles Free Warranty! ";
+    String textInDetails = "2019 BMW 328i Runs and looks like new, Camera, Parking Sensors, etc. Comes with a free one month or 1000 miles Free Warranty! ";
+    String textInDetails2 = "We prefer the 2020 M4 coupe versus its convertible counterpart, especially since it's $8500 cheaper. Likewise, the M4 CS may appeal to the most ardent BMW fans, but we don't think the marginal performance enhancements warrant its six-figure price tag";
     String textAdditionalDetails = "No accidents or damage reported to CARFAX";
+    String textAdditionalDetails2 = "The EPA has different estimates between the M4's two body styles and transmission";
     String disclaimer = "Features and options are descriptive of what can be expected on the vehicle. Actual options should be verified by the customer and dealer. Plus government fees and taxes, any finance charges, any dealer document processing charge, any electronic filing charge, and any emission testing charge. Please contact dealer to confirm price and vehicle availability. Current mileage may vary due to test drives and vehicle relocation.";
     String descriptionOfItem1 = "2019 BMW 328I";
+    String descriptionOfItem2 = "2020 BMW M4";
     String estimatedValue = "47000";
+    String estimatedValue2 = "65000";
+    String vinNumber = "WBS4Y9C0XLFJ49181";
 
 //----------------------------------------------------------------------------------------------------------------
     String successMessage = "Dashboard Not Configured";

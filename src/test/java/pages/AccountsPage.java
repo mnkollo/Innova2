@@ -492,7 +492,7 @@ public class AccountsPage extends BasePage {
         salesAgreementTab.click();
         BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(taxIDType, "Dealer");

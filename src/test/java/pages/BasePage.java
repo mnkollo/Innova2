@@ -21,6 +21,7 @@ public class BasePage {
     String companyName = FakeData.CompanyName();
     String testingCompanyName = "ANDERSON, CASPER AND BRAUN";
     String packageName = FakeData.randomName();
+    String testingPackageName = "Maurice Minor Package";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();
@@ -69,16 +70,26 @@ public class BasePage {
     CharSequence surcharge = "20";
     CharSequence refundAmount = "95";
 
-    String textInDetails = "2019 BMW 328i Runs and looks like new, Camera, Parking Sensors, etc. Comes with a free one month or 1000 miles Free Warranty! ";
-    String textInDetails2 = "We prefer the 2020 M4 coupe versus its convertible counterpart, especially since it's $8500 cheaper. Likewise, the M4 CS may appeal to the most ardent BMW fans, but we don't think the marginal performance enhancements warrant its six-figure price tag";
-    String textAdditionalDetails = "No accidents or damage reported to CARFAX";
-    String textAdditionalDetails2 = "The EPA has different estimates between the M4's two body styles and transmission";
+    String textInDetails328i = "2016 BMW 328i Runs and looks like new, Camera, Parking Sensors, etc. Comes with a free one month or 1000 miles Free Warranty! ";
+    String textInDetailsM4 = "We prefer the 2020 M4 coupe versus its convertible counterpart, especially since it's $8500 cheaper. Likewise, the M4 CS may appeal to the most ardent BMW fans, but we don't think the marginal performance enhancements warrant its six-figure price tag";
+    String textInDetails330e = "This 2017 BMW 3 Series 4dr 330e iPerformance Plug-In Hybrid features a 2.0L 4 CYLINDER 4cyl Hybrid engine. It is equipped with a 8 Speed Automatic transmission. The vehicle is Alpine White with a Black Leather interior. ";
+    String textAdditionalDetails328i = "No accidents or damage reported to CARFAX";
+    String textAdditionalDetails330e = "No accidents or damage reported to CARFAX";
+    String textAdditionalDetailsM4 = "The EPA has different estimates between the M4's two body styles and transmission";
     String disclaimer = "Features and options are descriptive of what can be expected on the vehicle. Actual options should be verified by the customer and dealer. Plus government fees and taxes, any finance charges, any dealer document processing charge, any electronic filing charge, and any emission testing charge. Please contact dealer to confirm price and vehicle availability. Current mileage may vary due to test drives and vehicle relocation.";
     String descriptionOfItem1 = "2019 BMW 328I";
     String descriptionOfItem2 = "2020 BMW M4";
-    String estimatedValue = "47000";
-    String estimatedValue2 = "65000";
+    String descriptionOfItem330e = "2016 BMW 328I";
+    String estimatedValue328i = "47000";
+    String estimatedValueM4 = "65000";
+    String estimatedValue330e = "55000";
+    String m4VinAudit = "Added [2020 BMW M4 WBS4Y9C0XLFJ49181 31507]";
+    String itemAudit328i = "Added [2016 BMW 328I 31506]";
+    String itemAudit330e = "Added [2014 BMW 330E 31519]";
     String vinNumber = "WBS4Y9C0XLFJ49181";
+    CharSequence stockNumber = FakeData.random9DigitAccountNumber();
+    CharSequence horsePower = FakeData.random3DigitNumber();
+    CharSequence assetNumber = FakeData.random2DigitNumber();
 
 //----------------------------------------------------------------------------------------------------------------
     String successMessage = "Dashboard Not Configured";

@@ -3,8 +3,9 @@
 <suite name="All Test Suite">
     <test verbose="2" name="C:/Users/Michael/Documents/Innova">
         <classes>
-
+            <class name="regressionTest.AccountsTest"/>
             <class name="regressionTest.End2End"/>
+            <class name="regressionTest.PackagesTest"/>
         </classes>
     </test>
 </suite>

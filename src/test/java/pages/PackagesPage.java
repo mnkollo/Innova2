@@ -45,8 +45,25 @@ public class PackagesPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Add Items from File')]")
     public WebElement addItemsFromAFileTab;
 
+    //Items Accordion
+    @FindBy(css = "a:nth-of-type(1) > .pl-4.vertical-align-middle > input[type='checkbox']")
+    public WebElement firstItemInItemSection;
+
+    @FindBy(css = ".border-gray.items-table.table.table-header-primary.table-sm")
+    public WebElement itemsValidation;
+
+    //Audit Accordion
     @FindBy(css = "h5#Audits > .fa.fa-lg.fa-plus")
     public WebElement auditAccordion;
+
+    //Exclude Accordion
+    @FindBy(css = "h5#excludedItems > .fa.fa-lg.fa-plus")
+    public WebElement excludedAccordion;
+    @FindBy(css = "[class] .card:nth-of-type(2) table")
+    public WebElement excludedItemsValidation;
+    @FindBy(css = ".a-table.strike > .pl-4.vertical-align-middle > input[type='checkbox']")
+    public WebElement includeButtonFirstItem;
+
 
     //Action Menu
     @FindBy(css = ".col-12 > .card > .collapse.show  .table-responsive")
@@ -95,7 +112,7 @@ public class PackagesPage extends BasePage {
 
     @FindBy(css = ".modal-body [class^='col-12 col-x']:nth-of-type(1) .react-select__value-container")
     public WebElement categoryDropdown;
-    @FindBy(xpath = "//div[contains(text(),'Vehicles')]")
+    @FindBy(xpath = "(//div[contains(text(),'Vehicles')])[2]")
     public WebElement vehiclesCategory;
     @FindBy(css = ".modal-body [class='col-12 col-xl-4']:nth-of-type(2) .react-select__value-container")
     public WebElement categoryFamilyDropdown;
@@ -122,14 +139,21 @@ public class PackagesPage extends BasePage {
         BrowserUtils.dropdownVisible(typeDropdown,"Consignment");
         BrowserUtils.dropdownVisible(saleFormatDropdown,"Cascade");
         saveButton.click();
-        BrowserUtils.waitFor(2);
-        assertion.assertTrue(packageNameValidation().contains(packageName));
+        BrowserUtils.waitFor(3);
+        assertion.assertTrue(packageNameValidation().contains(packageName + " Package"));
         assertion.assertTrue(packageCardValidation().contains("Consignment"));
         assertion.assertTrue(packageCardValidation().contains("Cascade"));
         assertion.assertAll();
     }
     public String packageNameValidation(){
         return packageValidation.getText();
+    }
+    public String excludedItemValidation(){
+        return excludedItemsValidation.getText();
+    }
+
+    public String itemInPackageValidation(){
+        return itemsValidation.getText();
     }
     public String packageCardValidation(){
         return packageCardValidation.getText();
@@ -237,6 +261,22 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(1);
         driver.navigate().refresh();
         BrowserUtils.waitFor(5);
+
+    }
+    public void deleteItemInAPackage(){
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        firstItemInItemSection.click();
+        excludedAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(excludedItemValidation().contains("2016 BMW 328I"));
+        auditAccordion.click();
+        assertion.assertTrue(auditVerifications().contains("Excluded [2016 BMW 328I 31579]"));
+        includeButtonFirstItem.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(itemInPackageValidation().contains("2016 BMW 328I"));
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Included [2016 BMW 328I 31579]"));
 
     }
     public void searchForPackage(){

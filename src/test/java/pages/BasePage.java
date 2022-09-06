@@ -21,7 +21,7 @@ public class BasePage {
     String companyName = FakeData.CompanyName();
     String testingCompanyName = "ANDERSON, CASPER AND BRAUN";
     String packageName = FakeData.randomName();
-    String testingPackageName = "Maurice Minor Package";
+    String testingPackageName = "Ed Jewcation Package";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();

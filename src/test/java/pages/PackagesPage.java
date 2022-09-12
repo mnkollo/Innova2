@@ -1,18 +1,22 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 import utilities.BrowserUtils;
 import utilities.Driver;
-
+import java.awt.*;
 import java.io.IOException;
-
 import static utilities.Driver.driver;
+
 public class PackagesPage extends BasePage {
 
     SoftAssert assertion = new SoftAssert();
+
     public PackagesPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
@@ -25,13 +29,19 @@ public class PackagesPage extends BasePage {
     @FindBy(name = "saleFormat_ID")
     public WebElement saleFormatDropdown;
 
-    //Packages Page
+    //Packages Validation
     @FindBy(css = "h4#options")
     public WebElement packageValidation;
     @FindBy(css = ".col-12.col-padding-right.col-sm-6")
     public WebElement packageCardValidation;
 
-    //Upload Items
+    @FindBy(css = ".row:nth-of-type(5) [data-tip] td:nth-of-type(1)")
+    public WebElement lienHolderValidation;
+
+    @FindBy(css = ".col-12.col-md-12.col-sm-12 > .card > .collapse.show .table-responsive")
+    public WebElement valueServicesValidation;
+
+    //Add Items and Add items through file
     @FindBy(xpath = "//button[contains(text(),'Import All Items')]")
     public WebElement importAllItemsButton;
     @FindBy(css = ".close > span")
@@ -45,20 +55,51 @@ public class PackagesPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Add Items from File')]")
     public WebElement addItemsFromAFileTab;
 
-    //Items Accordion
+
+    //Add Value Services - Modal
+    @FindBy(name = "blueChip_ID")
+    public WebElement serviceDropdown;
+    @FindBy(id = "quantity")
+    public WebElement quantityTextBox;
+    @FindBy(id = "markup")
+    public WebElement markupTextBox;
+    @FindBy(id = "cost")
+    public WebElement costTextBox;
+    @FindBy(id = "price")
+    public WebElement priceBox;
+    @FindBy(css = "[data-tip] td:nth-of-type(1)")
+    public WebElement valueServiceEdit;
+    @FindBy(css = ".fa.fa-trash.pointer")
+    public WebElement valueServicesTrashIcon;
+
+    // Accordions On Package Page
+
+    @FindBy(css = "h5#excludedItems > .fa.fa-lg.fa-plus")
+    public WebElement excludedItemsAccordion;
+
+    @FindBy(css = "h5#Audits > .fa.fa-lg.fa-plus")
+    public WebElement auditAccordion;
+
+    @FindBy(css = "h5#blue-chip-services > .fa.fa-lg.fa-plus")
+    public WebElement valueServicesAccordion;
+    @FindBy(css = "h5#blue-chip-services > .fa.fa-lg.fa-plus")
+    public WebElement lienHolderAccordion;
+
+
+    //Items Section
     @FindBy(css = "a:nth-of-type(1) > .pl-4.vertical-align-middle > input[type='checkbox']")
     public WebElement firstItemInItemSection;
 
     @FindBy(css = ".border-gray.items-table.table.table-header-primary.table-sm")
     public WebElement itemsValidation;
 
-    //Audit Accordion
-    @FindBy(css = "h5#Audits > .fa.fa-lg.fa-plus")
-    public WebElement auditAccordion;
+    //Audit Section
 
-    //Exclude Accordion
-    @FindBy(css = "h5#excludedItems > .fa.fa-lg.fa-plus")
-    public WebElement excludedAccordion;
+    @FindBy(css = ".col-12 > .card > .collapse.show  .table-responsive")
+    public WebElement auditVerification;
+
+    //Exclude Section
+
     @FindBy(css = "[class] .card:nth-of-type(2) table")
     public WebElement excludedItemsValidation;
     @FindBy(css = ".a-table.strike > .pl-4.vertical-align-middle > input[type='checkbox']")
@@ -66,8 +107,19 @@ public class PackagesPage extends BasePage {
 
 
     //Action Menu
-    @FindBy(css = ".col-12 > .card > .collapse.show  .table-responsive")
-    public WebElement auditVerification;
+    @FindBy(xpath = "//a[contains(text(),'Add Value Service')]")
+    public WebElement addValueServiceTab;
+
+    @FindBy(xpath = "//a[contains(text(),'Add Note')]")
+    public WebElement addNoteTabOnPackagePage;
+    @FindBy(xpath = "//a[contains(text(),'Add Lien Holder')]")
+    public WebElement addLienHolderTab;
+
+    //Add Lien Holder - Modal
+    @FindBy(name = "lienholder_ID")
+    public WebElement lienHolderDropdown;
+    @FindBy(name = "contact_ID")
+    public WebElement contactDropdown;
 
     //Create Package Item - Modal
     @FindBy(css = ".modal-body [class^='col'] .react-select__value-container")
@@ -124,20 +176,14 @@ public class PackagesPage extends BasePage {
     public WebElement assetTextBox;
 
 
-
-
-
-
-
-
     //-------------------------------------------------------------------------------------------------------------------
-    public void createAConsignmentPackage(){
+    public void createAConsignmentPackage() {
         allPages.accountsPage().navigateToActionMenuFromNormalView();
         gearIcon.click();
         allPages.accountsPage().clickCreatePackage();
         descriptionTextBox.sendKeys(packageName + " Package");
-        BrowserUtils.dropdownVisible(typeDropdown,"Consignment");
-        BrowserUtils.dropdownVisible(saleFormatDropdown,"Cascade");
+        BrowserUtils.dropdownVisible(typeDropdown, "Consignment");
+        BrowserUtils.dropdownVisible(saleFormatDropdown, "Cascade");
         saveButton.click();
         BrowserUtils.waitFor(3);
         assertion.assertTrue(packageNameValidation().contains(packageName + " Package"));
@@ -145,20 +191,28 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(packageCardValidation().contains("Cascade"));
         assertion.assertAll();
     }
-    public String packageNameValidation(){
+
+    public String packageNameValidation() {
         return packageValidation.getText();
     }
-    public String excludedItemValidation(){
+
+    public String excludedItemValidation() {
         return excludedItemsValidation.getText();
     }
 
-    public String itemInPackageValidation(){
+    public String itemInPackageValidation() {
         return itemsValidation.getText();
     }
-    public String packageCardValidation(){
+
+    public String packageCardValidation() {
         return packageCardValidation.getText();
     }
-    public void  AddItemToAPackageWithRequiredFields(){
+
+    public String documentValidation() {
+        return getDocumentTable.getText();
+    }
+
+    public void AddItemToAPackageWithRequiredFields() {
         searchForPackage();
         BrowserUtils.waitFor(2);
         gearIcon.click();
@@ -185,7 +239,8 @@ public class PackagesPage extends BasePage {
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(itemAudit328i));
     }
-    public void  AddItemToAPackageWithAllFields() {
+
+    public void AddItemToAPackageWithAllFields() {
         searchForPackage();
         BrowserUtils.waitFor(2);
         gearIcon.click();
@@ -216,6 +271,7 @@ public class PackagesPage extends BasePage {
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(itemAudit330e));
     }
+
     public void VIN_DecodeWhenAddingItemToAPackage() {
         searchForPackage();
         BrowserUtils.waitFor(2);
@@ -245,16 +301,20 @@ public class PackagesPage extends BasePage {
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(m4VinAudit));
     }
-    public void  AddItemsToAPackageFromFile() throws IOException {
+
+    public void AddItemsToAPackageFromFile() throws IOException, AWTException {
         searchForPackage();
         BrowserUtils.waitFor(2);
         gearIcon.click();
         addItemsFromAFileTab.click();
         BrowserUtils.waitFor(1);
+        String mainHandle = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle);
         browseButton.click();
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(3);
         Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/UploadItemsInFile.scpt ");
-        BrowserUtils.waitFor(10);
+        BrowserUtils.waitFor(13);
         importAllItemsButton.click();
         BrowserUtils.waitFor(20);
         xIconOnImportItemsProgressPage.click();
@@ -263,11 +323,12 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(5);
 
     }
-    public void deleteItemInAPackage(){
+
+    public void deleteItemInAPackage() {
         searchForPackage();
         BrowserUtils.waitFor(2);
         firstItemInItemSection.click();
-        excludedAccordion.click();
+        excludedItemsAccordion.click();
         BrowserUtils.waitFor(1);
         assertion.assertTrue(excludedItemValidation().contains("2016 BMW 328I"));
         auditAccordion.click();
@@ -277,20 +338,158 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(itemInPackageValidation().contains("2016 BMW 328I"));
         BrowserUtils.waitFor(1);
         assertion.assertTrue(auditVerifications().contains("Included [2016 BMW 328I 31579]"));
+    }
+
+    public void addNotesToAPackage() {
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        addNoteTabOnPackagePage.click();
+        addNoteTextBox.sendKeys(sInstructions);
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
+    }
+
+    public void addValueServiceToAPackage() {
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        addValueServiceTab.click();
+        BrowserUtils.dropdownVisible(serviceDropdown, "Inspection");
+        BrowserUtils.waitFor(2);
+        quantityTextBox.sendKeys(quantity);
+        markupTextBox.sendKeys(markUp);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(cost);
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(verifyPriceOfInspection().contains(priceOfI));
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        valueServicesAccordion.click();
+        assertion.assertTrue(valueServicesValidation().contains(quantity));
+        assertion.assertTrue(valueServicesValidation().contains(markUp + "%"));
+        assertion.assertTrue(valueServicesValidation().contains("$" + cost + ".00"));
+        assertion.assertTrue(valueServicesValidation().contains(priceOfI));
+        auditAccordion.click();
+        assertion.assertTrue(auditVerifications().contains(valueServicesAudit));
+    }
+
+    public void uploadDocumentInPackage() throws IOException {
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        uploadDocumentTab.click();
+        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(1);
+        String mainHandle = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle);
+        browseButton.click();
+        BrowserUtils.waitFor(1);
+        Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx1.scpt ");
+        BrowserUtils.waitFor(5);
+        BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
+        descriptionTextBox.sendKeys("Test");
+        BrowserUtils.waitFor(2);
+        saveButtonOnUploadDoc.click();
+        BrowserUtils.waitFor(2);
+        documentsAccordion.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertTrue(documentValidation().contains("Miscellaneous"));
+        Assert.assertTrue(documentValidation().contains("Test"));
+    }
+
+    public void editValueServiceToAPackage() {
+        String quantityE = "3";
+        String markUpE = "4";
+        String costE = "150";
+        String priceOfIE = "$468.00";
+        String valueServicesAuditE = "Value Service Price changed from [210.00] to [468.00]";
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        valueServicesAccordion.click();
+        valueServiceEdit.click();
+        BrowserUtils.dropdownVisible(serviceDropdown, "Storage");
+        BrowserUtils.waitFor(2);
+        quantityTextBox.sendKeys(quantityE);
+        markupTextBox.sendKeys(markUpE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(costE);
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(verifyPriceOfInspection().contains(priceOfIE));
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        valueServicesAccordion.click();
+        assertion.assertTrue(valueServicesValidation().contains(quantityE));
+        assertion.assertTrue(valueServicesValidation().contains(markUpE + "%"));
+        assertion.assertTrue(valueServicesValidation().contains("$" + costE + ".00"));
+        assertion.assertTrue(valueServicesValidation().contains(priceOfIE));
+        auditAccordion.click();
+        assertion.assertTrue(auditVerifications().contains(valueServicesAuditE));
+    }
+
+    public void removeValueServicesFromAPackage() {
+
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        valueServicesAccordion.click();
+        BrowserUtils.waitFor(1);
+        valueServicesTrashIcon.click();
+        yesButton.click();
+    }
+
+    public void addLienHolderToAPackage() {
+        searchForPackage();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        addLienHolderTab.click();
+        BrowserUtils.dropdownValue(lienHolderDropdown, "12760");
+        BrowserUtils.dropdownValue(contactDropdown, "3719");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        lienHolderAccordion.click();
+        assertion.assertTrue(lienHolderValidation().contains(contactName));
+        assertion.assertTrue(lienHolderValidation().contains(accountName));
+        assertion.assertTrue(lienHolderValidation().contains(status));
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains(lienAddedAuditMessage));
+        assertion.assertTrue(auditVerifications().contains(valueServicesAuditDelete));
 
     }
-    public void searchForPackage(){
+
+    public void searchForPackage() {
         packagesTab.click();
         searchField.sendKeys(packageName);
         searchButton.click();
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
-    public String itemsValidation(){
+
+    public String itemsValidation() {
         return itemsSection.getText();
     }
-    public String auditVerifications(){
+
+    public String auditVerifications() {
         return auditVerification.getText();
+    }
+
+    public String verifyPriceOfInspection() {
+        return priceBox.getText();
+    }
+
+    public String valueServicesValidation() {
+        return valueServicesValidation.getText();
+    }
+
+    public String lienHolderValidation() {
+        return lienHolderValidation.getText();
     }
 }
 

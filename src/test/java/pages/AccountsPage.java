@@ -10,6 +10,8 @@ import utilities.*;
 import java.io.IOException;
 import java.util.Locale;
 
+import static utilities.Driver.driver;
+
 public class AccountsPage extends BasePage {
 
     SoftAssert assertion = new SoftAssert();
@@ -40,8 +42,7 @@ public class AccountsPage extends BasePage {
 
     @FindBy(css = ".border-gray.card.false.p-top-5.pb-1")
     public WebElement salesAgreementCard;
-    @FindBy(css = "[class='internal-notes']")
-    public WebElement internalNotesSection;
+
 
     //ActionMenu
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
@@ -58,8 +59,6 @@ public class AccountsPage extends BasePage {
     public WebElement addNoteTab;
     @FindBy(xpath = "//a[contains(text(),' Collections Note')]")
     public WebElement addCollectionsNoteTab;
-    @FindBy(xpath = "//a[contains(text(),' Upload Document')]")
-    public WebElement uploadDocumentTab;
     @FindBy(xpath = "//a[contains(text(),'Apply Deposit')]")
     public WebElement applyDepositTab;
     @FindBy(xpath = "//a[contains(text(),'Refund Deposit')]")
@@ -190,7 +189,7 @@ public class AccountsPage extends BasePage {
     @FindBy(id = "comissionPreAuction")
     public WebElement comissionPreAuction;
     @FindBy(css = ".collapse.show  .table-responsive")
-    public WebElement salesAgreementTable;
+    public WebElement getSalesAgreementTable;
 
     //Add Collections Note - Modal
     @FindBy(name = "generalNote")
@@ -198,14 +197,9 @@ public class AccountsPage extends BasePage {
     @FindBy(css = ".container-fluid .row:nth-of-type(2) > [class] > .card:nth-of-type(3)")
     public WebElement collectionsLogSection;
 
-    //Upload Document - Modal
-    @FindBy(id = "description")
-    public WebElement descriptionTextBox;
-    @FindBy(name = "documentType_ID")
-    public WebElement documentTypeDropdown;
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[3]/button[2]")
-    public WebElement saveButtonOnUploadDoc;
-
+    //Upload Document
+    @FindBy(css = ".collapse.show  .table-responsive")
+    public WebElement accountDocValidation;
 
     //AddBankAccount - Modal
     @FindBy(id = "bankName")
@@ -239,7 +233,7 @@ public class AccountsPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[10]/div[2]/div[2]/div/div/table")
     public WebElement bankInformationValidation;
 
-    //Contact Accordion
+    // Accordion
     @FindBy(css = "h5#bankInformation > .fa.fa-lg.fa-plus")
     public WebElement bankAccordion;
     @FindBy(css = "h5#contact > .fa.fa-lg.fa-plus")
@@ -252,11 +246,16 @@ public class AccountsPage extends BasePage {
     public WebElement collectionsLogAccordion;
 
 
+
+
     //******************************************************
 
 
     public void clickCreatePackage() {
         createPackageTab.click();
+    }
+    public String accountDocValidation(){
+        return accountDocValidation.getText();
     }
 
     public String bankInfoValidation() {
@@ -276,7 +275,7 @@ public class AccountsPage extends BasePage {
     }
 
     public String salesAgreementTableValidation() {
-        return salesAgreementTable.getText();
+        return getSalesAgreementTable.getText();
     }
 
     public String location2CardValidation() {
@@ -294,9 +293,7 @@ public class AccountsPage extends BasePage {
         return getAccountName.getText();
     }
 
-    public String internalNotesSectionValidation() {
-        return internalNotesSection.getText();
-    }
+
 
     public String emailVerificationOnAccountPage() {
         return getEmailOnAccount.getText();
@@ -346,7 +343,7 @@ public class AccountsPage extends BasePage {
         //physicalState.sendKeys(FakeData.fakerState());
         physicalLine1.sendKeys(contactAddress);
         saveButton.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         gearIcon.click();
         toggleAccountView.click();
         BrowserUtils.waitFor(2);
@@ -492,7 +489,7 @@ public class AccountsPage extends BasePage {
         salesAgreementTab.click();
         BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName2);
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(4);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(taxIDType, "Dealer");
@@ -626,14 +623,23 @@ public class AccountsPage extends BasePage {
         navigateToActionMenuFromNormalView();
         uploadDocumentTab.click();
         BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(2);
+        String mainHandle = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle);
         browseButton.click();
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(2);
         Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx1.scpt ");
+        BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
         descriptionTextBox.sendKeys("Test");
         BrowserUtils.waitFor(2);
         saveButtonOnUploadDoc.click();
+        BrowserUtils.waitFor(3);
+        documentsAccordion.click();
         BrowserUtils.waitFor(2);
+        Assert.assertTrue(accountDocValidation().contains("Miscellaneous"));
+        Assert.assertTrue(accountDocValidation().contains("Test"));
     }
 
     public void applyDepositByWireTransferToAccountPage() {
@@ -654,6 +660,7 @@ public class AccountsPage extends BasePage {
     public String getNewestTransaction() {
         return newestTransaction.getText();
     }
+
 
     public void applyDepositByMoneyOrderToAccountPage() {
         searchForAccount();
@@ -757,8 +764,8 @@ public class AccountsPage extends BasePage {
         assertion.assertTrue(getNewestTransaction().contains("Unposted"));
         toggleToNormalAccountView();
         assertion.assertTrue(internalNotesSectionValidation().contains("Deposit Refund Requested"));
-    }
 
+    }
     public void navigateToActionMenuFromNormalView() {
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);

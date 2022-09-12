@@ -21,7 +21,7 @@ public class BasePage {
     String companyName = FakeData.CompanyName();
     String testingCompanyName = "ANDERSON, CASPER AND BRAUN";
     String packageName = FakeData.randomName();
-    String testingPackageName = "Ed Jewcation Package";
+    String testingPackageName = "Hy Ball Package";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();
@@ -91,7 +91,21 @@ public class BasePage {
     CharSequence horsePower = FakeData.random3DigitNumber();
     CharSequence assetNumber = FakeData.random2DigitNumber();
 
-//----------------------------------------------------------------------------------------------------------------
+    //Value Services Variables
+    String quantity = "2";
+    String markUp = "5";
+    String cost = "100";
+    String priceOfI = "$210.00";
+    String valueServicesAudit = "Value Service Inspection Added";
+    String valueServicesAuditDelete = "Value Service Storage Deleted";
+
+    //Lien Variables
+    String lienAddedAuditMessage = "Added Lien [Herman Group]";
+    String contactName = "ESTEBAN HANE";
+    String accountName = "HERMAN GROUP";
+    String status = "PENDING UCC PULL";
+
+    //----------------------------------------------------------------------------------------------------------------
     String successMessage = "Dashboard Not Configured";
 
     @FindBy(xpath = "//h1[contains(text(),'Dashboard Not Configured')]")
@@ -109,12 +123,32 @@ public class BasePage {
     public WebElement searchButton;
     @FindBy(css = ".a-table > td:nth-of-type(1)")
     public WebElement createdAccount;
+    @FindBy(css = "[class='internal-notes']")
+    public WebElement internalNotesSection;
 
     //gear Icon
     @FindBy(xpath = "//a[contains(text(),' Add Note')]")
     public WebElement addNoteTab;
     @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav")
     public WebElement gearIcon;
+
+    //Upload Document - Modal
+    @FindBy(xpath = "//a[contains(text(),' Upload Document')]")
+    public WebElement uploadDocumentTab;
+    @FindBy(id = "description")
+    public WebElement descriptionTextBox;
+    @FindBy(name = "documentType_ID")
+    public WebElement documentTypeDropdown;
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[3]/button[2]")
+    public WebElement saveButtonOnUploadDoc;
+
+    @FindBy(css = ".card:nth-of-type(9) .table-responsive")
+    public WebElement getDocumentTable;
+
+
+
+
+
 
     //Buttons for modal pages
     @FindBy(xpath = "//button[contains(text(),'Save')]")
@@ -126,6 +160,9 @@ public class BasePage {
     @FindBy(xpath = "//button[contains(text(),'Yes')]")
     public WebElement yesButton;
 
+    //Accordion
+    @FindBy(css = "h5#documents > .fa.fa-lg.fa-plus")
+public WebElement documentsAccordion;
 
     //BACK OFFICE MENU
     @FindBy(css = ".nav > li:nth-of-type(3) > .nav-link")
@@ -156,6 +193,10 @@ public class BasePage {
     public void loginSuccessfully(){
         Assert.assertTrue(loginSuccess().contains(successMessage));
     }
+    public String internalNotesSectionValidation() {
+        return internalNotesSection.getText();
+    }
+
 
 }
 

@@ -68,4 +68,9 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_1069_VerifyUserCanAddLienHolderToAPackage(){
         allPages.packagesPage().addLienHolderToAPackage();              //TODO finish this TC
     }
+    @Test(priority = 33)
+    public void TC_7098_VerifyUserCanDeleteDocumentsFromAPackage(){
+        allPages.packagesPage().addLienHolderToAPackage();              //TODO finish this TC
+    }
+
 }

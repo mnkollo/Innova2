@@ -5,8 +5,11 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import utilities.AllPages;
+import utilities.BrowserUtils;
 import utilities.Driver;
 import utilities.FakeData;
+
+import java.util.Locale;
 
 public class BasePage {
 
@@ -16,7 +19,9 @@ public class BasePage {
 
     AllPages allPages = new AllPages();
     String companyName = FakeData.CompanyName();
-    String testingCompanyName = "CHAMPLIN INC";
+    String testingCompanyName = "ANDERSON, CASPER AND BRAUN";
+    String packageName = FakeData.randomName();
+    String testingPackageName = "Hy Ball Package";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();
@@ -56,28 +61,119 @@ public class BasePage {
     String addressOfLocation = FakeData.address();
     String postalCodeLocation = "75001";
     String locationPhoneNumber = "(214) 495-8425";
+    CharSequence wireframeDeposit = "50";
+    CharSequence achDeposit = "75";
+    CharSequence moneyOrderDeposit = "85";
+    CharSequence checkDeposit = "95";
+    CharSequence cashDeposit = "95";
+    CharSequence creditCardDeposit = "100";
+    CharSequence surcharge = "20";
+    CharSequence refundAmount = "95";
 
-//----------------------------------------------------------------------------------------------------------------
+    String textInDetails328i = "2016 BMW 328i Runs and looks like new, Camera, Parking Sensors, etc. Comes with a free one month or 1000 miles Free Warranty! ";
+    String textInDetailsM4 = "We prefer the 2020 M4 coupe versus its convertible counterpart, especially since it's $8500 cheaper. Likewise, the M4 CS may appeal to the most ardent BMW fans, but we don't think the marginal performance enhancements warrant its six-figure price tag";
+    String textInDetails330e = "This 2017 BMW 3 Series 4dr 330e iPerformance Plug-In Hybrid features a 2.0L 4 CYLINDER 4cyl Hybrid engine. It is equipped with a 8 Speed Automatic transmission. The vehicle is Alpine White with a Black Leather interior. ";
+    String textAdditionalDetails328i = "No accidents or damage reported to CARFAX";
+    String textAdditionalDetails330e = "No accidents or damage reported to CARFAX";
+    String textAdditionalDetailsM4 = "The EPA has different estimates between the M4's two body styles and transmission";
+    String disclaimer = "Features and options are descriptive of what can be expected on the vehicle. Actual options should be verified by the customer and dealer. Plus government fees and taxes, any finance charges, any dealer document processing charge, any electronic filing charge, and any emission testing charge. Please contact dealer to confirm price and vehicle availability. Current mileage may vary due to test drives and vehicle relocation.";
+    String descriptionOfItem1 = "2019 BMW 328I";
+    String descriptionOfItem2 = "2020 BMW M4";
+    String descriptionOfItem330e = "2016 BMW 328I";
+    String estimatedValue328i = "47000";
+    String estimatedValueM4 = "65000";
+    String estimatedValue330e = "55000";
+    String m4VinAudit = "Added [2020 BMW M4 WBS4Y9C0XLFJ49181 31507]";
+    String itemAudit328i = "Added [2016 BMW 328I 31506]";
+    String itemAudit330e = "Added [2014 BMW 330E 31519]";
+    String vinNumber = "WBS4Y9C0XLFJ49181";
+    CharSequence stockNumber = FakeData.random9DigitAccountNumber();
+    CharSequence horsePower = FakeData.random3DigitNumber();
+    CharSequence assetNumber = FakeData.random2DigitNumber();
+
+    //Value Services Variables
+    String quantity = "2";
+    String markUp = "5";
+    String cost = "100";
+    String priceOfI = "$210.00";
+    String valueServicesAudit = "Value Service Inspection Added";
+    String valueServicesAuditDelete = "Value Service Storage Deleted";
+
+    //Lien Variables
+    String lienAddedAuditMessage = "Added Lien [Herman Group]";
+    String contactName = "ESTEBAN HANE";
+    String accountName = "HERMAN GROUP";
+    String status = "PENDING UCC PULL";
+
+    //----------------------------------------------------------------------------------------------------------------
     String successMessage = "Dashboard Not Configured";
 
     @FindBy(xpath = "//h1[contains(text(),'Dashboard Not Configured')]")
     public WebElement dashboardNotConfiguredMessage;
 
     //ELEMENTS
+
+    @FindBy(id = "amount")
+    public WebElement amountTextBox;
+    @FindBy(name = "text")
+    public WebElement addNoteTextBox;
+    @FindBy(id = "simple-search-field")
+    public WebElement searchField;
+    @FindBy(xpath = "//button[contains(text(),'Search')]")
+    public WebElement searchButton;
+    @FindBy(css = ".a-table > td:nth-of-type(1)")
+    public WebElement createdAccount;
+    @FindBy(css = "[class='internal-notes']")
+    public WebElement internalNotesSection;
+
+    //gear Icon
+    @FindBy(xpath = "//a[contains(text(),' Add Note')]")
+    public WebElement addNoteTab;
     @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav")
     public WebElement gearIcon;
+
+    //Upload Document - Modal
+    @FindBy(xpath = "//a[contains(text(),' Upload Document')]")
+    public WebElement uploadDocumentTab;
+    @FindBy(id = "description")
+    public WebElement descriptionTextBox;
+    @FindBy(name = "documentType_ID")
+    public WebElement documentTypeDropdown;
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[3]/button[2]")
+    public WebElement saveButtonOnUploadDoc;
+
+    @FindBy(css = ".card:nth-of-type(9) .table-responsive")
+    public WebElement getDocumentTable;
+
+
+
+
+
 
     //Buttons for modal pages
     @FindBy(xpath = "//button[contains(text(),'Save')]")
     public WebElement saveButton;
+    @FindBy(xpath = "//span[contains(text(),'Browse')]")
+    public WebElement browseButton;
+    @FindBy(xpath = "//button[contains(text(),'No')]")
+    public WebElement noButton;
+    @FindBy(xpath = "//button[contains(text(),'Yes')]")
+    public WebElement yesButton;
+
+    //Accordion
+    @FindBy(css = "h5#documents > .fa.fa-lg.fa-plus")
+public WebElement documentsAccordion;
 
     //BACK OFFICE MENU
     @FindBy(css = ".nav > li:nth-of-type(3) > .nav-link")
     public WebElement accountsTab;
+    @FindBy(xpath = "//a[contains(text(),'Work Order Board')]")
+    public WebElement workOrderBoard;
 
-    //Search Bar
-    @FindBy(xpath = "//button[contains(text(),'Search')]")
-    public WebElement searchButton;
+    @FindBy(xpath = "//a[contains(text(),'Packages')]")
+    public WebElement packagesTab;
+
+
 
     //Header Banner
     @FindBy(css=".btn.btn-square.btn-success.save-button > .fa.fa-lg.fa-save")
@@ -88,6 +184,7 @@ public class BasePage {
     @FindBy(css = ".breadcrumb > li:nth-of-type(2) > a")
     public WebElement accountHeader;
 
+    //----------------------------------------------------------------------------------------------------------
 
     //Methods
     public String loginSuccess() {
@@ -96,5 +193,10 @@ public class BasePage {
     public void loginSuccessfully(){
         Assert.assertTrue(loginSuccess().contains(successMessage));
     }
+    public String internalNotesSectionValidation() {
+        return internalNotesSection.getText();
+    }
+
+
 }
 

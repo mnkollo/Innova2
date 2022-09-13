@@ -139,7 +139,7 @@ public class BasePage {
     public WebElement descriptionTextBox;
     @FindBy(name = "documentType_ID")
     public WebElement documentTypeDropdown;
-    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[3]/button[2]")
+    @FindBy(css = ".modal-footer .btn-primary")
     public WebElement saveButtonOnUploadDoc;
 
     @FindBy(css = ".card:nth-of-type(9) .table-responsive")
@@ -161,7 +161,7 @@ public class BasePage {
     public WebElement yesButton;
 
     //Accordion
-    @FindBy(css = "h5#documents > .fa.fa-lg.fa-plus")
+    @FindBy(css = "h5#documents")
 public WebElement documentsAccordion;
 
     //BACK OFFICE MENU

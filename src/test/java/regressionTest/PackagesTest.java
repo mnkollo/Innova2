@@ -19,7 +19,7 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().createAConsignmentPackage();
     }
     @Test(priority = 22)
-    public void TC_1065_AddItemToAPackageWithRequiredFields() {
+    public void AddItemToAPackageWithRequiredFields() {
         allPages.packagesPage().AddItemToAPackageWithRequiredFields();
     }
     @Test(priority = 23)
@@ -68,9 +68,10 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_1069_VerifyUserCanAddLienHolderToAPackage(){
         allPages.packagesPage().addLienHolderToAPackage();              //TODO finish this TC
     }
-    @Test(priority = 33)
-    public void TC_7098_VerifyUserCanDeleteDocumentsFromAPackage(){
-        allPages.packagesPage().addLienHolderToAPackage();              //TODO finish this TC
-    }
+
+//    @Test(priority = 33)
+//    public void TC_7098_VerifyUserCanDeleteDocumentsFromAPackage() throws IOException{
+//        allPages.packagesPage().uploadDocumentInPackage();              //TODO finish this TC
+//    }
 
 }

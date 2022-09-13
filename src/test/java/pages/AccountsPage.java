@@ -285,7 +285,7 @@ public class AccountsPage extends BasePage {
     public void toggleToNormalAccountView() {
         BrowserUtils.waitFor(1);
         gearIcon.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         toggleAccountView.click();
     }
 
@@ -310,7 +310,15 @@ public class AccountsPage extends BasePage {
     public void searchForAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(1);
-        searchField.sendKeys(companyName);
+        searchField.sendKeys(companyName2);
+        searchButton.click();
+        createdAccount.click();
+        BrowserUtils.waitFor(2);
+    }
+    public void searchForAccount2() {
+        accountsTab.click();
+        BrowserUtils.waitFor(1);
+        searchField.sendKeys(companyName2);
         searchButton.click();
         createdAccount.click();
         BrowserUtils.waitFor(2);
@@ -321,6 +329,7 @@ public class AccountsPage extends BasePage {
 
     public void accountCreatedDashboard() {
         searchForAccount();
+        BrowserUtils.waitFor(1);
         Assert.assertTrue(accountNameOnCollectionsView().contains(companyName.toUpperCase(Locale.ROOT) + " "));
     }
 
@@ -413,16 +422,16 @@ public class AccountsPage extends BasePage {
         saveButton.click();
         BrowserUtils.waitFor(2);
         Assert.assertEquals(websiteVerificationOnAccountPage(), websiteName);
-        editAccountIcon.click();
-        accountNameField.clear();
-        accountNameField.sendKeys(companyName);
-        saveButton.click();
-        BrowserUtils.waitFor(2);
-        Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
+//        editAccountIcon.click();
+//        accountNameField.clear();
+//        accountNameField.sendKeys(companyName);
+//        saveButton.click();
+//        BrowserUtils.waitFor(2);
+//        Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
     }
 
     public void createContact() {
-        searchForAccount();
+        searchForAccount2();
         BrowserUtils.waitFor(2);
         navigateToActionMenuFromNormalView();
         createContactTab.click();
@@ -449,7 +458,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void addBankAccount() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         addBankAccountTab.click();
         BrowserUtils.waitFor(1);
@@ -484,11 +493,11 @@ public class AccountsPage extends BasePage {
     }
 
     public void createSalesAgreement() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         salesAgreementTab.click();
         BrowserUtils.waitFor(3);
-        sellerLegalName.sendKeys(companyName2);
+        sellerLegalName.sendKeys(companyName);
         BrowserUtils.waitFor(4);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
@@ -524,7 +533,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void createSalesAgreementOnExistingSalesAgreement() {
-        searchForAccount();
+        searchForAccount2();
         toggleToNormalAccountView();
         BrowserUtils.waitFor(1);
         salesAgreementPencilIcon.click();
@@ -564,7 +573,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void addLocationToAnAccount() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         addLocationTab.click();
         BrowserUtils.waitFor(2);
@@ -590,7 +599,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void addNoteToAnAccount() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         addNoteTab.click();
         addNoteTextBox.sendKeys(sInstructions);
@@ -604,7 +613,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void AddCollectionsNoteOnAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         addCollectionsNoteTab.click();
         addCollectionsNoteTextBox.sendKeys(fakeText);
@@ -619,21 +628,23 @@ public class AccountsPage extends BasePage {
     }
 
     public void uploadDocumentOnAccountPage() throws IOException {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         uploadDocumentTab.click();
         BrowserUtils.waitFor(2);
-        BrowserUtils.waitFor(2);
+        descriptionTextBox.sendKeys("Test");
         String mainHandle = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle);
+        String mainHandle1 = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle1);
         browseButton.click();
         BrowserUtils.waitFor(2);
-        Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx1.scpt ");
+        Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx2.scpt ");
         BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
-        descriptionTextBox.sendKeys("Test");
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         saveButtonOnUploadDoc.click();
         BrowserUtils.waitFor(3);
         documentsAccordion.click();
@@ -643,7 +654,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void applyDepositByWireTransferToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(wireframeDeposit);
@@ -663,7 +674,7 @@ public class AccountsPage extends BasePage {
 
 
     public void applyDepositByMoneyOrderToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(moneyOrderDeposit);
@@ -680,7 +691,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void applyDepositByACHToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(achDeposit);
@@ -697,7 +708,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void applyDepositByCheckToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(checkDeposit);
@@ -714,7 +725,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void applyDepositByCashToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(cashDeposit);
@@ -731,7 +742,7 @@ public class AccountsPage extends BasePage {
     }
 
     public void applyDepositByCreditCardToAccountPage() {
-        searchForAccount();
+        searchForAccount2();
         navigateToActionMenuFromNormalView();
         applyDepositTab.click();
         amountTextBox.sendKeys(creditCardDeposit);

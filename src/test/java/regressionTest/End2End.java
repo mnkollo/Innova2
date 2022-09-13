@@ -17,6 +17,7 @@ public class End2End extends InnovaTestBase {
     public void CreateAccount_ApplyDeposit_RefundDeposit_CompletePaymentRequest() {
         //Create Account
         allPages.accountsPage().createBusinessAccountAllData();
+        allPages.accountsPage().editAccount();
         //Apply Deposit
         allPages.accountsPage().applyDepositByCashToAccountPage();
         //ReFund Deposit

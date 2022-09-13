@@ -1,20 +1,13 @@
 package utilities;
 
-import com.google.common.io.Files;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.testng.ITestResult;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class InnovaTestBase {
-
     protected WebDriver driver;
     AllPages allPages = new AllPages();
-
     @Parameters("browser")
 
     @BeforeClass

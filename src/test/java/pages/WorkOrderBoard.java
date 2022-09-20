@@ -35,9 +35,8 @@ public class WorkOrderBoard extends BasePage {
     public WebElement selectTodayDate;
     @FindBy(css = "#tr-no-hover td:nth-of-type(5) .form-control")
     public WebElement referenceNumber;
-
-
-
+    @FindBy(css = "#tr-no-hover td:nth-of-type(5) .form-control")
+    public WebElement bankAccountDropdown;
 
     //Action Menu
     @FindBy(xpath = "//a[contains(text(),'Schedule')]")
@@ -45,7 +44,7 @@ public class WorkOrderBoard extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Complete')]")
     public WebElement completeTab;
 
-    public void createdPaymentRequest(){
+    public void createdPaymentRequest() {
         workOrderBoard.click();
         pendingCard.click();
         gearIcon.click();
@@ -71,13 +70,13 @@ public class WorkOrderBoard extends BasePage {
         assertion.assertTrue(paymentRequestTitleVerification().contains("Complete"));
 
 
-
-
     }
-    public String notesTextVerification(){
+
+    public String notesTextVerification() {
         return textVerification.getText();
     }
-    public String paymentRequestTitleVerification(){
+
+    public String paymentRequestTitleVerification() {
         return paymentRequestPageVerification.getText();
     }
 }

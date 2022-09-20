@@ -9,7 +9,6 @@ public class InnovaTestBase {
     protected WebDriver driver;
     AllPages allPages = new AllPages();
     @Parameters("browser")
-
     @BeforeClass
     public void setup(@Optional String browser) throws Exception {
         driver = Driver.getDriver(browser);

@@ -19,9 +19,9 @@ public class BasePage {
 
     AllPages allPages = new AllPages();
     String companyName = FakeData.CompanyName();
-    String testingCompanyName = "ANDERSON, CASPER AND BRAUN";
+    String testingCompanyName = "WUCKERT-GRADY";
     String packageName = FakeData.randomName();
-    String testingPackageName = "Hy Ball Package";
+    String testingPackageName = "KIHN LLC";
     String companyName2 = FakeData.CompanyName();
     String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();
@@ -46,6 +46,7 @@ public class BasePage {
     String departmentContact = FakeData.profession();
     String phoneContact = "(144) 305-6272";
     String contactAddress = FakeData.address();
+    String contactAddressPackage = "2728 Wood-lake dr";
     CharSequence licenceNumberContact = FakeData.random9DigitAccountNumber();
     CharSequence taxID = FakeData.random9DigitAccountNumber();
     CharSequence taxID1 = FakeData.random9DigitAccountNumber();
@@ -145,10 +146,55 @@ public class BasePage {
     @FindBy(css = ".card:nth-of-type(9) .table-responsive")
     public WebElement getDocumentTable;
 
+    @FindBy(css = "[data-tip='Download'] [data-tip]")
+    public WebElement documentsTrashIcon;
 
 
 
+    //create account
+    @FindBy(css = ".DropdownHoverLink")
+    public WebElement createContactAction;
+    @FindBy(id = "search_string")
+    public WebElement accountNameField;
+    @FindBy(xpath = "//body/div[@id='react-root']/div[1]/div[1]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/h4[2]/div[1]")
+    public WebElement accountNameOnCollectionsView;
+    @FindBy(xpath = "//button[contains(text(),'Create New Account')]")
+    public WebElement createNewAccount;
+    @FindBy(id = "contactFirstName")
+    public WebElement contactFirstName;
+    @FindBy(id = "contactLastName")
+    public WebElement contactLastName;
+    @FindBy(id = "contactTitle")
+    public WebElement contactTitle;
+    @FindBy(id = "contactDepartment")
+    public WebElement contactDepartment;
+    @FindBy(id = "contactEmail")
+    public WebElement contactEmail;
+    @FindBy(id = "contactWorkPhone")
+    public WebElement contactWorkPhone;
+    @FindBy(id = "physicalPostalCode")
+    public WebElement physicalPostalCode;
+    @FindBy(id = "physicalCity")
+    public WebElement physicalCity;
+    @FindBy(id = "physicalState")
+    public WebElement physicalState;
+    @FindBy(id = "physicalLine1")
+    public WebElement physicalLine1;
+    @FindBy(css = ".switch-slider")
+    public WebElement businessAccountSlider;
+    @FindBy(id = "firstName")
+    public WebElement firstNamePersonal;
+    @FindBy(id = "lastName")
+    public WebElement lastNamePersonal;
+    @FindBy(id = "phone")
+    public WebElement phoneNumberPersonal;
 
+    @FindBy(css = ".d-inline")
+    public WebElement getAccountName;
+
+    //Action Menu
+    @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
+    public WebElement toggleAccountView;
 
     //Buttons for modal pages
     @FindBy(xpath = "//button[contains(text(),'Save')]")
@@ -161,7 +207,7 @@ public class BasePage {
     public WebElement yesButton;
 
     //Accordion
-    @FindBy(css = "h5#documents")
+    @FindBy(xpath = "//*[@id=\"documents\"]/i")
 public WebElement documentsAccordion;
 
     //BACK OFFICE MENU

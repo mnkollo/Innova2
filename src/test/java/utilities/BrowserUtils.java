@@ -4,14 +4,15 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.*;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-public class BrowserUtils {
 
+public class BrowserUtils {
 
 
     /*
@@ -114,17 +115,17 @@ public class BrowserUtils {
         }
     }
 
-    public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
-        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
-                .withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS)
-                .ignoring(NoSuchElementException.class);
-        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
-            public WebElement apply(WebDriver driver) {
-                return webElement;
-            }
-        });
-        return element;
-    }
+//    public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
+//        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
+//                .withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS)
+//                .ignoring(NoSuchElementException.class);
+//        WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+//            public WebElement apply(WebDriver driver) {
+//                return webElement;
+//            }
+//        });
+//        return element;
+//    }
     public static void dropdownValue(WebElement element, String value){
         Select select = new Select (element); //Create object of Select class
         select.selectByValue(value);
@@ -140,9 +141,6 @@ public class BrowserUtils {
     //switch from frame to default content
     public static void iframe(WebElement element){
         Driver.getDriver().switchTo().frame(element);
-    }
-    public static void iframeIndex(int index){
-        Driver.getDriver().switchTo().frame(index);
     }
 
     public static void waitForClickablility(WebElement hovers) {
@@ -179,4 +177,3 @@ public class BrowserUtils {
         }
     }
 }
-

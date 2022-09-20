@@ -38,7 +38,6 @@ public class AccountsTest extends InnovaTestBase {
     }
 
     //Actions With Account
-
     @Test(priority = 6)
     public void TC_1058_VerifyUserCanAddAdditionalContact() {
         allPages.accountsPage().createContact();
@@ -58,12 +57,12 @@ public class AccountsTest extends InnovaTestBase {
     public void TC_1247_VerifyUserCanCreateNewSalesAgreementOnExistingAccount() {
         allPages.accountsPage().createSalesAgreementOnExistingSalesAgreement();
     }
-
     @Test(priority = 10)
     public void TC_1060_VerifyUserCanAddLocationToAccount() {
         allPages.accountsPage().addLocationToAnAccount();
         allPages.accountsPage().verifyNewLocationAddedToAccount();
     }
+
 
     @Test(priority = 11)
     public void TC_3430_VerifyUserCanAddNoteOnAccountPage() {

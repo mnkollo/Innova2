@@ -1,7 +1,6 @@
 package utilities;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
 import java.util.concurrent.TimeUnit;
 
@@ -10,7 +9,7 @@ public class InnovaTestBase {
     AllPages allPages = new AllPages();
     @Parameters("browser")
     @BeforeClass
-    public void setup(@Optional String browser) throws Exception {
+    public void setup(@Optional String browser)  {
         driver = Driver.getDriver(browser);
         driver.get(ConfigurationReader.getProperty("InnovaQa_url"));
         driver.manage().window().maximize();

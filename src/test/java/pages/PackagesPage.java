@@ -224,7 +224,9 @@ public class PackagesPage extends BasePage {
         accountNameField.sendKeys(companyName);
         searchButton.click();
         createNewAccount.click();
+        BrowserUtils.waitFor(3);
         contactFirstName.sendKeys(contactFN);
+        BrowserUtils.waitFor(1);
         contactLastName.sendKeys(contactLN);
         contactTitle.sendKeys(FakeData.randomName());
         contactDepartment.sendKeys(FakeData.randomName());
@@ -233,7 +235,7 @@ public class PackagesPage extends BasePage {
         physicalPostalCode.sendKeys("76123");
         physicalLine1.sendKeys(contactAddress);
         saveButton.click();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(4);
         gearIcon.click();
         toggleAccountView.click();
         BrowserUtils.waitFor(2);
@@ -409,9 +411,9 @@ public class PackagesPage extends BasePage {
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle);
         browseButton.click();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(5);
         Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/UploadItemsInFile.scpt ");
-        BrowserUtils.waitFor(20);
+        BrowserUtils.waitFor(23);
         importAllItemsButton.click();
         BrowserUtils.waitFor(22);
         xIconOnImportItemsProgressPage.click();
@@ -601,6 +603,7 @@ public class PackagesPage extends BasePage {
         accountsPage.sellerLegalName.sendKeys(companyName);
         BrowserUtils.waitFor(4);
         BrowserUtils.dropdownVisible(accountsPage.sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
+        BrowserUtils.waitFor(1);
         BrowserUtils.dropdownVisible(accountsPage.paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(accountsPage.taxIDType, "Dealer");
         accountsPage.payableToName.sendKeys(payableName);

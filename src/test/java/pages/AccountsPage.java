@@ -319,6 +319,10 @@ public class AccountsPage extends BasePage {
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
+    public void validateStatus() {
+        transactionsTab.click();
+
+    }
 
     public String accountNameOnCollectionsView() {
         return accountNameOnCollectionsView.getText();
@@ -339,6 +343,7 @@ public class AccountsPage extends BasePage {
         accountNameField.sendKeys(companyName);
         searchButton.click();
         createNewAccount.click();
+        BrowserUtils.waitFor(2);
         contactFirstName.sendKeys(contactFN);
         contactLastName.sendKeys(contactLN);
         contactTitle.sendKeys(FakeData.randomName());
@@ -625,7 +630,7 @@ public class AccountsPage extends BasePage {
         BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
         descriptionTextBox.sendKeys("Test");
         BrowserUtils.waitFor(3);
-        saveButtonOnAccountPage.click();
+        saveButton.click();                         //TODO fix this
         BrowserUtils.waitFor(7);
         documentsAccordionAccountsPage.click();
         BrowserUtils.waitFor(2);

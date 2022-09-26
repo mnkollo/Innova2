@@ -243,6 +243,15 @@ public WebElement documentsAccordion;
         return internalNotesSection.getText();
     }
 
+    public void searchForAccount() {
+        accountsTab.click();
+        BrowserUtils.waitFor(1);
+        searchField.sendKeys(companyName);
+        searchButton.click();
+        createdAccount.click();
+        BrowserUtils.waitFor(2);
+    }
+
 
 }
 

@@ -757,4 +757,16 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(1);
         gearIcon.click();
     }
+    public void createOpenPackage(){
+        navigateToActionMenuFromNormalView();
+        createPackageTab.click();
+        BrowserUtils.waitFor(1);
+        allPages.packagesPage().descriptionTextBox.sendKeys(FakeData.randomName());
+        BrowserUtils.dropdownVisible(allPages.packagesPage().typeDropdown,"Consignment");
+        BrowserUtils.dropdownVisible(allPages.packagesPage().saleFormatDropdown,"Cascade");
+        BrowserUtils.dropdownValue(allPages.packagesPage().agreementTypeDropdown,"2");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        Assert.assertEquals(allPages.packagesPage().getPackageStatusValidation(),"Open");
+    }
 }

@@ -19,7 +19,7 @@ public class BasePage {
 
     AllPages allPages = new AllPages();
     String companyName = FakeData.CompanyName();
-    String testingCompanyName = "WUCKERT-GRADY";
+    String testingCompanyName = "GREENHOLT, RUNOLFSDOTTIR AND HAHN";
     String packageName = FakeData.randomName();
     String testingPackageName = "KIHN LLC";
     String companyName2 = FakeData.CompanyName();

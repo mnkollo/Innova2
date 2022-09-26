@@ -26,6 +26,8 @@ public class PackagesPage extends BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+
+
     //Create Package - Modal
     @FindBy(name = "description")
     public WebElement descriptionTextBox;
@@ -33,6 +35,9 @@ public class PackagesPage extends BasePage {
     public WebElement typeDropdown;
     @FindBy(name = "saleFormat_ID")
     public WebElement saleFormatDropdown;
+
+    @FindBy(name = "AgreementType_ID")
+    public WebElement agreementTypeDropdown;
 
     //Packages Validation
     @FindBy(css = "h4#options")
@@ -48,6 +53,9 @@ public class PackagesPage extends BasePage {
 
     @FindBy(css = ".col-12 > .card > .collapse.show  .table-responsive")
     public WebElement getLienStatusValidation;
+
+    @FindBy(xpath = "//span[@class='badge badge-success float-right']")
+    public WebElement getPackageValidation;
 
     //Add Items and Add items through file modals
     @FindBy(xpath = "//button[contains(text(),'Import All Items')]")
@@ -255,6 +263,9 @@ public class PackagesPage extends BasePage {
 
     public String packageNameValidation() {
         return packageValidation.getText();
+    }
+    public String getPackageStatusValidation(){
+        return getPackageValidation.getText();
     }
 
     public String excludedItemValidation() {

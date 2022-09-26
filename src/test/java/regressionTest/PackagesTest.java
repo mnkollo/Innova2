@@ -98,7 +98,8 @@ public class PackagesTest extends InnovaTestBase {
     }
     @Test(priority = 37)
     public void TC_1286_OpenPackagesPage(){
-
+        allPages.packagesPage().searchForAccountPackage();
+        allPages.accountsPage().createOpenPackage();
     }
 
 }

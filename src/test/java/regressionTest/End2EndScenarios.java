@@ -23,8 +23,6 @@ public class End2EndScenarios extends InnovaTestBase {
         //Validate Refund is Posted
         allPages.accountsPage().searchForAccount();
         allPages.accountsPage().validateStatus();
-
-        BrowserUtils.waitFor(10000);
     }
 
 }

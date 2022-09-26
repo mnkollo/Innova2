@@ -2,13 +2,14 @@ package regressionTest;
 
 import org.testng.annotations.*;
 import utilities.AllPages;
+import utilities.BrowserUtils;
 import utilities.InnovaTestBase;
 
 public class End2EndScenarios extends InnovaTestBase {
 
     AllPages allPages = new AllPages();
 
-    @Test(priority = 20)
+    @Test(priority = 21)
     public void CreateAccount_ApplyDeposit_RefundDeposit_CompletePaymentRequest() {
         //Create Account
         allPages.accountsPage().createBusinessAccountAllData();
@@ -19,6 +20,11 @@ public class End2EndScenarios extends InnovaTestBase {
         allPages.accountsPage().verifyUserCanRefundDepositFromAccountPage();
         //Work Order Board
         allPages.workOrderBoard().createdPaymentRequest();
+        //Validate Refund is Posted
+        allPages.accountsPage().searchForAccount();
+        allPages.accountsPage().validateStatus();
+
+        BrowserUtils.waitFor(10000);
     }
 
 }

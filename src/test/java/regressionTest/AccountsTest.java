@@ -114,7 +114,7 @@ public class AccountsTest extends InnovaTestBase {
         allPages.accountsPage().applyDepositByCreditCardToAccountPage();
     }
 
-    @Test(priority = 19)
+    @Test(priority = 20)
     public void TC_3119_VerifyUserCanRefundDepositFromAccountPage() {
         allPages.accountsPage().verifyUserCanRefundDepositFromAccountPage();
     }

@@ -16,7 +16,7 @@ public class WorkOrderBoard extends BasePage {
     }
 
     // Pending Section
-    @FindBy(css = "[class^='lanes']:nth-of-type(2) .card:nth-child(2) .card-text")
+    @FindBy(xpath = "(//span[contains(text(),'Payment Request')])[1]")
     public WebElement pendingCard;
 
     //Payment Request Section
@@ -33,9 +33,9 @@ public class WorkOrderBoard extends BasePage {
     public WebElement datePickerTextBox;
     @FindBy(css = "[role] .react-datepicker__week:nth-of-type(2) [aria-label='day-4']")
     public WebElement selectTodayDate;
-    @FindBy(css = "#tr-no-hover td:nth-of-type(5) .form-control")
+    @FindBy(xpath = "//input[@class='form-control input-xs form-control']")
     public WebElement referenceNumber;
-    @FindBy(css = "#tr-no-hover td:nth-of-type(5) .form-control")
+    @FindBy(xpath = "//select[@class='form-control input-xs form-control']")
     public WebElement bankAccountDropdown;
 
     //Action Menu
@@ -46,6 +46,7 @@ public class WorkOrderBoard extends BasePage {
 
     public void createdPaymentRequest() {
         workOrderBoard.click();
+        BrowserUtils.waitFor(5);
         pendingCard.click();
         gearIcon.click();
         addNoteTab.click();
@@ -60,6 +61,8 @@ public class WorkOrderBoard extends BasePage {
         BrowserUtils.waitFor(1);
         assertion.assertTrue(paymentRequestTitleVerification().contains("Scheduled"));
         BrowserUtils.waitFor(1);
+        BrowserUtils.dropdownVisible(bankAccountDropdown,"FNB Stanton 089");
+        BrowserUtils.waitFor(1);
         datePickerTextBox.click();
         BrowserUtils.waitFor(1);
         selectTodayDate.click();
@@ -68,8 +71,6 @@ public class WorkOrderBoard extends BasePage {
         completeTab.click();
         yesButton.click();
         assertion.assertTrue(paymentRequestTitleVerification().contains("Complete"));
-
-
     }
 
     public String notesTextVerification() {

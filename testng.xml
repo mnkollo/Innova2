@@ -4,7 +4,7 @@
     <test verbose="2" name="C:/Users/Michael/Documents/Innova">
         <classes>
             <class name="regressionTest.AccountsTest"/>
-<!--            <class name="regressionTest.End2EndScenarios"/>-->
+            <class name="regressionTest.End2EndScenarios"/>
             <class name="regressionTest.PackagesTest"/>
         </classes>
     </test>

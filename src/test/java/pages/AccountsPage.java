@@ -240,8 +240,6 @@ public class AccountsPage extends BasePage {
     public WebElement contactsAccordion;
     @FindBy(css = "h5#salesAgreement > .fa.fa-lg.fa-plus")
     public WebElement salesAgreementAccordion;
-    @FindBy(css = "h5#locations > .fa.fa-lg.fa-plus")
-    public WebElement locationsAccordion;
     @FindBy(css = "h5#collectionsLog > .fa.fa-lg.fa-plus")
     public WebElement collectionsLogAccordion;
 
@@ -287,13 +285,6 @@ public class AccountsPage extends BasePage {
         return location2Card.getText();
     }
 
-    public void toggleToNormalAccountView() {
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-        BrowserUtils.waitFor(3);
-        toggleAccountView.click();
-    }
-
     public String accountCreated() {
         return getAccountName.getText();
     }
@@ -313,7 +304,7 @@ public class AccountsPage extends BasePage {
 
     public void searchForAccount() {
         accountsTab.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(3);
         searchField.sendKeys(companyName);
         searchButton.click();
         createdAccount.click();
@@ -330,7 +321,7 @@ public class AccountsPage extends BasePage {
 
     public void accountCreatedDashboard() {
         searchForAccount();
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(6);
         Assert.assertTrue(accountNameOnCollectionsView().contains(companyName.toUpperCase() + " "));
     }
 
@@ -396,6 +387,7 @@ public class AccountsPage extends BasePage {
         gearIcon.click();
         toggleAccountView.click();
         editAccountIcon.click();
+        BrowserUtils.waitFor(1);
         accountNameField1.clear();
         accountNameField1.sendKeys(companyName2);
         saveButton.click();
@@ -491,8 +483,9 @@ public class AccountsPage extends BasePage {
         salesAgreementTab.click();
         BrowserUtils.waitFor(3);
         sellerLegalName.sendKeys(companyName);
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
+        BrowserUtils.waitFor(3);
         BrowserUtils.dropdownVisible(paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(taxIDType, "Dealer");
         payableToName.sendKeys(payableName);
@@ -505,6 +498,7 @@ public class AccountsPage extends BasePage {
         accountHeader.click();
         BrowserUtils.waitFor(1);
         toggleToNormalAccountView();
+        BrowserUtils.waitFor(2);
         assertion.assertTrue(salesAgreementCardValidation().contains(payableName));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber1 + ".00%"));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber2 + ".00%"));
@@ -544,6 +538,7 @@ public class AccountsPage extends BasePage {
         comissionPreAuction.sendKeys(randomNumber6);
         saveIcon.click();
         accountHeader.click();
+        BrowserUtils.waitFor(1);
         toggleToNormalAccountView();
         assertion.assertTrue(salesAgreementCardValidation().contains(payableName1));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber4 + ".00%"));
@@ -574,9 +569,10 @@ public class AccountsPage extends BasePage {
         locationContact.click();
         BrowserUtils.waitFor(2);
         firstContactName.click();
+        BrowserUtils.waitFor(1);
         saveButton.click();
         BrowserUtils.waitFor(1);
-        locationsAccordion.click();
+        locationsAccordionPlus.click();
         BrowserUtils.waitFor(2);
     }
     public void verifyNewLocationAddedToAccount() {
@@ -616,7 +612,8 @@ public class AccountsPage extends BasePage {
         navigateToActionMenuFromNormalView();
         uploadDocumentTab.click();
         BrowserUtils.waitFor(2);
-        descriptionTextBox.sendKeys("Test");
+//        BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
+//        descriptionTextBox.sendKeys("Test");
         String mainHandle = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle);
@@ -631,7 +628,7 @@ public class AccountsPage extends BasePage {
         descriptionTextBox.sendKeys("Test");
         BrowserUtils.waitFor(3);
         saveButton.click();                         //TODO fix this
-        BrowserUtils.waitFor(7);
+        BrowserUtils.waitFor(8);
         documentsAccordionAccountsPage.click();
         BrowserUtils.waitFor(2);
         Assert.assertTrue(accountDocValidation().contains("Miscellaneous"));
@@ -752,11 +749,7 @@ public class AccountsPage extends BasePage {
         toggleToNormalAccountView();
         assertion.assertTrue(internalNotesSectionValidation().contains("Deposit Refund Requested"));
     }
-    public void navigateToActionMenuFromNormalView() {
-        toggleToNormalAccountView();
-        BrowserUtils.waitFor(1);
-        gearIcon.click();
-    }
+
     public void createOpenPackage(){
         navigateToActionMenuFromNormalView();
         createPackageTab.click();

@@ -8,9 +8,6 @@ import utilities.AllPages;
 import utilities.BrowserUtils;
 import utilities.Driver;
 import utilities.FakeData;
-
-import java.util.Locale;
-
 public class BasePage {
 
     public BasePage() {
@@ -19,7 +16,7 @@ public class BasePage {
 
     AllPages allPages = new AllPages();
     String companyName = FakeData.CompanyName();
-    String testingCompanyName = "GREENHOLT, RUNOLFSDOTTIR AND HAHN";
+    String testingCompanyName = "ROMAGUERA, GRADY AND KUPHAL";
     String packageName = FakeData.randomName();
     String testingPackageName = "KIHN LLC";
     String companyName2 = FakeData.CompanyName();
@@ -46,7 +43,6 @@ public class BasePage {
     String departmentContact = FakeData.profession();
     String phoneContact = "(144) 305-6272";
     String contactAddress = FakeData.address();
-    String contactAddressPackage = "2728 Wood-lake dr";
     CharSequence licenceNumberContact = FakeData.random9DigitAccountNumber();
     CharSequence taxID = FakeData.random9DigitAccountNumber();
     CharSequence taxID1 = FakeData.random9DigitAccountNumber();
@@ -127,9 +123,12 @@ public class BasePage {
     @FindBy(css = "[class='internal-notes']")
     public WebElement internalNotesSection;
 
+    @FindBy(css = ".close > span")
+    public WebElement xButtonOnMediaFile;
     //gear Icon
     @FindBy(xpath = "//a[contains(text(),' Add Note')]")
     public WebElement addNoteTab;
+
     @FindBy(css = ".btn-square.button-dropdown.dropbtn.nav")
     public WebElement gearIcon;
 
@@ -140,16 +139,11 @@ public class BasePage {
     public WebElement descriptionTextBox;
     @FindBy(name = "documentType_ID")
     public WebElement documentTypeDropdown;
-    @FindBy(css = ".modal-footer .btn-primary")
-    public WebElement saveButtonOnUploadDoc;
-
     @FindBy(css = ".card:nth-of-type(9) .table-responsive")
     public WebElement getDocumentTable;
 
     @FindBy(css = "[data-tip='Download'] [data-tip]")
     public WebElement documentsTrashIcon;
-
-
 
     //create account
     @FindBy(css = ".DropdownHoverLink")
@@ -196,9 +190,34 @@ public class BasePage {
     @FindBy(xpath = "//a[contains(text(),' Toggle Account View')]")
     public WebElement toggleAccountView;
 
+    @FindBy(xpath = "//a[contains(text(),' Location')]")
+    public WebElement addLocationTab;
+
+    //Add Location - Modal
+    @FindBy(id = "locationName")
+    public WebElement locationName;
+    @FindBy(id = "postalCode")
+    public WebElement postalCode;
+    @FindBy(id = "phone")
+    public WebElement locationPhone;
+    @FindBy(id = "addressLine1")
+    public WebElement locationAddress;
+    @FindBy(xpath = "//div[contains(text(),'Select...')]")
+    public WebElement locationContact;
+    @FindBy(name = "notes")
+    public WebElement internalLocationNotes;
+    @FindBy(xpath = "/html/body/div/div/div[@role='dialog']/div[@role='document']//form//div[@class='col-6 col-md-8']/div/div/div/div/div[.='Arnoldo West']")
+    public WebElement firstContactName;
+
+    @FindBy(xpath = "(//div[@class='col-padding col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3'])[2]")
+    public WebElement location2Card;
+
     //Buttons for modal pages
     @FindBy(xpath = "//button[contains(text(),'Save')]")
     public WebElement saveButton;
+
+    @FindBy(xpath = "//button[contains(text(),'Send')]")
+    public WebElement sendButton;
     @FindBy(xpath = "//span[contains(text(),'Browse')]")
     public WebElement browseButton;
     @FindBy(xpath = "//button[contains(text(),'No')]")
@@ -209,6 +228,12 @@ public class BasePage {
     //Accordion
     @FindBy(xpath = "//*[@id=\"documents\"]/i")
 public WebElement documentsAccordion;
+
+
+    @FindBy(css = "h5#locations > .fa.fa-lg.fa-plus")
+    public WebElement locationsAccordionPlus;
+    @FindBy(css = "h5#contact > .fa.fa-lg.fa-minus")
+    public WebElement locationsAccordionMinus;
 
     //BACK OFFICE MENU
     @FindBy(css = ".nav > li:nth-of-type(3) > .nav-link")
@@ -248,8 +273,20 @@ public WebElement documentsAccordion;
         BrowserUtils.waitFor(1);
         searchField.sendKeys(companyName);
         searchButton.click();
+        BrowserUtils.waitFor(1);
         createdAccount.click();
         BrowserUtils.waitFor(2);
+    }
+    public void toggleToNormalAccountView() {
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
+        BrowserUtils.waitFor(3);
+        toggleAccountView.click();
+    }
+    public void navigateToActionMenuFromNormalView() {
+        toggleToNormalAccountView();
+        BrowserUtils.waitFor(1);
+        gearIcon.click();
     }
 
 

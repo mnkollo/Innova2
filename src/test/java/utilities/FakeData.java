@@ -6,102 +6,83 @@ public class FakeData {
 
     public static String zipCode() {
         Faker fakerPostalCode = new Faker();
-        String fakerzipCode = fakerPostalCode.address().zipCode();
-        return fakerzipCode;
+        return fakerPostalCode.address().zipCode();
     }
     public static String profession() {
         Faker fP = new Faker();
-        String fakerPro = fP.company().profession();
-        return fakerPro;
+        return fP.company().profession();
     }
     public static String address() {
         Faker fakerAddressOne = new Faker();
-        String fakerAddress = fakerAddressOne.address().streetAddress();
-        return fakerAddress;
+        return fakerAddressOne.address().streetAddress();
     }
     public static String fakerState() {
         Faker fs = new Faker();
-        String fakerState = fs.address().state();
-        return fakerState;
+        return fs.address().state();
     }
 
     public static String city() {
         Faker fakerCityOne = new Faker();
-        String fakerCity = fakerCityOne.address().city();
-        return fakerCity;
+        return fakerCityOne.address().city();
     }
 
     public static String phoneNumber() {
         Faker fakerPhoneNumberOne = new Faker();
-        String fakerPhoneNumber = fakerPhoneNumberOne.phoneNumber().cellPhone();
-        return fakerPhoneNumber;
+        return fakerPhoneNumberOne.phoneNumber().cellPhone();
     }
 
     public static CharSequence random2DigitNumber() {
         Faker fakerNumTwo = new Faker();
-        String fakerNum = fakerNumTwo.number().digits(2);
-        return fakerNum;
+        return fakerNumTwo.number().digits(2);
     }
     public static CharSequence random3DigitNumber() {
         Faker fakerNumThree = new Faker();
-        String fakerN = fakerNumThree.number().digits(2);
-        return fakerN;
+        return fakerNumThree.number().digits(2);
     }
 
     public static CharSequence random9DigitAccountNumber() {
         Faker fakeNum = new Faker();
-        String fakerNumTwo = fakeNum.number().digits(9);
-        return fakerNumTwo;
+        return fakeNum.number().digits(9);
     }
     public static String fakerFullName(){
         Faker fn = new Faker();
-        String fakerName = fn.name().fullName();
-        return fakerName;
+        return fn.name().fullName();
     }
     public static String fakerFirstName(){
         Faker fn = new Faker();
-        String fakerFn = fn.name().firstName();
-        return fakerFn;
+        return fn.name().firstName();
     }
     public static String fakerLastName(){
         Faker ln = new Faker();
-        String fakerLn = ln.name().lastName();
-        return fakerLn;
+        return ln.name().lastName();
     }
     public static String fakerUserName(){
         Faker userName = new Faker();
-        String fakeruserName = userName.name().username();
-        return fakeruserName;
+        return userName.name().username();
     }
     public static String randomName() {
         Faker fakerName = new Faker();
-        String name = fakerName.funnyName().name();
-        return name;
+        return fakerName.funnyName().name();
     }
     public static String email() {
         Faker em = new Faker();
-        String email = em.internet().emailAddress();
-        return email;
+        return em.internet().emailAddress();
     }
     public static String CompanyName() {
         Faker cn = new Faker();
-        String companyName = cn.company().name();
-        return companyName;
+        return cn.company().name();
     }
     public static String website() {
         Faker wb = new Faker();
-        String websiteName = wb.internet().domainName();
-        return websiteName;
+        return wb.internet().domainName();
     }
     public static String randomText() {
         Faker rt = new Faker();
-        String randomText = rt.howIMetYourMother().catchPhrase();
-        return randomText;
+        return rt.howIMetYourMother().catchPhrase();
     }
     public static String randomNumber() {
         Faker rn = new Faker();
-        String randomNumber = String.valueOf(rn.number().randomDigitNotZero());
-        return randomNumber;
+        return String.valueOf(rn.number().randomDigitNotZero());
     }
 
 }

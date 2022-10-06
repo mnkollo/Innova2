@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [All Test Suite]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="C:/Users/Michael/Documents/Innova(failed)">
+    <classes>
+      <class name="regressionTest.End2EndScenarios">
+        <methods>
+          <include name="CreateAccount_ApplyDeposit_RefundDeposit_CompletePaymentRequest"/>
+          <include name="tearDown"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- regressionTest.End2EndScenarios -->
+      <class name="regressionTest.AccountsTest">
+        <methods>
+          <include name="TC_3483_VerifyUserCanApplyDepositByCheckToAccountPage"/>
+          <include name="TC_3425_VerifyUserCanEditAccount"/>
+          <include name="TC_1113_VerifyUserCanAddBankAccountToAccount"/>
+          <include name="TC_3476_VerifyAbleToAddCollectionsNoteOnAccountPage"/>
+          <include name="TC_3486_VerifyUserCanUploadDocumentOnAccountPage"/>
+          <include name="TC_2764_VerifyUserCanApplyDepositByMoneyOrderToAccountPage"/>
+          <include name="TC_3430_VerifyUserCanAddNoteOnAccountPage"/>
+          <include name="VerifyUserCanLoginSuccessfully"/>
+          <include name="TC_1054_VerifyUserCanCreateSalesAgreementOnNewAccount"/>
+          <include name="TC_1052_VerifyCreatedAccountHasCorrectDataOnDashboard"/>
+          <include name="tearDown"/>
+          <include name="TC_3678_VerifyUserCanCreatePersonalAccount"/>
+          <include name="VerifyUserCanCreateBusinessAccountWithAllFields"/>
+          <include name="TC_2760_VerifyUserCanApplyDepositByCreditCardToAccountPage"/>
+          <include name="TC_1058_VerifyUserCanAddAdditionalContact"/>
+          <include name="TC_1060_VerifyUserCanAddLocationToAccount"/>
+          <include name="TC_1247_VerifyUserCanCreateNewSalesAgreementOnExistingAccount"/>
+          <include name="TC_3482_VerifyUserCanApplyDepositByMoneyOrderToAccountPage"/>
+          <include name="TC_3119_VerifyUserCanRefundDepositFromAccountPage"/>
+          <include name="TC_2764_VerifyUserCanApplyDepositByWireTransferToAccountPage"/>
+          <include name="TC_3484_VerifyUserCanApplyDepositByCashToAccountPage"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- regressionTest.AccountsTest -->
+      <class name="regressionTest.PackagesTest">
+        <methods>
+          <include name="TC_7562_VerifyUserCanDeleteItemInAPackageInWorkingStatus"/>
+          <include name="TC_1067_VerifyUserCanUseVIN_DecodeWhenAddingItemToAPackage"/>
+          <include name="TC_1771_VerifyUserCanVerifyPriceIconForItem"/>
+          <include name="TC_1766_VerifyUserCanVerifyLienIconForItem"/>
+          <include name="TC_7079_VerifyUserCanRemoveValueServicesFromAPackage"/>
+          <include name="TC_6385_VerifyUserCanChangeStatusForLienHolder_ExceptLetterReceived"/>
+          <include name="TC_7980_VerifyUserCanEditAddValueServiceToAPackage"/>
+          <include name="TC_7121_VerifyUserCanCreateSalesAgreementFromAPackage"/>
+          <include name="TC_1070_VerifyUserCanAddValueServiceToAPackageAgain"/>
+          <include name="TC_1752_VerifyUserCanMovePackageToContractInStatus"/>
+          <include name="TC_7273_VerifyUserCanAddNoteToAnItem"/>
+          <include name="TC_1765_VerifyUserCanVerifyTitleIconForItem"/>
+          <include name="TC_1069_VerifyUserCanAddLienHolderToAPackage"/>
+          <include name="AddItemToAPackageWithRequiredFields"/>
+          <include name="TC_3447_VerifyUserCanMovePackageToContractOutStatus"/>
+          <include name="TC_7178_VerifyUserCanRequestInspectionFromPackage"/>
+          <include name="TC_1771_VerifyUserCanVerifyEventIconForItem"/>
+          <include name="TC_1065_AddItemToAPackageWithAllFields"/>
+          <include name="TC_1768_VerifyUserCanVerifyInspectionIconForItem"/>
+          <include name="TC_3443_CreateConsignmentPackageFromAccountCOG"/>
+          <include name="TC_1286_OpenPackagesPage"/>
+          <include name="TC_1766_VerifyUserCanVerifyLocationIconForItem"/>
+          <include name="tearDown"/>
+          <include name="TC_7098_VerifyUserCanDeleteDocumentsFromAPackage"/>
+          <include name="TC_VerifyUserCanAddLoadOutInstructions"/>
+          <include name="TC_2875_VerifyUserCanUploadDocumentToAPackage"/>
+          <include name="TC_3468_VerifyUserCanAddMediaFileOnItemPage"/>
+          <include name="TC_1070_VerifyUserCanAddValueServiceToAPackage"/>
+          <include name="TC_1770_VerifyUserCanVerifyValueServicesIconForItem"/>
+          <include name="TC_1773_VerifyUserCanVerifyQCIconForItem"/>
+          <include name="TC_1752_VerifyUserCanMovePackageToWonStatus"/>
+          <include name="TC_7090_addNoteToAPackage"/>
+          <include name="TC_1066_VerifyUserCanAddItemsToAPackageFromFile"/>
+          <include name="TC_1771_VerifyAfterVerificationStepsToPostItemOnlineItemVisibleOnAuctionSite"/>
+          <include name="TC_7487_VerifyUserCanMovePackageToPendingContractStatus"/>
+          <include name="TC_1766_VerifyUserCanVerifyDetailsIconForItem"/>
+          <include name="TC_1774_VerifyUserCanVerifyGoOnlineIconForItem"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- regressionTest.PackagesTest -->
+    </classes>
+  </test> <!-- C:/Users/Michael/Documents/Innova(failed) -->
+</suite> <!-- Failed suite [All Test Suite] -->

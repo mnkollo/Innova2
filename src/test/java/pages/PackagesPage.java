@@ -11,9 +11,9 @@ import utilities.BrowserUtils;
 import utilities.Driver;
 import utilities.FakeData;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Set;
 
 import static utilities.Driver.driver;
 
@@ -25,7 +25,6 @@ public class PackagesPage extends BasePage {
     public PackagesPage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
-
 
 
     //Create Package - Modal
@@ -57,6 +56,9 @@ public class PackagesPage extends BasePage {
     @FindBy(xpath = "//span[@class='badge badge-success float-right']")
     public WebElement getPackageValidation;
 
+    @FindBy(css = ".col-12 > .card > .collapse.show  .table-responsive")
+    public WebElement getInspectionValidation;
+
     //Add Items and Add items through file modals
     @FindBy(xpath = "//button[contains(text(),'Import All Items')]")
     public WebElement importAllItemsButton;
@@ -71,6 +73,29 @@ public class PackagesPage extends BasePage {
     @FindBy(xpath = "//a[contains(text(),'Add Items from File')]")
     public WebElement addItemsFromAFileTab;
 
+    //Load Out Instructions
+    @FindBy(name = "isJumpStartAvailable")
+    public WebElement jumpStartAvailableDropdown;
+    @FindBy(name = "isLoadingDockAvailable")
+    public WebElement loadingDocDropdown;
+    @FindBy(name = "isForkLiftAvailable")
+    public WebElement forkliftDropdown;
+    @FindBy(id = "sizeOfForklift")
+    public WebElement sizeOfForkliftTextBox;
+    @FindBy(name = "isNoticeRequiredToView")
+    public WebElement noticeRequiredDropdown;
+    @FindBy(name = "isLoadOutAssistanceAvailable")
+    public WebElement loadOutAssistanceDropdown;
+    @FindBy(id = "loadOutAssistanceComment")
+    public WebElement assistInfoCommentTextBox;
+    @FindBy(name = "hasSiteRestrictions")
+    public WebElement siteRestrictionsDropdown;
+    @FindBy(name = "siteRestrictionsDetail")
+    public WebElement siteRestrictDetailTextBox;
+    @FindBy(name = "hasSpecialInstructions")
+    public WebElement specialInstructionsDropdown;
+    @FindBy(name = "specialInstructions")
+    public WebElement specialInstructionsTextBox;
 
     //Add Value Services - Modal
     @FindBy(name = "blueChip_ID")
@@ -100,6 +125,9 @@ public class PackagesPage extends BasePage {
     @FindBy(css = "h5#LienHolders > .fa.fa-lg.fa-plus")
     public WebElement lienHolderAccordion;
 
+    @FindBy(id = "workOrders")
+    public WebElement workOrdersAccordion;
+
     //Package Page toggle view
     @FindBy(css = ".col-12.col-padding-right.col-sm-6")
     public WebElement salesAgreementCardPackage;
@@ -110,9 +138,31 @@ public class PackagesPage extends BasePage {
     @FindBy(id = "retailCommission")
     public WebElement getPreAuction;
 
+    //Select Inspection Dates Modal
+    @FindBy(xpath = "//a[contains(text(),'Request Inspection')]")
+    public WebElement requestInspectionTab;
+
+    @FindBy(css = "tbody tr:nth-child(4) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
+    public WebElement inspectorDropdownFourthItem;
+    @FindBy(css = "tbody tr:nth-child(5) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
+    public WebElement inspectorDropdownFifthItem;
+    @FindBy(css = "tbody tr:nth-child(6) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
+    public WebElement inspectorDropdownSixthItem;
+    @FindBy(css = "tr:nth-of-type(7) > td:nth-of-type(5) > .form-group.position-relative > .form-control.input-xs")
+    public WebElement performInspectionDropdownSevenNo;
+    @FindBy(css = "tr:nth-of-type(8) > td:nth-of-type(5) > .form-group.position-relative > .form-control.input-xs")
+    public WebElement performInspectionDropdownEightNo;
+    @FindBy(css = "tr:nth-of-type(9) > td:nth-of-type(5) > .form-group.position-relative > .form-control.input-xs")
+    public WebElement performInspectionDropdownNineNo;
+    @FindBy(css = "tr:nth-of-type(10) > td:nth-of-type(5) > .form-group.position-relative > .form-control.input-xs")
+    public WebElement performInspectionDropdownTenNo;
+
+
     //Items Section
-    @FindBy(css = "a:nth-of-type(1) > .pl-4.vertical-align-middle > input[type='checkbox']")
+    @FindBy(xpath = "(//a[@class='pointer a-table'])[1]")
     public WebElement firstItemInItemSection;
+    @FindBy(xpath = "(//input[@type='checkbox'])[4]")
+    public WebElement fourthItemIncludeInItemSection;
 
     @FindBy(css = ".border-gray.items-table.table.table-header-primary.table-sm")
     public WebElement itemsValidation;
@@ -146,9 +196,43 @@ public class PackagesPage extends BasePage {
     public WebElement lienStatus;
     @FindBy(name = "contact_ID")
     public WebElement contactDropdown;
-
     @FindBy(name = "status_ID")
     public WebElement lienSearchStatusDropdown;
+
+    @FindBy(xpath = "//a[contains(text(),'Pending Contract')]")
+    public WebElement pendingContractTab;
+    @FindBy(xpath = "//a[contains(text(),'Contract Out')]")
+    public WebElement contactOutTab;
+    @FindBy(xpath = "//a[contains(text(),'Contract In')]")
+    public WebElement contactInTab;
+    @FindBy(xpath = "//a[contains(text(),'Won')]")
+    public WebElement wonTab;
+
+    //VerificationIcons
+    @FindBy(xpath = "(//i[@class='fa fa-leanpub text-danger fa-2x'])[1]")
+    public WebElement titleVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-university text-success fa-2x'])[1]")
+    public WebElement lienVerificationIcon;
+    @FindBy(css = ".d-flex.flex-column.h-100")
+    public WebElement internalNotesVerification;
+    @FindBy(xpath = "(//i[@class='fa fa-university text-danger fa-2x'])[1]")
+    public WebElement lienVerificationRedIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-map-marker-alt text-danger fa-2x'])[1]")
+    public WebElement locationVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-clipboard-check text-danger fa-2x'])[1]")
+    public WebElement inspectionVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-info-circle text-danger fa-2x'])[1]")
+    public WebElement detailsVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-tools text-danger fa-2x'])[1]")
+    public WebElement valueServicesVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-calendar-week text-danger fa-2x'])[1]")
+    public WebElement eventVerificationIcon;
+    @FindBy(xpath = "(//i[@class='fa fa-dollar text-danger fa-2x'])[1]")
+    public WebElement pricingVerificationIconItemPage;
+    @FindBy(xpath = "(//i[@class='fa fa-award text-danger fa-2x'])[1]")
+    public WebElement qcVerificationIconItemPage;
+    @FindBy(xpath = "(//i[@class='fa fa-globe text-danger fa-2x'])[1]")
+    public WebElement goOnlineVerificationIcon;
 
     //Create Package Item - Modal
     @FindBy(css = ".modal-body [class^='col'] .react-select__value-container")
@@ -185,7 +269,10 @@ public class PackagesPage extends BasePage {
     public WebElement primaryLocation;
     @FindBy(css = "[class^='input-xs no-padding r'] .react-select__value-container")
     public WebElement locationDropdown;
-
+    @FindBy(xpath = "/html/body/div[2]/div/div[1]/div/div/form/div[2]/div[8]/div[3]/div/div/div[1]/div[1]")
+    public WebElement eventDropdown;
+    @FindBy(xpath = "//div[contains(text(),'Automation')]")
+    public WebElement automationEvent;
     @FindBy(id = "vin")
     public WebElement serialNumber;
     @FindBy(xpath = "//button[contains(text(),'Decode')]")
@@ -204,10 +291,40 @@ public class PackagesPage extends BasePage {
     @FindBy(id = "assetNumber")
     public WebElement assetTextBox;
 
-//sales agreement
-
+    //sales agreement
     @FindBy(xpath = "//a[contains(text(),'Sales Agreement')]")
     public WebElement salesAgreementTab;
+
+    // Sell Item - Modal
+    @FindBy(name = "sold_By")
+    public WebElement soldByDropdown;
+    @FindBy(id = "price")
+    public WebElement priceTextBox;
+    @FindBy(xpath = "//div[@class='react-select__value-container css-g1d714-ValueContainer']")
+    public WebElement buyerDropdown;
+
+    //Item Page - Action Menu
+    @FindBy(xpath = "//a[contains(text(),' Add Media Files')]")
+    public WebElement addMediaFilesTab;
+
+    @FindBy(xpath = "//a[contains(text(),' Sell Item')]")
+    public WebElement sellItemTab;
+
+    //Item Page
+    @FindBy(css = "a:nth-of-type(1) > td:nth-of-type(3)")
+    public WebElement thirdItemInItemAccordion;
+    @FindBy(id = "wholesalePrice")
+    public WebElement wholesaleTextBox;
+    @FindBy(id = "retailPrice")
+    public WebElement retailPriceTextBox;
+
+    @FindBy(xpath = "//a[contains(text(),'View Listing')]")
+    public WebElement viewListingTab;
+
+    //Elements
+    @FindBy(css = "[class$='col-xl-3']:nth-of-type(1) [currentitem]")
+    public WebElement primaryEditIcon;
+
     //-------------------------------------------------------------------------------------------------------------------
     public void createAConsignmentPackage() {
         allPages.accountsPage().navigateToActionMenuFromNormalView();
@@ -224,6 +341,7 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(packageCardValidation().contains("Consignment"));
         assertion.assertTrue(packageCardValidation().contains("Cascade"));
     }
+
     public void createBusinessAccountAllDataPackage() {
         accountsTab.click();
         BrowserUtils.waitFor(2);
@@ -249,6 +367,7 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(2);
         Assert.assertEquals(accountCreated(), companyName.toUpperCase(Locale.ROOT) + " ");
     }
+
     public void searchForAccountPackage() {
         accountsTab.click();
         BrowserUtils.waitFor(1);
@@ -257,6 +376,7 @@ public class PackagesPage extends BasePage {
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
+
     public String accountCreated() {
         return getAccountName.getText();
     }
@@ -264,7 +384,8 @@ public class PackagesPage extends BasePage {
     public String packageNameValidation() {
         return packageValidation.getText();
     }
-    public String getPackageStatusValidation(){
+
+    public String getPackageStatusValidation() {
         return getPackageValidation.getText();
     }
 
@@ -292,12 +413,15 @@ public class PackagesPage extends BasePage {
         return itemsSection.getText();
     }
 
+    public String getInspectionWorkOrderValidation() {
+        return getInspectionValidation.getText();
+    }
+
     public String auditVerifications() {
         return auditVerification.getText();
     }
-
-    public String lienStatusVerifications() {
-        return auditVerification.getText();
+    public String internalNotesVerification() {
+        return internalNotesVerification.getText();
     }
 
     public String verifyPriceOfInspection() {
@@ -315,9 +439,11 @@ public class PackagesPage extends BasePage {
     public String auctionLessThan2500Validation() {
         return getAuctionLessThan2500.getText();
     }
+
     public String auctionMoreThan2500Validation() {
         return getAuctionMoreThan2500.getText();
     }
+
     public String preAuctionValidation() {
         return getPreAuction.getText();
     }
@@ -338,7 +464,13 @@ public class PackagesPage extends BasePage {
         additionalDetailsTextBox.sendKeys(textAdditionalDetails328i);
         disclaimerTextBox.sendKeys(disclaimer);
         locationDropdown.click();
+        BrowserUtils.waitFor(1);
         primaryLocation.click();
+        BrowserUtils.waitFor(2);
+        eventDropdown.click();
+        BrowserUtils.waitFor(2);
+        automationEvent.click();
+        BrowserUtils.waitFor(1);
         estimatedValueTextBox.sendKeys(estimatedValue328i);
         BrowserUtils.waitFor(1);
         saveButton.click();
@@ -367,6 +499,10 @@ public class PackagesPage extends BasePage {
         disclaimerTextBox.sendKeys(disclaimer);
         locationDropdown.click();
         primaryLocation.click();
+        BrowserUtils.waitFor(1);
+        eventDropdown.click();
+        BrowserUtils.waitFor(1);
+        automationEvent.click();
         stockNumberTextBox.sendKeys(stockNumber);
         assetTextBox.sendKeys(assetNumber);
         estimatedValueTextBox.sendKeys(estimatedValue330e);
@@ -401,6 +537,10 @@ public class PackagesPage extends BasePage {
         disclaimerTextBox.sendKeys(disclaimer);
         locationDropdown.click();
         primaryLocation.click();
+        BrowserUtils.waitFor(1);
+        eventDropdown.click();
+        BrowserUtils.waitFor(1);
+        automationEvent.click();
         estimatedValueTextBox.sendKeys(estimatedValueM4);
         BrowserUtils.waitFor(1);
         saveButton.click();
@@ -433,10 +573,12 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(5);
 
     }
+
     public void deleteItemInAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
-        firstItemInItemSection.click();
+        fourthItemIncludeInItemSection.click();
+        BrowserUtils.waitFor(1);
         excludedItemsAccordion.click();
         BrowserUtils.waitFor(1);
         assertion.assertTrue(excludedItemValidation().contains("2016 BMW 328I"));
@@ -448,16 +590,19 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(1);
         assertion.assertTrue(auditVerifications().contains("Included [2016 BMW 328I 31579]"));
     }
+
     public void addNotesToAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
         gearIcon.click();
+        BrowserUtils.waitFor(1);
         addNoteTabOnPackagePage.click();
         addNoteTextBox.sendKeys(sInstructions);
         saveButton.click();
         BrowserUtils.waitFor(1);
         assertion.assertTrue(internalNotesSectionValidation().contains(sInstructions));
     }
+
     public void addValueServiceToAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -483,6 +628,7 @@ public class PackagesPage extends BasePage {
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(valueServicesAudit));
     }
+
     public void uploadDocumentInPackage() throws IOException {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -502,13 +648,14 @@ public class PackagesPage extends BasePage {
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle1);
         BrowserUtils.waitFor(3);
-        saveButtonOnUploadDoc.click();
-        BrowserUtils.waitFor(5);
+        saveButton.click();
+        BrowserUtils.waitFor(6);
         documentsAccordion.click();
         BrowserUtils.waitFor(2);
         Assert.assertTrue(documentValidation().contains("Miscellaneous"));
         Assert.assertTrue(documentValidation().contains("Test"));
     }
+
     public void deleteDocumentInPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -519,6 +666,7 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(3);
         //Assert.assertEquals(noResultsValidation(),"No results found");
     }
+
     public void editValueServiceToAPackage() {
         String quantityE = "3";
         String markUpE = "4";
@@ -550,6 +698,7 @@ public class PackagesPage extends BasePage {
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(valueServicesAuditE));
     }
+
     public void removeValueServicesFromAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -557,7 +706,9 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(1);
         valueServicesTrashIcon.click();
         yesButton.click();
+        BrowserUtils.waitFor(2);
     }
+
     public void addLienHolderToAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -577,6 +728,7 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(auditVerifications().contains(lienAddedAuditMessage));
         assertion.assertTrue(auditVerifications().contains(valueServicesAuditDelete));
     }
+
     public void changeLienStatus() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
@@ -604,15 +756,16 @@ public class PackagesPage extends BasePage {
         lienHolderAccordion.click();
         assertion.assertTrue(lienStatusValidation().contains("Letter Received"));
     }
+
     public void createSalesAgreementFromAPackage() {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
         gearIcon.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         salesAgreementTab.click();
         BrowserUtils.waitFor(2);
         accountsPage.sellerLegalName.sendKeys(companyName);
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(accountsPage.sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
         BrowserUtils.waitFor(1);
         BrowserUtils.dropdownVisible(accountsPage.paymentAddress, "Primary " + contactAddress);
@@ -631,9 +784,310 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(auctionMoreThan2500Validation().contains(randomNumber2));
         assertion.assertTrue(preAuctionValidation().contains(randomNumber3));
     }
+
+    public void addMediaFileToAnItem() throws IOException {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        thirdItemInItemAccordion.click();
+        BrowserUtils.waitFor(3);
+        gearIcon.click();
+        addMediaFilesTab.click();
+        BrowserUtils.waitFor(2);
+        browseButton.click();
+        BrowserUtils.waitFor(1);
+        String mainHandle = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle);
+        BrowserUtils.waitFor(3);
+        Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolxBMW2016.scpt ");
+        BrowserUtils.waitFor(18);
+        xButtonOnMediaFile.click();
+        BrowserUtils.waitFor(2);
+    }
+
+    public void requestInspectionFromPackage() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        requestInspectionTab.click();
+        BrowserUtils.waitFor(1);
+        BrowserUtils.dropdownValue(inspectorDropdownFourthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
+        BrowserUtils.dropdownValue(inspectorDropdownFifthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
+        BrowserUtils.dropdownValue(inspectorDropdownSixthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
+        BrowserUtils.waitFor(1);
+        BrowserUtils.dropdownValue(performInspectionDropdownSevenNo, "0");
+        BrowserUtils.dropdownValue(performInspectionDropdownEightNo, "0");
+        BrowserUtils.dropdownValue(performInspectionDropdownNineNo, "0");
+        BrowserUtils.dropdownValue(performInspectionDropdownTenNo, "0");
+        BrowserUtils.waitFor(1);
+        sendButton.click();
+        BrowserUtils.waitFor(1);
+        driver.navigate().refresh();
+        workOrdersAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(getInspectionWorkOrderValidation().contains("Inspection"));
+        assertion.assertTrue(getInspectionWorkOrderValidation().contains("Scheduled"));
+        BrowserUtils.waitFor(1);
+    }
+
+    public void movePackageToPendingContractStatus() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        pendingContractTab.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertEquals(allPages.packagesPage().getPackageStatusValidation(), "Pending Contract");
+    }
+
+    public void movePackageToContractOutStatus() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        contactOutTab.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertEquals(allPages.packagesPage().getPackageStatusValidation(), "Contract Out");
+    }
+
+    public void movePackageToContractInStatus() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        contactInTab.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertEquals(allPages.packagesPage().getPackageStatusValidation(), "Contract In");
+    }
+
+    public void movePackageToWonStatus() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        wonTab.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
+        Assert.assertEquals(allPages.packagesPage().getPackageStatusValidation(), "Won");
+    }
+
+    public void verifyTitleIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        titleVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Title Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyLienIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        lienVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Lien Verified changed from [Yes] to [No]"));
+        driver.navigate().refresh();
+        BrowserUtils.waitFor(1);
+        lienVerificationRedIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Lien Verified changed from [No] to [Yes]"));
+
+    }
+
+    public void verifyLocationIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        locationVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Location Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyDetailsIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        detailsVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Details Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyInspectionIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        inspectionVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Inspection Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyValueServiceIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        valueServicesVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Value Service Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyEventIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        eventVerificationIcon.click();
+        BrowserUtils.waitFor(1);
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Event Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyPriceIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        wholesaleTextBox.sendKeys("500");
+        saveIcon.click();
+        BrowserUtils.waitFor(2);
+        retailPriceTextBox.sendKeys("500");
+        saveIcon.click();
+        BrowserUtils.waitFor(2);
+        pricingVerificationIconItemPage.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Pricing Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyQCIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        qcVerificationIconItemPage.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Quality Control Verified changed from [No] to [Yes]"));
+    }
+
+    public void verifyGoOnlineIconForItem() {
+        navigateToThirdItemPage();
+        BrowserUtils.waitFor(2);
+        goOnlineVerificationIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+        auditAccordion.click();
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(auditVerifications().contains("Display Online Verified changed from [No] to [Yes]"));
+    }
+
     public void searchForAccountInPackages() {
         packagesTab.click();
         createdAccount.click();
     }
+    public void addNoteToItem(){
+        searchForAccountInPackages();
+        firstItemInItemSection.click();
+        gearIcon.click();
+        addNoteTab.click();
+        addNoteTextBox.sendKeys(sInstructions);
+        saveButton.click();
+        BrowserUtils.waitFor(2);
+        assertion.assertTrue(internalNotesVerification().contains(sInstructions));
+        assertion.assertTrue(internalNotesVerification().contains("Internal Notes"));
+
+    }
+    public void OnlineItemVisibleOnAuctionSite(){
+        searchForAccountInPackages();
+        firstItemInItemSection.click();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        viewListingTab.click();
+        BrowserUtils.waitFor(3);
+        Set<String> handles = driver.getWindowHandles();
+        String firstWindowHandle = driver.getWindowHandle();
+        System.out.println(firstWindowHandle);
+        handles.remove(firstWindowHandle);
+        String secondWindowHandle = handles.iterator().next();
+        driver.switchTo().window(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+        System.out.println(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+        allPages.auctionItemPage().acceptCookies.click();
+        BrowserUtils.waitFor(2);
+        assertion.assertTrue(allPages.auctionItemPage().itemVerification().contains("2016 BMW 328I"));
+        BrowserUtils.waitFor(1);
+        handles.remove(secondWindowHandle);
+        driver.close();
+        BrowserUtils.waitFor(2);
+        driver.switchTo().window(firstWindowHandle);
+    }
+    public void sellItemFromBackOffice() {
+        searchForAccountInPackages();
+        firstItemInItemSection.click();
+        gearIcon.click();
+        sellItemTab.click();
+        BrowserUtils.waitFor(1);
+        BrowserUtils.dropdownValue(soldByDropdown,"80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
+        BrowserUtils.waitFor(1);
+        priceTextBox.sendKeys("10000");
+        BrowserUtils.waitFor(5);
+        buyerDropdown.click();
+        BrowserUtils.waitFor(5);
+        buyerDropdown.sendKeys("Michael");
+        BrowserUtils.waitFor(1000);
+    }
+    public void addLoadOutInstructions() {
+        searchForAccount();
+        navigateToActionMenuFromNormalView();
+        locationsAccordionPlus.click();
+        primaryEditIcon.click();
+        BrowserUtils.waitFor(2);
+//        locationName.sendKeys(nameOfLocation);
+//        locationAddress.sendKeys(addressOfLocation);
+//        postalCode.sendKeys(postalCodeLocation);
+        locationPhone.sendKeys(locationPhoneNumber);
+//        locationContact.click();
+////        BrowserUtils.waitFor(2);
+//        firstContactName.click();
+
+        BrowserUtils.waitFor(1);
+        BrowserUtils.dropdownVisible(jumpStartAvailableDropdown,"Yes");
+        BrowserUtils.dropdownVisible(loadingDocDropdown,"Yes");
+        BrowserUtils.dropdownVisible(forkliftDropdown,"Yes");
+        sizeOfForkliftTextBox.sendKeys("5000 pounds");
+        BrowserUtils.dropdownVisible(noticeRequiredDropdown,"Yes");
+        BrowserUtils.dropdownVisible(loadOutAssistanceDropdown,"Yes");
+        assistInfoCommentTextBox.sendKeys(" This is used if any load out assist is needed");
+        BrowserUtils.dropdownVisible(siteRestrictionsDropdown,"Yes");
+        siteRestrictDetailTextBox.sendKeys("This if for site restrictions details");
+        BrowserUtils.dropdownVisible(specialInstructionsDropdown,"Yes");
+        specialInstructionsTextBox.sendKeys("All This instructions info");
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+//        locationsAccordionMinus.click();
+        BrowserUtils.waitFor(2);
+    }
+    public void navigateToThirdItemPage() {
+        searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        thirdItemInItemAccordion.click();
+    }
+
 }
 

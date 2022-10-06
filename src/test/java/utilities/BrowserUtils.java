@@ -115,7 +115,7 @@ public class BrowserUtils {
         }
     }
 
-//    public static WebElement fluentWait(final WebElement webElement, int timeinsec) {
+//    public static WebElement fluentWait(final WebElement, int timeinsec) {
 //        FluentWait<WebDriver> wait = new FluentWait<WebDriver>(Driver.getDriver())
 //                .withTimeout(timeinsec, TimeUnit.SECONDS).pollingEvery(timeinsec, TimeUnit.SECONDS)
 //                .ignoring(NoSuchElementException.class);

@@ -1,14 +1,14 @@
 package utilities;
 import pages.*;
-
 public class AllPages {
-    private pages.LoginPage loginPage;
+    private LoginPage loginPage;
     private AccountsPage accountsPage;
     private BasePage basePage;
     private WorkOrderBoard workOrderBoard;
     private PackagesPage packagesPage;
+    private AuctionItemPage auctionItemPage;
 
-    public pages.LoginPage loginPage() {
+    public LoginPage loginPage() {
         if (loginPage == null) {
             loginPage = new LoginPage();
         }
@@ -37,5 +37,11 @@ public class AllPages {
             packagesPage = new PackagesPage();
         }
         return packagesPage;
+    }
+    public AuctionItemPage auctionItemPage() {
+        if (auctionItemPage == null) {
+            auctionItemPage = new AuctionItemPage();
+        }
+        return auctionItemPage;
     }
 }

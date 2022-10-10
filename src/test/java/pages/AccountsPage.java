@@ -307,6 +307,7 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(3);
         searchField.sendKeys(companyName);
         searchButton.click();
+        BrowserUtils.waitFor(2);
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
@@ -344,7 +345,7 @@ public class AccountsPage extends BasePage {
         physicalPostalCode.sendKeys("76123");
         physicalLine1.sendKeys(contactAddress);
         saveButton.click();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(5);
         gearIcon.click();
         toggleAccountView.click();
         BrowserUtils.waitFor(2);
@@ -498,7 +499,7 @@ public class AccountsPage extends BasePage {
         accountHeader.click();
         BrowserUtils.waitFor(1);
         toggleToNormalAccountView();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         assertion.assertTrue(salesAgreementCardValidation().contains(payableName));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber1 + ".00%"));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber2 + ".00%"));
@@ -628,7 +629,7 @@ public class AccountsPage extends BasePage {
         descriptionTextBox.sendKeys("Test");
         BrowserUtils.waitFor(3);
         saveButton.click();                         //TODO fix this
-        BrowserUtils.waitFor(8);
+        BrowserUtils.waitFor(9);
         documentsAccordionAccountsPage.click();
         BrowserUtils.waitFor(2);
         Assert.assertTrue(accountDocValidation().contains("Miscellaneous"));

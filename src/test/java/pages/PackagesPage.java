@@ -141,7 +141,8 @@ public class PackagesPage extends BasePage {
     //Select Inspection Dates Modal
     @FindBy(xpath = "//a[contains(text(),'Request Inspection')]")
     public WebElement requestInspectionTab;
-
+    @FindBy(css = "tbody tr:nth-child(3) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
+    public WebElement inspectorDropdownThirdItem;
     @FindBy(css = "tbody tr:nth-child(4) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
     public WebElement inspectorDropdownFourthItem;
     @FindBy(css = "tbody tr:nth-child(5) td:nth-child(6) div:nth-child(1) select:nth-child(1)")
@@ -337,6 +338,7 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(3);
         packagesTab.click();
         searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
         assertion.assertTrue(packageNameValidation().contains(packageName + " Package"));
         assertion.assertTrue(packageCardValidation().contains("Consignment"));
         assertion.assertTrue(packageCardValidation().contains("Cascade"));
@@ -382,6 +384,7 @@ public class PackagesPage extends BasePage {
     }
 
     public String packageNameValidation() {
+        BrowserUtils.waitFor(1);
         return packageValidation.getText();
     }
 
@@ -647,8 +650,11 @@ public class PackagesPage extends BasePage {
         String mainHandle1 = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle1);
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(4);
         saveButton.click();
+        String mainHandle2 = driver.getWindowHandle();
+        System.out.println("Main Window ID: " + mainHandle);
+        driver.switchTo().window(mainHandle2);
         BrowserUtils.waitFor(6);
         documentsAccordion.click();
         BrowserUtils.waitFor(2);
@@ -767,7 +773,7 @@ public class PackagesPage extends BasePage {
         accountsPage.sellerLegalName.sendKeys(companyName);
         BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(accountsPage.sellerAuthorizedRepDropdown, contactFN + " " + contactLN);
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(3);
         BrowserUtils.dropdownVisible(accountsPage.paymentAddress, "Primary " + contactAddress);
         BrowserUtils.dropdownVisible(accountsPage.taxIDType, "Dealer");
         accountsPage.payableToName.sendKeys(payableName);
@@ -810,7 +816,8 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(2);
         gearIcon.click();
         requestInspectionTab.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
+        BrowserUtils.dropdownValue(inspectorDropdownThirdItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
         BrowserUtils.dropdownValue(inspectorDropdownFourthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
         BrowserUtils.dropdownValue(inspectorDropdownFifthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
         BrowserUtils.dropdownValue(inspectorDropdownSixthItem, "80BBAC54-55CD-47A2-889D-F7E2EB8CA8C0");
@@ -818,7 +825,7 @@ public class PackagesPage extends BasePage {
         BrowserUtils.dropdownValue(performInspectionDropdownSevenNo, "0");
         BrowserUtils.dropdownValue(performInspectionDropdownEightNo, "0");
         BrowserUtils.dropdownValue(performInspectionDropdownNineNo, "0");
-        BrowserUtils.dropdownValue(performInspectionDropdownTenNo, "0");
+        //BrowserUtils.dropdownValue(performInspectionDropdownTenNo, "0");
         BrowserUtils.waitFor(1);
         sendButton.click();
         BrowserUtils.waitFor(1);
@@ -998,11 +1005,13 @@ public class PackagesPage extends BasePage {
 
     public void searchForAccountInPackages() {
         packagesTab.click();
+        packagesTab.click();
         createdAccount.click();
     }
     public void addNoteToItem(){
         searchForAccountInPackages();
         firstItemInItemSection.click();
+        BrowserUtils.waitFor(2);
         gearIcon.click();
         addNoteTab.click();
         addNoteTextBox.sendKeys(sInstructions);
@@ -1015,7 +1024,7 @@ public class PackagesPage extends BasePage {
     public void OnlineItemVisibleOnAuctionSite(){
         searchForAccountInPackages();
         firstItemInItemSection.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(4);
         gearIcon.click();
         viewListingTab.click();
         BrowserUtils.waitFor(3);
@@ -1028,9 +1037,9 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(2);
         System.out.println(secondWindowHandle);
         BrowserUtils.waitFor(2);
-        allPages.auctionItemPage().acceptCookies.click();
+        //allPages.auctionItemPage().acceptCookies.click();
         BrowserUtils.waitFor(2);
-        assertion.assertTrue(allPages.auctionItemPage().itemVerification().contains("2016 BMW 328I"));
+        assertion.assertTrue(allPages.auctionItemPage().itemVerificationOnAuctionPage().contains("2016 BMW 328I"));
         BrowserUtils.waitFor(1);
         handles.remove(secondWindowHandle);
         driver.close();

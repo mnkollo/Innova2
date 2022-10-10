@@ -8,6 +8,11 @@ import utilities.AllPages;
 import utilities.BrowserUtils;
 import utilities.Driver;
 import utilities.FakeData;
+
+import java.util.Set;
+
+import static utilities.Driver.driver;
+
 public class BasePage {
 
     public BasePage() {
@@ -15,7 +20,7 @@ public class BasePage {
     }
 
     AllPages allPages = new AllPages();
-    String companyName = FakeData.CompanyName();
+    String companyName = FakeData.CompanyName() + " Auto Account";
     String testingCompanyName = "ROMAGUERA, GRADY AND KUPHAL";
     String packageName = FakeData.randomName();
     String testingPackageName = "KIHN LLC";
@@ -288,7 +293,16 @@ public WebElement documentsAccordion;
         BrowserUtils.waitFor(1);
         gearIcon.click();
     }
-
-
+    public void navigateBetweenTabs(){
+        Set<String> handles = driver.getWindowHandles();
+        String firstWindowHandle = driver.getWindowHandle();
+        System.out.println(firstWindowHandle);
+        handles.remove(firstWindowHandle);
+        String secondWindowHandle = handles.iterator().next();
+        driver.switchTo().window(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+        System.out.println(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+    }
 }
 

@@ -23,10 +23,10 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().AddItemToAPackageWithRequiredFields();
     }
 
-    @Test(priority = 24)
-    public void TC_1067_VerifyUserCanUseVIN_DecodeWhenAddingItemToAPackage() {
-        allPages.packagesPage().VIN_DecodeWhenAddingItemToAPackage();
-    }
+//    @Test(priority = 24)
+//    public void TC_1067_VerifyUserCanUseVIN_DecodeWhenAddingItemToAPackage() {
+//        allPages.packagesPage().VIN_DecodeWhenAddingItemToAPackage();
+//    }
 
     @Test(priority = 25)
     public void TC_1065_AddItemToAPackageWithAllFields() {
@@ -175,10 +175,10 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_1771_VerifyAfterVerificationStepsToPostItemOnlineItemVisibleOnAuctionSite() {
         allPages.packagesPage().OnlineItemVisibleOnAuctionSite();
     }
-//    @Test(priority = 56)
-//    public void TC_7917_VerifyLoadOutInstructionsOnAuctionSite() {          //TODO working on this now
-//        allPages.packagesPage().sellItemFromBackOffice();
-//    }
+   @Test(priority = 57)
+    public void TC_7917_VerifyLoadOutInstructionsOnAuctionSite() {          //TODO working on this now
+       allPages.auctionItemPage().loadOutInstructionsValidation();
+   }
 //    @Test(priority = 57)
 //    public void TC_7917_VerifyPreviewHoursInstructionsOnAuctionSite() {          //TODO working on this now
 //    }

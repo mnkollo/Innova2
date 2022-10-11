@@ -128,6 +128,7 @@ public class PackagesTest extends InnovaTestBase {
     }
     @Test(priority = 45)
     public void TC_7533_VerifyUserCanAddValueServiceToAnItem() {
+        allPages.packagesPage().addValueServiceToItem();
     }
     @Test(priority = 46)
     public void TC_1765_VerifyUserCanVerifyTitleIconForItem() {

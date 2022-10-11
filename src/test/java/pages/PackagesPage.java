@@ -162,6 +162,8 @@ public class PackagesPage extends BasePage {
     //Items Section
     @FindBy(xpath = "(//a[@class='pointer a-table'])[1]")
     public WebElement firstItemInItemSection;
+    @FindBy(xpath = "(//a[@class='pointer a-table'])[2]")
+    public WebElement secondItemInItemSection;
     @FindBy(xpath = "(//input[@type='checkbox'])[4]")
     public WebElement fourthItemIncludeInItemSection;
 
@@ -608,6 +610,33 @@ public class PackagesPage extends BasePage {
 
     public void addValueServiceToAPackage() {
         searchForAccountInPackages();
+        BrowserUtils.waitFor(2);
+        gearIcon.click();
+        addValueServiceTab.click();
+        BrowserUtils.dropdownVisible(serviceDropdown, "Inspection");
+        BrowserUtils.waitFor(2);
+        quantityTextBox.sendKeys(quantity);
+        markupTextBox.sendKeys(markUp);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(cost);
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(verifyPriceOfInspection().contains(priceOfI));
+        saveButton.click();
+        BrowserUtils.waitFor(1);
+        valueServicesAccordion.click();
+        assertion.assertTrue(valueServicesValidation().contains(quantity));
+        assertion.assertTrue(valueServicesValidation().contains(markUp + "%"));
+        assertion.assertTrue(valueServicesValidation().contains("$" + cost + ".00"));
+        assertion.assertTrue(valueServicesValidation().contains(priceOfI));
+        auditAccordion.click();
+        assertion.assertTrue(auditVerifications().contains(valueServicesAudit));
+    }
+
+    public void addValueServiceToItem() {
+        searchForAccountInPackages();
+        secondItemInItemSection.click();
         BrowserUtils.waitFor(2);
         gearIcon.click();
         addValueServiceTab.click();

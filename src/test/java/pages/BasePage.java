@@ -20,18 +20,18 @@ public class BasePage {
     }
 
     AllPages allPages = new AllPages();
-    String companyName = FakeData.CompanyName() + " Auto Account";
+    public String companyName = FakeData.CompanyName() + " Auto Account";
     String testingCompanyName = "ROMAGUERA, GRADY AND KUPHAL";
     String packageName = FakeData.randomName();
     String testingPackageName = "KIHN LLC";
-    String companyName2 = FakeData.CompanyName();
-    String accountEmail = FakeData.email();
+    public String companyName2 = FakeData.CompanyName();
+    public String accountEmail = FakeData.email();
     String createContactEmail = FakeData.email();
     String accountPhone = "(472) 505-1768";
-    String contactFN = "Arnoldo";
-    String contactLN = "West";
-    String personalFirstName = FakeData.fakerFirstName();
-    String personalLastName = FakeData.fakerLastName();
+    public String contactFN = "Arnoldo";
+    public String contactLN = "West";
+    public String personalFirstName = FakeData.fakerFirstName();
+    public String personalLastName = FakeData.fakerLastName();
     String bName = "Chase";
     String bAddress = FakeData.address();
     String bCity = "Fort Worth";
@@ -47,7 +47,7 @@ public class BasePage {
     String titleContact = FakeData.profession();
     String departmentContact = FakeData.profession();
     String phoneContact = "(144) 305-6272";
-    String contactAddress = FakeData.address();
+    public String contactAddress = FakeData.address();
     CharSequence licenceNumberContact = FakeData.random9DigitAccountNumber();
     CharSequence taxID = FakeData.random9DigitAccountNumber();
     CharSequence taxID1 = FakeData.random9DigitAccountNumber();
@@ -241,7 +241,7 @@ public WebElement documentsAccordion;
     public WebElement locationsAccordionMinus;
 
     //BACK OFFICE MENU
-    @FindBy(css = ".nav > li:nth-of-type(3) > .nav-link")
+    @FindBy(xpath = "(//a[contains(text(),'Accounts')])[1]")
     public WebElement accountsTab;
     @FindBy(xpath = "//a[contains(text(),'Work Order Board')]")
     public WebElement workOrderBoard;

@@ -127,55 +127,58 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().movePackageToWonStatus();
     }
     @Test(priority = 45)
+    public void TC_7533_VerifyUserCanAddValueServiceToAnItem() {
+    }
+    @Test(priority = 46)
     public void TC_1765_VerifyUserCanVerifyTitleIconForItem() {
         allPages.packagesPage().verifyTitleIconForItem();
     }
-    @Test(priority = 46)
+    @Test(priority = 47)
     public void TC_1766_VerifyUserCanVerifyLienIconForItem() {
         allPages.packagesPage().verifyLienIconForItem();
     }
-    @Test(priority = 47)
+    @Test(priority = 48)
     public void TC_1766_VerifyUserCanVerifyLocationIconForItem() {
         allPages.packagesPage().verifyLocationIconForItem();
     }
 
-    @Test(priority = 48)
+    @Test(priority = 49)
     public void TC_1768_VerifyUserCanVerifyInspectionIconForItem() {
         allPages.packagesPage().verifyInspectionIconForItem();
     }
-    @Test(priority = 49)
+    @Test(priority = 50)
     public void TC_1766_VerifyUserCanVerifyDetailsIconForItem() {
         allPages.packagesPage().verifyDetailsIconForItem();
     }
-    @Test(priority = 50)
+    @Test(priority = 51)
     public void TC_1770_VerifyUserCanVerifyValueServicesIconForItem() {
         allPages.packagesPage().verifyValueServiceIconForItem();
     }
-    @Test(priority = 51)
+    @Test(priority = 52)
     public void TC_1771_VerifyUserCanVerifyEventIconForItem() {
         allPages.packagesPage().verifyEventIconForItem();
     }
-    @Test(priority = 52)
+    @Test(priority = 53)
     public void TC_1771_VerifyUserCanVerifyPriceIconForItem() {
         allPages.packagesPage().verifyPriceIconForItem();
     }
-    @Test(priority = 53)
+    @Test(priority = 54)
     public void TC_1773_VerifyUserCanVerifyQCIconForItem(){
         allPages.packagesPage().verifyQCIconForItem();
     }
-    @Test(priority = 54)
+    @Test(priority = 55)
     public void TC_1774_VerifyUserCanVerifyGoOnlineIconForItem() {
         allPages.packagesPage().verifyGoOnlineIconForItem();
     }
-    @Test(priority = 55)
+    @Test(priority = 56)
     public void TC_7273_VerifyUserCanAddNoteToAnItem() {
         allPages.packagesPage().addNoteToItem();
     }
-    @Test(priority = 56)
+    @Test(priority = 57)
     public void TC_1771_VerifyAfterVerificationStepsToPostItemOnlineItemVisibleOnAuctionSite() {
         allPages.packagesPage().OnlineItemVisibleOnAuctionSite();
     }
-   @Test(priority = 57)
+   @Test(priority = 58)
     public void TC_7917_VerifyLoadOutInstructionsOnAuctionSite() {          //TODO working on this now
        allPages.auctionItemPage().loadOutInstructionsValidation();
    }
@@ -184,7 +187,7 @@ public class PackagesTest extends InnovaTestBase {
 //    }
 
         // **************************************Actions with Open Package *****************************************************************
-    @Test(priority = 59)
+    @Test(priority = 60)
     public void TC_1286_OpenPackagesPage() {
         allPages.packagesPage().searchForAccountPackage();
         allPages.accountsPage().createOpenPackage();

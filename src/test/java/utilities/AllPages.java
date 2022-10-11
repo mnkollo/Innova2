@@ -1,5 +1,7 @@
 package utilities;
 import pages.*;
+import pages.AccountsPage;
+
 public class AllPages {
     private LoginPage loginPage;
     private AccountsPage accountsPage;

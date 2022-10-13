@@ -162,7 +162,7 @@ public class AccountsPage extends BasePage {
     public WebElement locationContact;
     @FindBy(name = "notes")
     public WebElement internalLocationNotes;
-    @FindBy(xpath = "/html/body/div/div/div[@role='dialog']/div[@role='document']//form//div[@class='col-6 col-md-8']/div/div/div/div/div[.='Arnoldo West']")
+    @FindBy(xpath = "/html/body/div/div/div[@role='dialog']/div[@role='document']//form//div[@class='col-6 col-md-8']/div/div/div/div/div[.='Bill Williams']")
     public WebElement firstContactName;
 
     @FindBy(xpath = "(//div[@class='col-padding col-12 col-sm-4 col-md-4 col-lg-3 col-xl-3'])[2]")
@@ -231,7 +231,7 @@ public class AccountsPage extends BasePage {
     public WebElement specialInstructions;
     @FindBy(id = "reference")
     public WebElement reference;
-    @FindBy(xpath = "//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[2]/div[10]/div[2]/div[2]/div/div/table")
+    @FindBy(css = ".collapse.show  .table-responsive")
     public WebElement bankInformationValidation;
 
     // Accordion
@@ -308,7 +308,7 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(3);
         searchField.sendKeys(companyName);
         searchButton.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         createdAccount.click();
         BrowserUtils.waitFor(2);
     }
@@ -341,7 +341,7 @@ public class AccountsPage extends BasePage {
         contactLastName.sendKeys(contactLN);
         contactTitle.sendKeys(FakeData.randomName());
         contactDepartment.sendKeys(FakeData.randomName());
-        contactEmail.sendKeys(FakeData.email());
+        contactEmail.sendKeys(accountEmail);
         contactWorkPhone.sendKeys(FakeData.phoneNumber());
         physicalPostalCode.sendKeys("76123");
         physicalLine1.sendKeys(contactAddress);
@@ -468,7 +468,7 @@ public class AccountsPage extends BasePage {
         saveButton.click();
         BrowserUtils.waitFor(2);
         bankAccordion.click();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(4);
         assertion.assertTrue(bankInfoValidation().contains(bName));
         assertion.assertTrue(bankInfoValidation().contains(bAddress));
         assertion.assertTrue(bankInfoValidation().contains(bCity));

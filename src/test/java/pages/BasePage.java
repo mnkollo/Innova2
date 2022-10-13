@@ -25,11 +25,11 @@ public class BasePage {
     String packageName = FakeData.randomName();
     String testingPackageName = "KIHN LLC";
     public String companyName2 = FakeData.CompanyName();
-    public String accountEmail = FakeData.email();
-    String createContactEmail = FakeData.email();
+    public String accountEmail = FakeData.fakerFirstName() + "." + FakeData.fakerLastName() + "@yopmail.com";
+    String createContactEmail = FakeData.fakerFirstName()+ FakeData.fakerLastName() + "@yopmail.com";
     String accountPhone = "(472) 505-1768";
-    public String contactFN = "Arnoldo";
-    public String contactLN = "West";
+    public String contactFN = "Bill";
+    public String contactLN = "Williams";
     public String personalFirstName = FakeData.fakerFirstName();
     public String personalLastName = FakeData.fakerLastName();
     String bName = "Chase";

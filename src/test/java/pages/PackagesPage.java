@@ -108,7 +108,7 @@ public class PackagesPage extends BasePage {
     public WebElement costTextBox;
     @FindBy(id = "price")
     public WebElement priceBox;
-    @FindBy(css = "[data-tip] td:nth-of-type(1)")
+    @FindBy(css = "[class$='-md-12'] [data-tip] td:nth-of-type(1)")
     public WebElement valueServiceEdit;
     @FindBy(css = ".fa.fa-trash.pointer")
     public WebElement valueServicesTrashIcon;
@@ -346,6 +346,7 @@ public class PackagesPage extends BasePage {
 
     public void createBusinessAccountAllDataPackage() {
         accountsTab.click();
+        accountsTab.click();
         BrowserUtils.waitFor(2);
         gearIcon.click();
         createContactAction.click();
@@ -358,7 +359,7 @@ public class PackagesPage extends BasePage {
         contactLastName.sendKeys(contactLN);
         contactTitle.sendKeys(FakeData.randomName());
         contactDepartment.sendKeys(FakeData.randomName());
-        contactEmail.sendKeys(FakeData.email());
+        contactEmail.sendKeys(accountEmail);
         contactWorkPhone.sendKeys(FakeData.phoneNumber());
         physicalPostalCode.sendKeys("76123");
         physicalLine1.sendKeys(contactAddress);
@@ -682,7 +683,7 @@ public class PackagesPage extends BasePage {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
         valueServicesAccordion.click();
-        BrowserUtils.waitFor(2);
+        BrowserUtils.waitFor(3);
         valueServiceEdit.click();
         BrowserUtils.dropdownVisible(serviceDropdown, "Storage");
         BrowserUtils.waitFor(2);
@@ -720,8 +721,8 @@ public class PackagesPage extends BasePage {
         BrowserUtils.waitFor(2);
         gearIcon.click();
         addLienHolderTab.click();
-        BrowserUtils.dropdownValue(lienHolderDropdown, "12760");
-        BrowserUtils.dropdownValue(contactDropdown, "3719");
+        BrowserUtils.dropdownValue(lienHolderDropdown, "10019");
+        BrowserUtils.dropdownValue(contactDropdown, "6388");
         saveButton.click();
         BrowserUtils.waitFor(1);
         lienHolderAccordion.click();
@@ -784,8 +785,7 @@ public class PackagesPage extends BasePage {
         accountsPage.comissionPreAuction.sendKeys(randomNumber3);
         saveIcon.click();
         searchForAccountInPackages();
-        BrowserUtils.waitFor(3);
-        System.out.println(auctionLessThan2500Validation());
+        BrowserUtils.waitFor(4);
         assertion.assertTrue(auctionLessThan2500Validation().contains(randomNumber1));
         assertion.assertTrue(auctionMoreThan2500Validation().contains(randomNumber2));
         assertion.assertTrue(preAuctionValidation().contains(randomNumber3));

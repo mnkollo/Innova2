@@ -19,7 +19,7 @@ public class PackagesTest extends InnovaTestBase {
     }
 
     @Test(priority = 23)
-    public void AddItemToAPackageWithRequiredFields() {
+    public void TC_1065_AddItemToAPackageWithRequiredFields() {
         allPages.packagesPage().AddItemToAPackageWithRequiredFields();
     }
 
@@ -45,7 +45,7 @@ public class PackagesTest extends InnovaTestBase {
         BrowserUtils.waitFor(2);
     }
     @Test(priority = 28)
-    public void TC_VerifyUserCanAddLoadOutInstructions() {
+    public void TC_6393_VerifyUserCanAddLoadOutInstructions() {
         allPages.packagesPage().addLoadOutInstructions();
         //allPages.accountsPage().verifyNewLocationAddedToAccount();
     }
@@ -123,7 +123,7 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().movePackageToContractInStatus();
     }
     @Test(priority = 44)
-    public void TC_1752_VerifyUserCanMovePackageToWonStatus() {
+    public void TC_3449_VerifyUserCanMovePackageToWonStatus() {
         allPages.packagesPage().movePackageToWonStatus();
     }
     @Test(priority = 45)
@@ -139,7 +139,7 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().verifyLienIconForItem();
     }
     @Test(priority = 48)
-    public void TC_1766_VerifyUserCanVerifyLocationIconForItem() {
+    public void TC_1767_VerifyUserCanVerifyLocationIconForItem() {
         allPages.packagesPage().verifyLocationIconForItem();
     }
 
@@ -148,7 +148,7 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().verifyInspectionIconForItem();
     }
     @Test(priority = 50)
-    public void TC_1766_VerifyUserCanVerifyDetailsIconForItem() {
+    public void TC_1769_VerifyUserCanVerifyDetailsIconForItem() {
         allPages.packagesPage().verifyDetailsIconForItem();
     }
     @Test(priority = 51)
@@ -160,7 +160,7 @@ public class PackagesTest extends InnovaTestBase {
         allPages.packagesPage().verifyEventIconForItem();
     }
     @Test(priority = 53)
-    public void TC_1771_VerifyUserCanVerifyPriceIconForItem() {
+    public void TC_1772_VerifyUserCanVerifyPriceIconForItem() {
         allPages.packagesPage().verifyPriceIconForItem();
     }
     @Test(priority = 54)

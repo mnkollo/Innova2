@@ -651,8 +651,9 @@ public class PackagesPage extends BasePage {
         String mainHandle1 = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle1);
-        BrowserUtils.waitFor(4);
+        BrowserUtils.waitFor(7);
         saveButton.click();
+        BrowserUtils.waitFor(2);
         String mainHandle2 = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle2);

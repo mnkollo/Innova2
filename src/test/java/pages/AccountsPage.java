@@ -500,14 +500,14 @@ public class AccountsPage extends BasePage {
         accountHeader.click();
         BrowserUtils.waitFor(1);
         toggleToNormalAccountView();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(4);
         assertion.assertTrue(salesAgreementCardValidation().contains(payableName));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber1 + ".00%"));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber2 + ".00%"));
         assertion.assertTrue(salesAgreementCardValidation().contains(randomNumber3 + ".00%"));
         salesAgreementAccordion.click();
         salesAgreementTableValidationForFirstSA();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         assertion.assertAll();
         BrowserUtils.waitFor(1);
     }
@@ -555,7 +555,7 @@ public class AccountsPage extends BasePage {
         assertion.assertTrue(salesAgreementTableValidation().contains("v2"));
         assertion.assertTrue(salesAgreementTableValidation().contains("Executed"));
         salesAgreementTableValidationForFirstSA();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         assertion.assertAll();
         BrowserUtils.waitFor(1);
     }
@@ -578,6 +578,7 @@ public class AccountsPage extends BasePage {
         BrowserUtils.waitFor(2);
     }
     public void verifyNewLocationAddedToAccount() {
+        BrowserUtils.waitFor(1);
         assertion.assertTrue(location2CardValidation().contains(nameOfLocation));
         assertion.assertTrue(location2CardValidation().contains(addressOfLocation));
         assertion.assertTrue(location2CardValidation().contains(postalCodeLocation));
@@ -726,7 +727,7 @@ public class AccountsPage extends BasePage {
         surchargeTextBox.sendKeys(surcharge);
         commentsTextBox.sendKeys(sInstructions);
         saveButton.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         transactionsTab.click();
         assertion.assertTrue(getNewestTransaction().contains(creditCardDeposit));
         assertion.assertTrue(getNewestTransaction().contains("Credit Card"));

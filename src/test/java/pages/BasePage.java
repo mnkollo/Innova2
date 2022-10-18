@@ -231,8 +231,8 @@ public class BasePage {
     public WebElement yesButton;
 
     //Accordion
-    @FindBy(xpath = "//*[@id=\"documents\"]/i")
-public WebElement documentsAccordion;
+    @FindBy(xpath = "(//i[@class='fa fa-plus fa-lg'])[2]")
+    public WebElement documentsAccordion;
 
 
     @FindBy(css = "h5#locations > .fa.fa-lg.fa-plus")

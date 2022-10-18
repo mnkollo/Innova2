@@ -181,14 +181,19 @@ public class PackagesTest extends InnovaTestBase {
    @Test(priority = 58)
     public void TC_7917_VerifyLoadOutInstructionsOnAuctionSite() {          //TODO working on this now
        allPages.auctionItemPage().loadOutInstructionsValidation();
-   }
-//    @Test(priority = 57)
+
+//    @Test(priority = 59)
 //    public void TC_7917_VerifyPreviewHoursInstructionsOnAuctionSite() {          //TODO working on this now
 //    }
+   }
+       @Test(priority = 60)
+       public void TC_7494_VerifyCanBuyConsignmentItemFromAuction () {
+           allPages.auctionItemPage().buyItemOnAuctionSite();
+       }
 
         // **************************************Actions with Open Package *****************************************************************
-    @Test(priority = 60)
-    public void TC_1286_OpenPackagesPage() {
+    @Test(priority = 61)
+    public void TC_1286_CreateOpenPackage() {
         allPages.packagesPage().searchForAccountPackage();
         allPages.accountsPage().createOpenPackage();
     }

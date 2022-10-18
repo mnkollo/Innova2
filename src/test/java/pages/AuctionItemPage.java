@@ -43,11 +43,43 @@ public class AuctionItemPage extends BasePage {
     @FindBy(xpath = "(//div[@class='row'])[15]")
     public WebElement loadOutAssistanceValidation;
 
+    @FindBy(xpath = "//input[@autocorrect='off']")
+    public WebElement offerTextBox;
+
+    @FindBy(xpath ="//button[@type='submit']")
+    public WebElement makeOfferButton;
+
+    //Sign In - Modal
+    @FindBy(xpath = "//a[@class='pointer has-submenu']")
+    public WebElement signInDropdown;
+
+    @FindBy(xpath = "//input[@type='email']")
+    public WebElement emailAddressTextBox;
+
+    @FindBy(xpath = "//input[@type='password']")
+    public WebElement passwordTextBox;
+
+    @FindBy(css = "form > .btn.btn-block.btn-secondary")
+    public WebElement signInButton;
+
+    //Confirmation Modal
+    @FindBy(id = "acceptBtn")
+    public WebElement acceptButton;
+    @FindBy(xpath = "(//button[contains(text(),'Cancel')])")
+    public WebElement cancelButton;
+
+    //Verification
+    @FindBy(xpath = "//h2[contains(text(),'OFFER RECEIVED')]")
+    public WebElement offerReceivedVerification;
 
     //**************************************************** Methods Below ***********************************************
     public String itemVerificationOnAuctionPage() {
         return itemVerification.getText();
     }
+    public String offerRecVerification() {
+        return offerReceivedVerification.getText();
+    }
+
     public String jumpstartValidation(){
         return jumpStartValidation.getText();
     }
@@ -99,5 +131,43 @@ public class AuctionItemPage extends BasePage {
         driver.close();
         BrowserUtils.waitFor(2);
         driver.switchTo().window(firstWindowHandle);
+        BrowserUtils.waitFor(2);
+    }
+    public void buyItemOnAuctionSite(){
+        allPages.packagesPage().searchForAccountInPackages();
+        allPages.packagesPage().firstItemInItemSection.click();
+        BrowserUtils.waitFor(4);
+        gearIcon.click();
+        allPages.packagesPage().viewListingTab.click();
+        gearIcon.click();
+        allPages.packagesPage().viewListingTab.click();
+        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(3);
+        Set<String> handles = driver.getWindowHandles();
+        String firstWindowHandle = driver.getWindowHandle();
+        System.out.println(firstWindowHandle);
+        handles.remove(firstWindowHandle);
+        String secondWindowHandle = handles.iterator().next();
+        driver.switchTo().window(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+        System.out.println(secondWindowHandle);
+        BrowserUtils.waitFor(2);
+        acceptCookies.click();
+        BrowserUtils.waitFor(2);
+        signInDropdown.click();
+        emailAddressTextBox.sendKeys("Lebron.James@mailinator.com");
+        passwordTextBox.sendKeys("Welcome!1");
+        signInButton.click();
+        BrowserUtils.waitFor(3);
+        offerTextBox.sendKeys("600");
+        BrowserUtils.waitFor(1);
+        makeOfferButton.click();
+        BrowserUtils.waitFor(2);
+        acceptButton.click();
+        BrowserUtils.waitFor(3);
+        assertion.assertTrue(offerRecVerification().contains("OFFER RECEIVED"));
+        BrowserUtils.waitFor(1);
+        handles.remove(secondWindowHandle);
+        driver.close();
     }
 }

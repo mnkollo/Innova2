@@ -144,7 +144,7 @@ public class BasePage {
     public WebElement descriptionTextBox;
     @FindBy(name = "documentType_ID")
     public WebElement documentTypeDropdown;
-    @FindBy(css = ".card:nth-of-type(9) .table-responsive")
+    @FindBy(css = ".animated.fadeIn.packages > .card")
     public WebElement getDocumentTable;
 
     @FindBy(css = "[data-tip='Download'] [data-tip]")
@@ -231,8 +231,10 @@ public class BasePage {
     public WebElement yesButton;
 
     //Accordion
-    @FindBy(xpath = "(//i[@class='fa fa-plus fa-lg'])[2]")
+    @FindBy(xpath = "//*[@id=\"react-root\"]/div/div/div/div[2]/div/div[2]/div/div/div[9]")
     public WebElement documentsAccordion;
+    @FindBy(xpath = "//h5[@id='documents']/i")
+    public WebElement documentsAccordion1;
 
 
     @FindBy(css = "h5#locations > .fa.fa-lg.fa-plus")
@@ -245,7 +247,6 @@ public class BasePage {
     public WebElement accountsTab;
     @FindBy(xpath = "//a[contains(text(),'Work Order Board')]")
     public WebElement workOrderBoard;
-
     @FindBy(xpath = "//a[contains(text(),'Packages')]")
     public WebElement packagesTab;
 

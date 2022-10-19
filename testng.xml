@@ -6,6 +6,7 @@
             <class name="regressionTest.AccountsTest"/>
             <class name="regressionTest.End2EndScenarios"/>
             <class name="regressionTest.PackagesTest"/>
+            <class name="regressionTest.WorkOrderBoardTest"/>
         </classes>
     </test>
 </suite>

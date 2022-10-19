@@ -46,7 +46,7 @@ public class AuctionItemPage extends BasePage {
     @FindBy(xpath = "//input[@autocorrect='off']")
     public WebElement offerTextBox;
 
-    @FindBy(xpath ="//button[@type='submit']")
+    @FindBy(xpath = "//button[@type='submit']")
     public WebElement makeOfferButton;
 
     //Sign In - Modal
@@ -76,32 +76,40 @@ public class AuctionItemPage extends BasePage {
     public String itemVerificationOnAuctionPage() {
         return itemVerification.getText();
     }
+
     public String offerRecVerification() {
         return offerReceivedVerification.getText();
     }
 
-    public String jumpstartValidation(){
+    public String jumpstartValidation() {
         return jumpStartValidation.getText();
     }
-    public String loadingDockValidation(){
+
+    public String loadingDockValidation() {
         return loadingDocValidation.getText();
     }
-    public String forkliftValidation(){
+
+    public String forkliftValidation() {
         return forkliftValidation.getText();
     }
-    public String siteRestrictionsValidation(){
+
+    public String siteRestrictionsValidation() {
         return siteRestrictionsValidation.getText();
     }
-    public String specialInstructionsValidation(){
+
+    public String specialInstructionsValidation() {
         return specialInstructionsValidation.getText();
     }
-    public String noticeRequiredToViewValidation(){
+
+    public String noticeRequiredToViewValidation() {
         return noticeRequiredToView.getText();
     }
-    public String loadOutAssistanceValidation(){
+
+    public String loadOutAssistanceValidation() {
         return loadOutAssistanceValidation.getText();
     }
-    public void loadOutInstructionsValidation(){
+
+    public void loadOutInstructionsValidation() {
         gearIcon.click();
         allPages.packagesPage().viewListingTab.click();
         BrowserUtils.waitFor(3);
@@ -133,15 +141,13 @@ public class AuctionItemPage extends BasePage {
         driver.switchTo().window(firstWindowHandle);
         BrowserUtils.waitFor(2);
     }
-    public void buyItemOnAuctionSite(){
+
+    public void buyItemOnAuctionSite() {
         allPages.packagesPage().searchForAccountInPackages();
         allPages.packagesPage().firstItemInItemSection.click();
         BrowserUtils.waitFor(4);
         gearIcon.click();
         allPages.packagesPage().viewListingTab.click();
-        gearIcon.click();
-        allPages.packagesPage().viewListingTab.click();
-        BrowserUtils.waitFor(3);
         BrowserUtils.waitFor(3);
         Set<String> handles = driver.getWindowHandles();
         String firstWindowHandle = driver.getWindowHandle();
@@ -169,5 +175,8 @@ public class AuctionItemPage extends BasePage {
         BrowserUtils.waitFor(1);
         handles.remove(secondWindowHandle);
         driver.close();
+        BrowserUtils.waitFor(2);
+        driver.switchTo().window(firstWindowHandle);
+        BrowserUtils.waitFor(4);
     }
 }

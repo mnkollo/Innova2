@@ -314,6 +314,11 @@ public class AccountsPage extends BasePage {
     }
     public void validateStatus() {
         transactionsTab.click();
+        BrowserUtils.waitFor(2);
+        assertion.assertTrue(getNewestTransaction().contains(refundAmount));
+        assertion.assertTrue(getNewestTransaction().contains("Refund"));
+        assertion.assertTrue(getNewestTransaction().contains("Check"));
+        assertion.assertTrue(getNewestTransaction().contains("Posted"));
 
     }
 
@@ -389,7 +394,7 @@ public class AccountsPage extends BasePage {
         gearIcon.click();
         toggleAccountView.click();
         editAccountIcon.click();
-        BrowserUtils.waitFor(1);
+        BrowserUtils.waitFor(2);
         accountNameField1.clear();
         accountNameField1.sendKeys(companyName2);
         saveButton.click();
@@ -615,8 +620,6 @@ public class AccountsPage extends BasePage {
         navigateToActionMenuFromNormalView();
         uploadDocumentTab.click();
         BrowserUtils.waitFor(2);
-//        BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
-//        descriptionTextBox.sendKeys("Test");
         String mainHandle = driver.getWindowHandle();
         System.out.println("Main Window ID: " + mainHandle);
         driver.switchTo().window(mainHandle);

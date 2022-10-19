@@ -673,20 +673,14 @@ public class PackagesPage extends BasePage {
         driver.switchTo().window(mainHandle);
         browseButton.click();
         BrowserUtils.waitFor(2);
-        descriptionTextBox.sendKeys("Test");
         Runtime.getRuntime().exec("osascript " + "/Users/michaelnkollo/Documents/uploadolx2.scpt ");
         BrowserUtils.waitFor(5);
         BrowserUtils.dropdownVisible(documentTypeDropdown, "Miscellaneous");
-        String mainHandle1 = driver.getWindowHandle();
-        System.out.println("Main Window ID: " + mainHandle);
-        driver.switchTo().window(mainHandle1);
-        BrowserUtils.waitFor(7);
+        descriptionTextBox.sendKeys("Test");
         saveButton.click();
         BrowserUtils.waitFor(2);
-        String mainHandle2 = driver.getWindowHandle();
-        System.out.println("Main Window ID: " + mainHandle);
-        driver.switchTo().window(mainHandle2);
-        BrowserUtils.waitFor(6);
+        saveButton.click();                         //TODO fix this
+        BrowserUtils.waitFor(9);
         documentsAccordion.click();
         BrowserUtils.waitFor(2);
         Assert.assertTrue(documentValidation().contains("Miscellaneous"));
@@ -825,7 +819,7 @@ public class PackagesPage extends BasePage {
         searchForAccountInPackages();
         BrowserUtils.waitFor(2);
         thirdItemInItemAccordion.click();
-        BrowserUtils.waitFor(3);
+        BrowserUtils.waitFor(4);
         gearIcon.click();
         addMediaFilesTab.click();
         BrowserUtils.waitFor(2);
@@ -1097,14 +1091,7 @@ public class PackagesPage extends BasePage {
         locationsAccordionPlus.click();
         primaryEditIcon.click();
         BrowserUtils.waitFor(2);
-//        locationName.sendKeys(nameOfLocation);
-//        locationAddress.sendKeys(addressOfLocation);
-//        postalCode.sendKeys(postalCodeLocation);
         locationPhone.sendKeys(locationPhoneNumber);
-//        locationContact.click();
-////        BrowserUtils.waitFor(2);
-//        firstContactName.click();
-
         BrowserUtils.waitFor(1);
         BrowserUtils.dropdownVisible(jumpStartAvailableDropdown,"Yes");
         BrowserUtils.dropdownVisible(loadingDocDropdown,"Yes");
@@ -1119,7 +1106,6 @@ public class PackagesPage extends BasePage {
         specialInstructionsTextBox.sendKeys("All This instructions info");
         saveButton.click();
         BrowserUtils.waitFor(1);
-//        locationsAccordionMinus.click();
         BrowserUtils.waitFor(2);
     }
     public void navigateToThirdItemPage() {

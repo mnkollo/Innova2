@@ -192,6 +192,7 @@ public class PackagesTest extends InnovaTestBase {
            allPages.auctionItemPage().buyItemOnAuctionSite();
        }
 
+
         // **************************************Actions with Open Package *****************************************************************
     @Test(priority = 61)
     public void TC_1286_CreateOpenPackage() {

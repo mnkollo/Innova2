@@ -106,80 +106,102 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_7178_VerifyUserCanRequestInspectionFromPackage(){
         allPages.packagesPage().requestInspectionFromPackage();    //TODO Finish TC
     }
+
     @Test(priority = 40)
     public void TC_3468_VerifyUserCanAddMediaFileOnItemPage() throws IOException {
         allPages.packagesPage().addMediaFileToAnItem();
     }
+
     @Test(priority = 41)
     public void TC_7487_VerifyUserCanMovePackageToPendingContractStatus() {
         allPages.packagesPage().movePackageToPendingContractStatus();
     }
+
     @Test(priority = 42)
     public void TC_3447_VerifyUserCanMovePackageToContractOutStatus() {
         allPages.packagesPage().movePackageToContractOutStatus();
     }
+
     @Test(priority = 43)
     public void TC_1752_VerifyUserCanMovePackageToContractInStatus() {
         allPages.packagesPage().movePackageToContractInStatus();
     }
+
     @Test(priority = 44)
     public void TC_3449_VerifyUserCanMovePackageToWonStatus() {
         allPages.packagesPage().movePackageToWonStatus();
     }
+
     @Test(priority = 45)
     public void TC_7533_VerifyUserCanAddValueServiceToAnItem() {
         allPages.packagesPage().addValueServiceToItem();
     }
     @Test(priority = 46)
+    public void TC_7981_VerifyUserCanEditValueServicesFromAnItem(){
+        allPages.packagesPage().editValueServiceToItem();
+    }
+    @Test(priority = 47)
+    public void TC_7982_VerifyUserCanRemoveValueServicesFromAnItem(){
+        allPages.packagesPage().removeValueServicesFromAnItem();
+    }
+
+    @Test(priority = 48)
+    public void TC_7533_VerifyUserCanAddValueServiceToAnItemAgain() {
+        allPages.packagesPage().addValueServiceToItem();
+    }
+
+    @Test(priority = 49)
     public void TC_1765_VerifyUserCanVerifyTitleIconForItem() {
         allPages.packagesPage().verifyTitleIconForItem();
     }
-    @Test(priority = 47)
+
+    @Test(priority = 50)
     public void TC_1766_VerifyUserCanVerifyLienIconForItem() {
         allPages.packagesPage().verifyLienIconForItem();
     }
-    @Test(priority = 48)
+
+    @Test(priority = 51)
     public void TC_1767_VerifyUserCanVerifyLocationIconForItem() {
         allPages.packagesPage().verifyLocationIconForItem();
     }
 
-    @Test(priority = 49)
+    @Test(priority = 52)
     public void TC_1768_VerifyUserCanVerifyInspectionIconForItem() {
         allPages.packagesPage().verifyInspectionIconForItem();
     }
-    @Test(priority = 50)
+    @Test(priority = 53)
     public void TC_1769_VerifyUserCanVerifyDetailsIconForItem() {
         allPages.packagesPage().verifyDetailsIconForItem();
     }
-    @Test(priority = 51)
+    @Test(priority = 54)
     public void TC_1770_VerifyUserCanVerifyValueServicesIconForItem() {
         allPages.packagesPage().verifyValueServiceIconForItem();
     }
-    @Test(priority = 52)
+    @Test(priority = 55)
     public void TC_1771_VerifyUserCanVerifyEventIconForItem() {
         allPages.packagesPage().verifyEventIconForItem();
     }
-    @Test(priority = 53)
+    @Test(priority = 56)
     public void TC_1772_VerifyUserCanVerifyPriceIconForItem() {
         allPages.packagesPage().verifyPriceIconForItem();
     }
-    @Test(priority = 54)
+    @Test(priority = 57)
     public void TC_1773_VerifyUserCanVerifyQCIconForItem(){
         allPages.packagesPage().verifyQCIconForItem();
     }
-    @Test(priority = 55)
+    @Test(priority = 58)
     public void TC_1774_VerifyUserCanVerifyGoOnlineIconForItem() {
         allPages.packagesPage().verifyGoOnlineIconForItem();
     }
-    @Test(priority = 56)
+    @Test(priority = 59)
     public void TC_7273_VerifyUserCanAddNoteToAnItem() {
         allPages.packagesPage().addNoteToItem();
     }
-    @Test(priority = 57)
+    @Test(priority = 60)
     public void TC_1771_VerifyAfterVerificationStepsToPostItemOnlineItemVisibleOnAuctionSite() {
         allPages.packagesPage().OnlineItemVisibleOnAuctionSite();
     }
-   @Test(priority = 58)
+   @Test(priority = 61)
     public void TC_7917_VerifyLoadOutInstructionsOnAuctionSite() {          //TODO working on this now
        allPages.auctionItemPage().loadOutInstructionsValidation();
    }
@@ -188,7 +210,7 @@ public class PackagesTest extends InnovaTestBase {
 //    }
 
         // **************************************Actions with Open Package *****************************************************************
-    @Test(priority = 60)
+    @Test(priority = 62)
     public void TC_1286_OpenPackagesPage() {
         allPages.packagesPage().searchForAccountPackage();
         allPages.accountsPage().createOpenPackage();

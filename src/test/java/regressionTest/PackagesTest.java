@@ -136,6 +136,7 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_7533_VerifyUserCanAddValueServiceToAnItem() {
         allPages.packagesPage().addValueServiceToItem();
     }
+
     @Test(priority = 46)
     public void TC_7981_VerifyUserCanEditValueServicesFromAnItem(){
         allPages.packagesPage().editValueServiceToItem();
@@ -149,6 +150,7 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_7533_VerifyUserCanAddValueServiceToAnItemAgain() {
         allPages.packagesPage().addValueServiceToItem();
     }
+
 
     @Test(priority = 49)
     public void TC_1765_VerifyUserCanVerifyTitleIconForItem() {
@@ -209,9 +211,18 @@ public class PackagesTest extends InnovaTestBase {
 //    public void TC_7917_VerifyPreviewHoursInstructionsOnAuctionSite() {          //TODO working on this now
 //    }
 
+
         // **************************************Actions with Open Package *****************************************************************
-    @Test(priority = 62)
-    public void TC_1286_OpenPackagesPage() {
+
+       @Test(priority = 62)
+       public void TC_7494_VerifyCanBuyConsignmentItemFromAuction () {
+           allPages.auctionItemPage().buyItemOnAuctionSite();
+       }
+
+
+        // **************************************Actions with Open Package *****************************************************************
+    @Test(priority = 63)
+    public void TC_1286_CreateOpenPackage() {
         allPages.packagesPage().searchForAccountPackage();
         allPages.accountsPage().createOpenPackage();
     }

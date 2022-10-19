@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -15,9 +16,26 @@ public class WorkOrderBoard extends BasePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
+
+    //Offer Work Order
+    @FindBy(css = ".form-control.input-xs.is-invalid.undefined")
+    public WebElement destinationLocation;
+    @FindBy(css = "[class] [class$='12']:nth-of-type(2) [type]")
+    public WebElement negotiatedTransactionFee;
+    @FindBy(xpath = "//option[contains(text(),'Primary')]")
+    public WebElement primaryLocationDropdown;
+
     // Pending Section
     @FindBy(xpath = "(//span[contains(text(),'Payment Request')])[1]")
     public WebElement pendingCard;
+
+    @FindBy(xpath = "(//div[contains(text(),'Offer')])[1]")
+    public WebElement offerCard;
+
+    @FindBy(xpath = "(//p[@class='card-text'])[1]")
+    public WebElement offerCardVerification;
+    @FindBy(xpath = "(//div[@class='d-flex flex-row justify-content-between align-content-center mb-2 col-12'])[3]")
+    public WebElement getTransactionFee;
 
     //Payment Request Section
     @FindBy(css = "h5#notes > .fa.fa-lg.fa-plus")
@@ -27,7 +45,6 @@ public class WorkOrderBoard extends BasePage {
 
     @FindBy(css = "h3 > span")
     public WebElement paymentRequestPageVerification;
-
 
     @FindBy(xpath = "(//input[@type='text'])[4]")
     public WebElement datePickerTextBox;
@@ -43,6 +60,8 @@ public class WorkOrderBoard extends BasePage {
     public WebElement scheduleTab;
     @FindBy(xpath = "//a[contains(text(),'Complete')]")
     public WebElement completeTab;
+    @FindBy(xpath = "//a[contains(text(),'Accept Offer')]")
+    public WebElement acceptOfferTab;
 
     public void createdPaymentRequest() {
         workOrderBoard.click();
@@ -76,8 +95,40 @@ public class WorkOrderBoard extends BasePage {
     public String notesTextVerification() {
         return textVerification.getText();
     }
+    public String offerCardVerification() {
+        return offerCardVerification.getText();
+    }
+    public String getTransactionFee(){
+        return getTransactionFee.getText();
+    }
 
     public String paymentRequestTitleVerification() {
         return paymentRequestPageVerification.getText();
+    }
+    public void offerDisplaysOnWorkOrderBoard(){
+        workOrderBoard.click();
+        BrowserUtils.waitFor(5);
+        assertion.assertTrue(offerCardVerification().contains("2016 BMW 328I"));
+        assertion.assertTrue(offerCardVerification().contains("Retail Price: $500.00"));
+        assertion.assertTrue(offerCardVerification().contains("Seller: $600.00"));
+        assertion.assertTrue(offerCardVerification().contains(companyName));
+    }
+    public void acceptOfferFromWorkOrderBoard(){
+        workOrderBoard.click();
+        offerCardVerification.click();
+        BrowserUtils.waitFor(2);
+        destinationLocation.click();
+        primaryLocationDropdown.click();
+        //BrowserUtils.dropdownValue(destinationLocation,"6472");
+        negotiatedTransactionFee.sendKeys(Keys.BACK_SPACE);
+        negotiatedTransactionFee.sendKeys("50");
+        BrowserUtils.waitFor(1);
+        assertion.assertTrue(getTransactionFee().contains("Sub-Total Transaction Fee: $650.00"));
+        gearIcon.click();
+        acceptOfferTab.click();
+        yesButton.click();
+        BrowserUtils.waitFor(1);
+
+
     }
 }

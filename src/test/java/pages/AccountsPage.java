@@ -306,7 +306,7 @@ public class AccountsPage extends BasePage {
     public void searchForAccount() {
         accountsTab.click();
         BrowserUtils.waitFor(3);
-        searchField.sendKeys(companyName);
+        searchField.sendKeys(testingCompanyName);
         searchButton.click();
         BrowserUtils.waitFor(3);
         createdAccount.click();

@@ -106,38 +106,60 @@ public class PackagesTest extends InnovaTestBase {
     public void TC_7178_VerifyUserCanRequestInspectionFromPackage(){
         allPages.packagesPage().requestInspectionFromPackage();    //TODO Finish TC
     }
+
     @Test(priority = 40)
     public void TC_3468_VerifyUserCanAddMediaFileOnItemPage() throws IOException {
         allPages.packagesPage().addMediaFileToAnItem();
     }
+
     @Test(priority = 41)
     public void TC_7487_VerifyUserCanMovePackageToPendingContractStatus() {
         allPages.packagesPage().movePackageToPendingContractStatus();
     }
+
     @Test(priority = 42)
     public void TC_3447_VerifyUserCanMovePackageToContractOutStatus() {
         allPages.packagesPage().movePackageToContractOutStatus();
     }
+
     @Test(priority = 43)
     public void TC_1752_VerifyUserCanMovePackageToContractInStatus() {
         allPages.packagesPage().movePackageToContractInStatus();
     }
+
     @Test(priority = 44)
     public void TC_3449_VerifyUserCanMovePackageToWonStatus() {
         allPages.packagesPage().movePackageToWonStatus();
     }
+
     @Test(priority = 45)
     public void TC_7533_VerifyUserCanAddValueServiceToAnItem() {
         allPages.packagesPage().addValueServiceToItem();
     }
     @Test(priority = 46)
+    public void TC_7981_VerifyUserCanEditValueServicesFromAnItem(){
+        allPages.packagesPage().editValueServiceToItem();
+    }
+    @Test(priority = 47)
+    public void TC_7982_VerifyUserCanRemoveValueServicesFromAnItem(){
+        allPages.packagesPage().removeValueServicesFromAnItem();
+    }
+
+    @Test(priority = 48)
+    public void TC_7533_VerifyUserCanAddValueServiceToAnItemAgain() {
+        allPages.packagesPage().addValueServiceToItem();
+    }
+
+    @Test(priority = 46)
     public void TC_1765_VerifyUserCanVerifyTitleIconForItem() {
         allPages.packagesPage().verifyTitleIconForItem();
     }
+
     @Test(priority = 47)
     public void TC_1766_VerifyUserCanVerifyLienIconForItem() {
         allPages.packagesPage().verifyLienIconForItem();
     }
+
     @Test(priority = 48)
     public void TC_1767_VerifyUserCanVerifyLocationIconForItem() {
         allPages.packagesPage().verifyLocationIconForItem();

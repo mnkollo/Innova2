@@ -637,13 +637,15 @@ public class PackagesPage extends BasePage {
 
     public void addValueServiceToItem() {
         searchForAccountInPackages();
-        secondItemInItemSection.click();
+        BrowserUtils.waitFor(3);
+        firstItemInItemSection.click();
         BrowserUtils.waitFor(2);
         gearIcon.click();
         addValueServiceTab.click();
         BrowserUtils.dropdownVisible(serviceDropdown, "Inspection");
         BrowserUtils.waitFor(2);
         quantityTextBox.sendKeys(quantity);
+        markupTextBox.sendKeys(Keys.BACK_SPACE);
         markupTextBox.sendKeys(markUp);
         costTextBox.sendKeys(Keys.BACK_SPACE);
         costTextBox.sendKeys(Keys.BACK_SPACE);
@@ -660,6 +662,53 @@ public class PackagesPage extends BasePage {
         assertion.assertTrue(valueServicesValidation().contains(priceOfI));
         auditAccordion.click();
         assertion.assertTrue(auditVerifications().contains(valueServicesAudit));
+    }
+
+    public void editValueServiceToItem() {
+        String quantityE = "3";
+        String markUpE = "4";
+        String costE = "150";
+        String priceOfIE = "$468.00";
+        String valueServicesAuditE = "Value Service Price changed from [210.00] to [468.00]";
+        searchForAccountInPackages();
+        firstItemInItemSection.click();
+        BrowserUtils.waitFor(2);
+        valueServicesAccordion.click();
+        BrowserUtils.waitFor(3);
+        valueServiceEdit.click();
+        BrowserUtils.dropdownVisible(serviceDropdown, "Storage");
+        BrowserUtils.waitFor(2);
+        quantityTextBox.sendKeys(quantityE);
+        markupTextBox.sendKeys(Keys.BACK_SPACE);
+        markupTextBox.sendKeys(Keys.BACK_SPACE);
+        markupTextBox.sendKeys(markUpE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(Keys.BACK_SPACE);
+        costTextBox.sendKeys(costE);
+        BrowserUtils.waitFor(3);
+        assertion.assertTrue(verifyPriceOfInspection().contains(priceOfIE));
+        saveButton.click();
+        BrowserUtils.waitFor(6);
+        //valueServicesAccordion.click();
+        BrowserUtils.waitFor(3);
+        assertion.assertTrue(valueServicesValidation().contains(quantityE));
+        assertion.assertTrue(valueServicesValidation().contains(markUpE + "%"));
+        assertion.assertTrue(valueServicesValidation().contains("$" + costE + ".00"));
+        assertion.assertTrue(valueServicesValidation().contains(priceOfIE));
+        auditAccordion.click();
+        assertion.assertTrue(auditVerifications().contains(valueServicesAuditE));
+    }
+
+    public void removeValueServicesFromAnItem() {
+        searchForAccountInPackages();
+        firstItemInItemSection.click();
+        BrowserUtils.waitFor(2);
+        valueServicesAccordion.click();
+        BrowserUtils.waitFor(1);
+        valueServicesTrashIcon.click();
+        yesButton.click();
+        BrowserUtils.waitFor(2);
     }
 
     public void uploadDocumentInPackage() throws IOException {

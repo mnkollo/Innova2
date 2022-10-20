@@ -5,6 +5,7 @@ import utilities.AllPages;
 import utilities.BrowserUtils;
 import utilities.InnovaTestBase;
 
+
 public class End2EndScenarios extends InnovaTestBase {
 
     AllPages allPages = new AllPages();
